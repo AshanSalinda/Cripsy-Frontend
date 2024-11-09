@@ -1,0 +1,67 @@
+{
+    "branchData": [
+        {
+            "branchId": "B001",
+            "branchName": "Kaluthara",
+            "address": "28, Galle Road, Kaluthara South",
+            "email": "kaluthara@greenleaf.com",
+            "contactNo": "0342222231"
+        },
+        {
+            "branchId": "B002",
+            "branchName": "Galle",
+            "address": "10, Karapitiya Road, Galle",
+            "email": "alexander@gmail.com",
+            "contactNo": "0912256820"
+        },
+        {
+            "branchId": "B003",
+            "branchName": "Matara",
+            "address": "14, Anagarika Mawatha, Matara",
+            "email": "alexander@gmail.com",
+            "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B004",
+            "branchName": "Hambanthota",
+            "address": "28, Galle Road, Hambanthota",
+            "email": "hambanthota@greenleaf.com",
+            "contactNo": "0342222231"
+        },
+        {
+            "branchId": "B005",
+            "branchName": "Colombo",
+            "address": "10, Colombo 7 , Galle Road, Colombo",
+            "email": "colombo@gmail.com",
+            "contactNo": "0912256820"
+        },
+        {
+            "branchId": "B006",
+            "branchName": "Kandy",
+            "address": "14, Anagarika Mawatha, Kandy",
+            "email": "kandy@gmail.com",
+            "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B007",
+            "branchName": "Kaluthara",
+            "address": "28, Galle Road, Kaluthara South",
+            "email": "kaluthara@greenleaf.com",
+            "contactNo": "0342222231"
+        },
+        {
+            "branchId": "B008",
+            "branchName": "Galle",
+            "address": "10, Karapitiya Road, Galle",
+            "email": "alexander@gmail.com",
+            "contactNo": "0912256820"
+        },
+        {
+            "branchId": "B009",
+            "branchName": "Matara",
+            "address": "14, Anagarika Mawatha, Matara",
+            "email": "alexander@gmail.com",
+            "contactNo": "0412268147"
+        }
+    ]
+}
