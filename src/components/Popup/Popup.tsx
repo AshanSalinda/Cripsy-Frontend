@@ -35,7 +35,7 @@ const Popup: React.FC<PopupProps> = ({
                 className="w-1/2 p-0 overflow-hidden"
                 onInteractOutside={(event) => event.preventDefault()}
             >
-                <div className="flex items-center justify-between px-6 py-3 text-white bg-blue_dark_2">
+                <div className="flex items-center justify-between px-6 py-3 text-white bg-carnation-400">
                     <DialogTitle className="font-semibold text-md">{title}</DialogTitle>
                 </div>
 
@@ -53,7 +53,7 @@ const Popup: React.FC<PopupProps> = ({
                             variant="outline"
                             size="default"
                             onClick={onClose}
-                            className="w-1/5 px-4 py-2 font-semiboldborder bg-carnation-400 shadow-xl hover:bg-carnation-450  hover:text-black  focus:outline-none focus:ring-2 focus:ring-carnation-350 focus:ring-offset-2"
+                            className="w-1/5 px-4 py-2   bg-gray-100 shadow-xl hover:bg-gray-200  hover:text-black  focus:outline-none focus:ring-2 focus:ring-carnation-350 focus:ring-offset-2"
                         >
                             {cancelButtonLabel}
                         </Button>
@@ -64,7 +64,7 @@ const Popup: React.FC<PopupProps> = ({
                         variant="outline"
                         size="default"
                         onClick={onSaveClick}
-                        className="w-1/5 px-4 py-2 font-semiboldborder bg-carnation-400 shadow-xl  text-white  hover:text-black transition
+                        className="w-1/5 px-4 py-2 font-semibold bg-carnation-400 shadow-xl  text-white  hover:text-black transition
                          duration-150 rounded-lg  hover:bg-carnation-450 focus:outline-none focus:ring-2 focus:ring-carnation-300 focus:ring-offset-2"
                     >
                         {saveButtonLabel}

@@ -20,7 +20,7 @@ const BranchFormSection = <T extends BranchFormValues>({
     errors,
     onChange,
 }: BranchFormSectionProps<T>) => {
-    
+
     // Handle input changes and propagate them to parent
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldId: keyof T) => {
         onChange(fieldId, e.target.value);
@@ -28,8 +28,8 @@ const BranchFormSection = <T extends BranchFormValues>({
 
     return (
         <div className="space-y-4">
-            <div className="flex space-x-4">
-                <div className="flex-1">
+            <div className="flex space-x-4 ">
+                <div className="flex-1 ">
                     <label htmlFor="branchName" className="block mb-1 text-sm font-medium text-gray-700">
                         Branch Name
                     </label>
@@ -59,9 +59,9 @@ const BranchFormSection = <T extends BranchFormValues>({
                     {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address}</p>}
                 </div>
             </div>
-            
-            <div className="flex space-x-4">
-                <div className="flex-1">
+
+            <div className="flex space-x-4 ">
+                <div className="flex-1 ">
                     <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
                         Email
                     </label>
