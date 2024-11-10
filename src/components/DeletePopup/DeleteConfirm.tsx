@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { Button } from '../ui/button';
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoAlertCircleOutline } from "react-icons/io5";
 
 interface DeleteConfirmProps {
     element: string;
@@ -17,9 +17,9 @@ const DeleteConfirm: React.FC<DeleteConfirmProps> = ({ element, onDelete, onCanc
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="w-full max-w-md p-6 text-center bg-white rounded-lg shadow-lg">
                 <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-red-100 rounded-full">
-                        <RiDeleteBin6Line color="red" size="1.875em" opacity={0.6} aria-label="Delete icon" />
-                    </div>
+                   
+                        <IoAlertCircleOutline color="red" size="4em" opacity={0.6} aria-label="Delete icon" />
+                    
                 </div>
 
                 <h4 className="mb-4 font-semibold text-md">Are you sure you want to delete {element}?</h4>
