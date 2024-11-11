@@ -11,10 +11,10 @@ interface InputFieldProps {
   ariaLabel?: string;
   className?: string;
   label?: boolean;
-  uppercase?: boolean; 
+  labelName?: string;
+  uppercase?: boolean;
 }
 
-// Use forwardRef to allow React Hook Form to register the input
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
   id,
   type,
@@ -26,6 +26,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
   width = 'w-full',
   ariaLabel,
   label = false,
+  labelName,
   uppercase = false,
   ...rest
 }, ref) => {
@@ -38,16 +39,24 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
 
   return (
     <div className="relative flex flex-col items-start">
-      {label && (
+      <style>
+        {`
+          input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+            box-shadow: 0 0 0px 1000px white inset !important;
+          }
+        `}
+      </style>
+
+      {label && labelName && (
         <label
           htmlFor={id}
-          className={`absolute left-3 transition-all duration-200 text-sm ${
-            isFocused || hasValue
-              ? '-top-3 text-blue_light bg-white px-1 font-medium z-[1]'
+          className={`absolute left-3 transition-all duration-200 text-sm font-medium ${isFocused || hasValue
+              ? '-top-3 bg-white px-1 font-medium z-[1] text-carnation-500'
               : 'top-2 text-gray-400'
-          }`}
+            }`}
         >
-          {placeholder}
+          {labelName}
         </label>
       )}
 
@@ -61,7 +70,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
           onFocus={handleFocus}
           onBlur={handleBlur}
           ref={ref}
-          className={`block ${width} py-2  px-3 text-sm text-black border rounded-md border-gray-400 focus:outline-none focus:ring-gray-700 focus:border-carnation-300 ${uppercase ? 'uppercase' : ''} ${className}`}
+          className={`block ${width} h-10 py-2 px-3 text-sm text-black border rounded-md border-gray-400 focus:outline-none focus:ring-gray-700 focus:border-carnation-300 ${uppercase ? 'uppercase' : ''} ${className}`}
           style={{ textTransform: uppercase ? 'uppercase' : 'none' }}
           aria-label={ariaLabel || placeholder}
           {...rest}
@@ -76,6 +85,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
   );
 });
 
-InputField.displayName = 'InputField'; 
+InputField.displayName = 'InputField';
 
 export default InputField;

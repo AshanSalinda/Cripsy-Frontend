@@ -26,8 +26,8 @@ const Popup: React.FC<PopupProps> = ({
     description,
     children,
     onSaveClick,
-    saveButtonLabel = "Save", // Default value
-    cancelButtonLabel = "Cancel", // Default value
+    saveButtonLabel = "Save",
+    cancelButtonLabel = "Cancel",
 }) => {
     return (
         <Dialog open={isOpen} onOpenChange={onClose} modal={true}>
@@ -53,7 +53,7 @@ const Popup: React.FC<PopupProps> = ({
                             variant="outline"
                             size="default"
                             onClick={onClose}
-                            className="w-1/5 px-4 py-2   bg-gray-100 shadow-xl hover:bg-gray-200  hover:text-black  focus:outline-none focus:ring-2 focus:ring-carnation-350 focus:ring-offset-2"
+                            className="w-1/5 h-10 px-4 py-2 bg-gray-100 shadow-xl hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-2 focus:ring-carnation-350 focus:ring-offset-2"
                         >
                             {cancelButtonLabel}
                         </Button>
@@ -64,15 +64,13 @@ const Popup: React.FC<PopupProps> = ({
                         variant="outline"
                         size="default"
                         onClick={onSaveClick}
-                        className="w-1/5 px-4 py-2 font-semibold bg-carnation-400 shadow-xl  text-white  hover:text-black transition
-                         duration-150 rounded-lg  hover:bg-carnation-450 focus:outline-none focus:ring-2 focus:ring-carnation-300 focus:ring-offset-2"
+                        className="w-1/5 h-10 px-4 py-2 font-semibold bg-carnation-400 shadow-xl text-white hover:text-white transition duration-150 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-carnation-300 focus:ring-offset-2"
                     >
                         {saveButtonLabel}
                     </Button>
                 </div>
             </DialogContent>
         </Dialog>
-
     );
 };
 

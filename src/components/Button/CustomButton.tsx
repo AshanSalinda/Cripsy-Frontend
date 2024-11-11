@@ -1,36 +1,32 @@
 "use client";
 import React, { useState, ReactNode } from 'react';
-import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface CustomButtonProps {
     buttonLabel?: string;
     buttonClassName?: string;
-    buttonLableClassName?: string;
     modalContent?: ReactNode;
     modalClassName?: string;
     onClick?: () => void;
-    showIcon?: boolean; 
-    icon?: ReactNode; 
+    showIcon?: boolean;
+    icon?: ReactNode;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
-    buttonLabel = 'New',
+    buttonLabel = '',
     buttonClassName = '',
-    buttonLableClassName= '',
     modalContent,
     modalClassName = '',
     onClick,
-    showIcon = true, 
-    icon = <Plus className="w-4" />, 
+    showIcon = true,
+    icon = '',
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleButtonClick = () => {
         if (onClick) {
             onClick();
-        }
-        else {
+        } else {
             setIsModalOpen(true);
         }
     };
@@ -39,12 +35,12 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         <>
             <Button
                 variant={'outline'}
-                className={`border bg-carnation-400 shadow-xl hover:bg-carnation-450  hover:text-black
-                      w-20 text-customSlate font-semibold py-4 flex flex-row items-center space-x-2 font-inter ${buttonClassName}`} 
+                className={`min-w-1/5 min-h-10 border-gray-400 rounded-md bg-carnation-400 shadow-xl hover:bg-red-700 hover:text-white 
+                    text-customSlate font-medium hover:font-semibold py-4 flex flex-row items-center space-x-2 font-inter ${buttonClassName}`}
                 onClick={handleButtonClick}
             >
-                <span className={`text-xs xl:text-sm text-white hover:text-black w-full ${buttonLableClassName} `}>{buttonLabel}</span>
-                {showIcon && icon} 
+                <span className={`text-xs xl:text-sm w-full ${buttonClassName}`}>{buttonLabel}</span>
+                {showIcon && icon}
             </Button>
             {isModalOpen && modalContent && (
                 <div className={modalClassName}>

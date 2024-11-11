@@ -1,14 +1,12 @@
 import BranchTable from '@/components/TestBranch/BranchTable'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <div>
-        <h1>Test Page</h1>  
-        <BranchTable />
-      
+      <BranchTable />
     </div>
   )
 }
 
-export default page
+export default Page
