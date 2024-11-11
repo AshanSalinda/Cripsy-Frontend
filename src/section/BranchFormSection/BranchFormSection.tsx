@@ -1,7 +1,6 @@
 import React from 'react';
 import InputField from '@/components/InputField/InputField';
 
-// Define a base interface for branch form values with specific field names
 interface BranchFormValues {
     branchName: string;
     address: string;
@@ -21,18 +20,15 @@ const BranchFormSection = <T extends BranchFormValues>({
     onChange,
 }: BranchFormSectionProps<T>) => {
 
-    // Handle input changes and propagate them to parent
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldId: keyof T) => {
         onChange(fieldId, e.target.value);
     };
 
     return (
         <div className="space-y-4">
-            <div className="flex space-x-4 ">
-                <div className="flex-1 ">
-                    <label htmlFor="branchName" className="block mb-1 text-sm font-medium text-gray-700">
-                        Branch Name
-                    </label>
+            {/* Row 1: Branch Name and Address */}
+            <div className="flex flex-row space-x-4 mb-4"> {/* Added mb-4 for spacing */}
+                <div className="w-1/2">
                     <InputField
                         id="branchName"
                         type="text"
@@ -40,14 +36,13 @@ const BranchFormSection = <T extends BranchFormValues>({
                         value={formValues.branchName || ''}
                         onChange={(e) => handleInputChange(e, 'branchName')}
                         icon={undefined}
+                        label={true}
+                        labelName='Branch'
                     />
-                    {errors.branchName && <p className="mt-1 text-sm text-red-600">{errors.branchName}</p>}
+                    {errors.branchName && <p className="mt-1 text-sm error-message">{errors.branchName}</p>}
                 </div>
 
-                <div className="flex-1">
-                    <label htmlFor="address" className="block mb-1 text-sm font-medium text-gray-700">
-                        Address
-                    </label>
+                <div className="w-1/2">
                     <InputField
                         id="address"
                         type="text"
@@ -55,16 +50,16 @@ const BranchFormSection = <T extends BranchFormValues>({
                         value={formValues.address || ''}
                         onChange={(e) => handleInputChange(e, 'address')}
                         icon={undefined}
+                        label={true}
+                        labelName='Address'
                     />
-                    {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address}</p>}
+                    {errors.address && <p className="mt-1 text-sm error-message">{errors.address}</p>}
                 </div>
             </div>
 
-            <div className="flex space-x-4 ">
-                <div className="flex-1 ">
-                    <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
-                        Email
-                    </label>
+            {/* Row 2: Email and Contact No */}
+            <div className="flex flex-row space-x-4">
+                <div className="w-1/2">
                     <InputField
                         id="email"
                         type="email"
@@ -72,14 +67,13 @@ const BranchFormSection = <T extends BranchFormValues>({
                         value={formValues.email || ''}
                         onChange={(e) => handleInputChange(e, 'email')}
                         icon={undefined}
+                        label={true}
+                        labelName='Email'
                     />
-                    {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                    {errors.email && <p className="mt-1 text-sm error-message">{errors.email}</p>}
                 </div>
 
-                <div className="flex-1">
-                    <label htmlFor="contactNo" className="block mb-1 text-sm font-medium text-gray-700">
-                        Contact No
-                    </label>
+                <div className="w-1/2">
                     <InputField
                         id="contactNo"
                         type="text"
@@ -87,8 +81,10 @@ const BranchFormSection = <T extends BranchFormValues>({
                         value={formValues.contactNo || ''}
                         onChange={(e) => handleInputChange(e, 'contactNo')}
                         icon={undefined}
+                        label={true}
+                        labelName='Contact No'
                     />
-                    {errors.contactNo && <p className="mt-1 text-sm text-red-600">{errors.contactNo}</p>}
+                    {errors.contactNo && <p className="mt-1 text-sm error-message">{errors.contactNo}</p>}
                 </div>
             </div>
         </div>
