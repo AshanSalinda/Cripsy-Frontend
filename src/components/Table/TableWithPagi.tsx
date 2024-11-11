@@ -61,32 +61,32 @@ function TableWithPagi<T>({
       <div className="overflow-hidden border border-carnation-450 rounded-lg">
         <Table className={cn("your-default-table-styles", className)} {...props}>
           {caption && <TableCaption>{caption}</TableCaption>}
-          <TableHeader className="text-nowrap   bg-carnation-350  cursor-default ">
+          <TableHeader className="text-nowrap bg-carnation-350 cursor-default">
             <TableRow>
               {columns.map((column) => (
                 <TableHead
                   key={String(column.accessor)}
                   role="columnheader"
-                 className="text-black "
+                  className="text-black font-medium"
                 >
                   <span className="flex items-center">{column.header}</span>
                 </TableHead>
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody className="border-carnation-450">
+          <TableBody className="border-carnation-450 font-normal text-gray-600">
             {paginatedData.length > 0 ? (
               paginatedData.map((row) => {
                 const rowKey = getRowId(row);
                 return (
-                  <TableRow key={rowKey} className="hover:bg-carnation-250 border-carnation-450">
+                  <TableRow key={rowKey} className="border-carnation-450">
                     {columns.map((column) => (
-                      <TableCell  key={`${rowKey}-${String(column.accessor)}`}>
+                      <TableCell key={`${rowKey}-${String(column.accessor)}`}>
                         {column.render
                           ? column.render(row[column.accessor], row, {
-                              edit: handleEdit ?? (() => {}),
-                              delete: handleDelete ?? (() => {}),
-                            })
+                            edit: handleEdit ?? (() => { }),
+                            delete: handleDelete ?? (() => { }),
+                          })
                           : String(row[column.accessor])}
                       </TableCell>
                     ))}
@@ -95,7 +95,7 @@ function TableWithPagi<T>({
               })
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="p-4 text-black-center text-black">
+                <TableCell colSpan={columns.length} className="p-4 text-center text-black">
                   No Records Found
                 </TableCell>
               </TableRow>

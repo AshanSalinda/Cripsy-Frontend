@@ -1,6 +1,6 @@
 // BranchTable.tsx
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableWithPagi from "@/components/Table/TableWithPagi";
 import { branchColumns } from "@/components/Table/Columns";
 import jsonData from "@/data/data.json";
@@ -13,7 +13,11 @@ const BranchTable = () => {
     const [isNewBranchPopupOpen, setIsNewBranchPopupOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
-    const [filteredData, setFilteredData] = useState<Branch[]>(jsonData?.branchData || []);
+    const [filteredData, setFilteredData] = useState<Branch[]>([]);
+
+    useEffect(() => {
+        setFilteredData(jsonData?.branchData || []);
+    }, []);
 
     const handleDelete = (branch: Branch) => {
         if (branch) {
@@ -26,14 +30,14 @@ const BranchTable = () => {
         <>
             <div className="flex justify-between mb-2">
                 <h3 className="flex items-center font-semibold font-inter">Registered Branches</h3>
-                <CustomButton onClick={() => setIsNewBranchPopupOpen(true)}  showIcon={false} />
+                <CustomButton onClick={() => setIsNewBranchPopupOpen(true)} buttonLabel="New Branch" buttonClassName="text-white"/>
             </div>
 
             <TableWithPagi<Branch>
                 columns={branchColumns}
                 data={filteredData}
                 itemsPerPage={3}
-                className=" custom-table-class"
+                className="custom-table-class"
                 handleDelete={handleDelete}
                 getRowId={(row) => row.branchId}
                 handleEdit={() => {}}
@@ -43,7 +47,6 @@ const BranchTable = () => {
                 <AddNewBranch
                     isDialogOpen={isNewBranchPopupOpen}
                     setIsDialogOpen={setIsNewBranchPopupOpen}
-                   
                 />
             )}
 
