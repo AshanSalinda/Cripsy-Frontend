@@ -1,18 +1,32 @@
-// app/layout.tsx
-import * as React from "react";
-import type { ReactNode } from "react";
+import {SidebarProvider} from "@/components/ui/sidebar"
+import {AppSidebar} from "@/components/NavBar/AppSidebar"
+import {Heart, Inbox, User} from "lucide-react"
 
-interface LayoutProps {
-  children: ReactNode;
-}
+const items = [
+    {
+        title: "My Profile",
+        url: "#",
+        icon: User,
+    },
+    {
+        title: "Address Book",
+        url: "#",
+        icon: Inbox,
+    },
+    {
+        title: "Watch List",
+        url: "#",
+        icon: Heart,
+    },
+]
 
-export default function Layout({ children }: LayoutProps) {
-  return (
-    <>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <main className="container mx-auto p-6 ">{children}</main>
-    </>
-  );
+export default function Layout({children}: { children: React.ReactNode }) {
+    return (
+        <SidebarProvider>
+            <AppSidebar items={items}/>
+            <main>
+                {children}
+            </main>
+        </SidebarProvider>
+    )
 }
