@@ -27,10 +27,10 @@ export function AppSidebar({items}: AppSidebarProps) {
     }
 
     return (
-        <Sidebar>
+        <Sidebar className="w-1/6">
             <SidebarContent className="p-7">
                 <SidebarGroup>
-                    <SidebarGroupLabel className="text-xl text-black pb-5">Account</SidebarGroupLabel>
+                    <SidebarGroupLabel className="text-xl text-black pb-5 w-1/3">Account</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (

@@ -62,6 +62,81 @@
             "address": "14, Anagarika Mawatha, Matara",
             "email": "alexander@gmail.com",
             "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B010",
+            "branchName": "Kandy",
+            "address": "14, Anagarika Mawatha, Kandy",
+            "email": "kandy@gmail.com",
+            "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B011",
+            "branchName": "Kaluthara",
+            "address": "28, Galle Road, Kaluthara South",
+            "email": "kaluthara@greenleaf.com",
+            "contactNo": "0342222231"
+        },
+        {
+            "branchId": "B018",
+            "branchName": "Galle",
+            "address": "10, Karapitiya Road, Galle",
+            "email": "alexander@gmail.com",
+            "contactNo": "0912256820"
+        },
+        {
+            "branchId": "B019",
+            "branchName": "Matara",
+            "address": "14, Anagarika Mawatha, Matara",
+            "email": "alexander@gmail.com",
+            "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B00119",
+            "branchName": "Matara",
+            "address": "14, Anagarika Mawatha, Matara",
+            "email": "alexander@gmail.com",
+            "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B0110",
+            "branchName": "Kandy",
+            "address": "14, Anagarika Mawatha, Kandy",
+            "email": "kandy@gmail.com",
+            "contactNo": "0412268147"
+        },
+        {
+            "branchId": "B0111",
+            "branchName": "Kaluthara",
+            "address": "28, Galle Road, Kaluthara South",
+            "email": "kaluthara@greenleaf.com",
+            "contactNo": "0342222231"
+        },
+        {
+            "branchId": "B0118",
+            "branchName": "Galle",
+            "address": "10, Karapitiya Road, Galle",
+            "email": "alexander@gmail.com",
+            "contactNo": "0912256820"
+        },
+        {
+            "branchId": "B0119",
+            "branchName": "Matara",
+            "address": "14, Anagarika Mawatha, Matara",
+            "email": "alexander@gmail.com",
+            "contactNo": "0412268147"
         }
-    ]
+    ],
+    
+        "contact": {
+          "title": "Contact",
+          "phone": "+94 112507834",
+          "email": "info@cripsy.com",
+          "address": "125, 56A Paterson Ln, Colombo, Sri Lanka"
+        },
+        "copyright": "Copyright © 2024. Cripsy Initiative. All Rights Reserved."
+      
+      
+
+
 }
