@@ -36,7 +36,7 @@ const BranchTable = () => {
             <TableWithPagi<Branch>
                 columns={branchColumns}
                 data={filteredData}
-                itemsPerPage={3}
+                itemsPerPage={15}
                 className="custom-table-class"
                 handleDelete={handleDelete}
                 getRowId={(row) => row.branchId}

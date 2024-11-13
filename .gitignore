@@ -39,6 +39,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#IDEs
-.idea/
-.vscode/
+#.vscode
+.vscode
+
+#inteli
+.idea
+
+
+
