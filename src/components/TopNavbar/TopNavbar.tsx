@@ -36,7 +36,7 @@ const LogoSection: React.FC = () => (
         src="/CripsyLogo.png"
         alt="Cripsy Logo"
         width={64}
-        height={64}
+        height={60}
         priority
       />
     </Link>
