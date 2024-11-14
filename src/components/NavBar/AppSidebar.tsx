@@ -28,19 +28,16 @@ export function AppSidebar({ items }: AppSidebarProps) {
 
     return (
         <SidebarProvider>
-            <Sidebar className="h-full w-full max-w-[16rem] flex-shrink-0 overflow-y-auto border-r border-gray-200">
-                <SidebarContent className="p-7">
+            <Sidebar className="h-full mt-14 w-64 flex-shrink-0 overflow-y-auto border-r border-gray-200">
+                <SidebarContent className="flex flex-col p-7 h-full">
                     <SidebarGroup>
                         <SidebarGroupLabel className="text-xl text-black pb-5 w-1/3">Account</SidebarGroupLabel>
-                        <SidebarGroupContent>
+                        <SidebarGroupContent className="flex-grow">
                             <SidebarMenu>
                                 {items.map((item) => (
                                     <SidebarMenuItem className="p-1 text-[#6F6F6F]" key={item.title}>
                                         <SidebarMenuButton asChild>
-                                            <a
-                                                href={item.url}
-                                                className="hover:text-[#FF5757] flex items-center space-x-2 rounded-md transition-colors duration-200"
-                                            >
+                                            <a href={item.url} className="hover:text-[#FF5757] rounded-md transition-colors duration-200">
                                                 <item.icon />
                                                 <span>{item.title}</span>
                                             </a>
