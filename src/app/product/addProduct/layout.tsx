@@ -24,9 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col min-h-screen">
 
-            <div className="flex-shrink-0 z-50">
-                <TopNavbar />
-            </div>
+            <TopNavbar />
 
             <div className="flex flex-1 overflow-hidden">
 

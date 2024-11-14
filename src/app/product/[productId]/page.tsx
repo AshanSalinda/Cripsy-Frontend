@@ -4,6 +4,7 @@ import Overview from "@/components/Product/SingleProduct/Overview";
 import TopNavbar from "@/components/TopNavbar/TopNavbar";
 import Footer from "@/components/Footer/Footer";
 
+
 const ProductItem : React.FC = () => {
     const productData = {
         name: item.name,
