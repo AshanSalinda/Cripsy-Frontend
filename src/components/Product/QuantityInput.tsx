@@ -35,6 +35,17 @@ const QuantityInput: React.FC<Props> = ({
         }
     };
 
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const key = event.key;
+
+        if(key == 'ArrowUp' || key == 'ArrowRight'){
+            handleIncrement();
+        } else if (key == 'ArrowDown' || key == 'ArrowLeft') {
+            handleDecrement();
+        }
+    }
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value, 10);
         if (!isNaN(value) && value >= min && value <= max) {
@@ -44,29 +55,30 @@ const QuantityInput: React.FC<Props> = ({
     };
 
     return (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center">
             <Button
-                variant="outline"
                 type="button"
                 size="sm"
                 onClick={handleDecrement}
                 disabled={quantity <= min}
+                className="bg-carnation-400 hover:bg-carnation-500 rounded-l-sm rounded-r-none border-none w-10 h-10 text-white text-lg select-none"
             >
                 -
             </Button>
             <Input
-                type="number"
+                type="text"
                 name="quantity"
                 value={quantity}
                 onChange={handleChange}
-                className="w-16 text-center"
+                onKeyDown={handleKeyDown}
+                className="w-32 h-10 text-center text-white md:text-lg rounded-none border-none focus-visible:ring-0 bg-neutral-700"
             />
             <Button
-                variant="outline"
                 type="button"
                 size="sm"
                 onClick={handleIncrement}
                 disabled={quantity >= max}
+                className="bg-carnation-400 hover:bg-carnation-500 rounded-l-none rounded-r-sm border-none w-10 h-10 text-white text-lg select-none"
             >
                 +
             </Button>
