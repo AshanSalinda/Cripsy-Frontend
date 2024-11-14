@@ -38,8 +38,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     };
 
     const theme = {
-        'primary': 'bg-carnation-400 hover:bg-carnation-500 text-white font-normal',
-        'outline': 'bg-transparent hover:bg-neutral-900 border-[1px] border-carnation-400 text-carnation-400 font-medium',
+        'primary': 'bg-carnation-400 hover:bg-carnation-500 text-white',
+        'outline': 'bg-transparent hover:bg-carnation-400 hover:text-white border border-carnation-400 text-carnation-400',
         'ghost': 'bg-transparent hover:bg-neutral-900 text-white'
     }
 
