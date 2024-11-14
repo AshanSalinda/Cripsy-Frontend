@@ -3,35 +3,41 @@
 import React, {FormEvent, useState} from "react";
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
-import {LoginSchema} from "@/schema/AuthSchema/LoginSchema";
-import {userLogin} from "@/apis/AuthAPIs/auth";
+import {userSignUp} from "@/apis/AuthAPIs/auth";
+import {SignupSchema} from "@/schema/AuthSchema/SignupSchema";
+import CheckBox from "@/components/CheckBox/CheckBox";
 
-interface LoginFormValues {
+interface SignUpFormValues {
     username: string;
+    email: string;
     password: string;
+    confirmPassword: string;
 }
 
-const LoginForm = () => {
+const SignupForm = () => {
 
-    const [formData, setFormData] = useState<LoginFormValues>({
+    const [formData, setFormData] = useState<SignUpFormValues>({
         username: '',
-        password: ''
+        email: '',
+        password: '',
+        confirmPassword: ''
     });
 
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, value: keyof LoginFormValues) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, value: keyof SignUpFormValues) => {
         setFormData({
             ...formData,
             [value]: e.target.value
         });
     }
 
-    const handleLogin = async (e: FormEvent) => {
+    const handleSignUp = async (e: FormEvent) => {
         e.preventDefault();
 
-        const validation = LoginSchema.safeParse(formData);
+        const validation = SignupSchema.safeParse(formData);
 
         if (!validation.success) {
             setErrors(validation.error.errors[0]?.message || "Invalid input");
@@ -39,9 +45,14 @@ const LoginForm = () => {
         }
         setLoading(true);
         try {
-            await userLogin(formData);
+            await userSignUp(formData);
             console.log("Username: ", formData.username, "Password: ", formData.password);
-            setFormData({username: '', password: ''});
+            setFormData({
+                username: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            });
         } catch (error: any) {
             setErrors(error?.message || "Invalid input");
         } finally {
@@ -66,13 +77,13 @@ const LoginForm = () => {
                 <div className="bg-white p-10 rounded-lg shadow-lg w-3/4">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h2 className="text-4xl font-bold">Login</h2>
+                            <h2 className="text-4xl font-bold">SignUp</h2>
                             <p className="text-gray-500">to shopping</p>
                         </div>
                         <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleSignUp}>
                         {/* Input Fields */}
                         <div className="my-8">
                             <div className="mb-4 mt-4">
@@ -87,6 +98,20 @@ const LoginForm = () => {
                                     labelName="username"
                                 />
                             </div>
+
+                            <div className="mb-4 mt-4">
+                                <InputField
+                                    id="email"
+                                    type="email"
+                                    placeholder="Email"
+                                    value={formData.email || ''}
+                                    onChange={(e) => handleInputChange(e, 'email')}
+                                    icon={undefined}
+                                    label={false}
+                                    labelName="email"
+                                />
+                            </div>
+
                             <div className="mb-4">
                                 <InputField
                                     id="password"
@@ -96,18 +121,38 @@ const LoginForm = () => {
                                     onChange={(e) => handleInputChange(e, 'password')}
                                     icon={undefined}
                                     label={false}
-                                    labelName=""
+                                    labelName="password"
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <InputField
+                                    id="confirmPassword"
+                                    type="confirmPassword"
+                                    placeholder="confirm Password"
+                                    value={formData.confirmPassword || ''}
+                                    onChange={(e) => handleInputChange(e, 'confirmPassword')}
+                                    icon={undefined}
+                                    label={false}
+                                    labelName="confirmPassword"
                                 />
                             </div>
 
                         </div>
 
-                        <p className="text-right text-blue-600 mt-3 cursor-pointer">Forgot Password?</p>
+                        <div className="flex">
+                            <CheckBox
+                                id="terms"
+                                isChecked={isChecked}
+                                onChange={(checked) => setIsChecked(checked)}
+                            />
+                            <span>Agree to our <a href="#"> Terms and Conditions</a> </span>
+                        </div>
 
-                        {/* Login Button */}
+                        {/* SignUp Button */}
                         <div className="mt-6">
                             <CustomButton
-                                buttonLabel={loading ? "Logging in..." : "Continue"}
+                                buttonLabel={loading ? "Signing in..." : "SignUp"}
                                 buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
                             />
                         </div>
@@ -119,7 +164,7 @@ const LoginForm = () => {
                     {/* Register Link */}
                     <div className="text-center mt-6">
                         <p className="text-gray-500">
-                            New User? <a href="#" className="text-blue-600 font-semibold">Register</a>
+                            Already Registered ? <a href="#" className="text-blue-600 font-semibold">Login</a>
                         </p>
                     </div>
                 </div>
@@ -128,4 +173,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default SignupForm;

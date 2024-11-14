@@ -25,9 +25,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col min-h-screen">
             {/* SidebarProvider and AppSidebar (uncomment if needed) */}
-            <SidebarProvider>
+            {/* <SidebarProvider>
                 <AppSidebar items={items} />
-            </SidebarProvider>
+            </SidebarProvider> */}
 
             {/* Main Content */}
             <main className="flex-grow">

@@ -3,9 +3,9 @@ import LoginForm from "@/section/LoginFormSection/LoginForm";
 
 const page = () => {
   return (
-      <>
-        <LoginForm/>
-      </>
+      <div>
+         <LoginForm/>
+      </div>
   )
 }
 
