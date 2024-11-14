@@ -1,6 +1,6 @@
 import React from "react";
 import item from "@/data/productIem.json";
-import Overview from "@/components/Product/Overview";
+import Overview from "@/components/Product/SingleProduct/Overview";
 
 const ProductItem : React.FC = () => {
     const productData = {

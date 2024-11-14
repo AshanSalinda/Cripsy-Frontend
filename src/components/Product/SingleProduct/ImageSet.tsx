@@ -1,15 +1,13 @@
-"use client"
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-type ItemImageSetProps = Readonly<{
+
+interface ImageSetType {
     images: string[],
-    alt: string,
-}>;
+    alt: string
+}
 
-
-function ItemImageSet({ images, alt }: ItemImageSetProps) {
+const ImageSet: React.FC<ImageSetType> = ({ images, alt }) => {
     const [activeImage, setActiveImage] = useState(0);
 
     return (
@@ -40,7 +38,7 @@ function ItemImageSet({ images, alt }: ItemImageSetProps) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default ItemImageSet
+export default ImageSet;
