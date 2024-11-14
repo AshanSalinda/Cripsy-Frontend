@@ -46,7 +46,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     return (
         <>
             <Button
-                className={`min-w-1/5 min-h-6 shadow-xl rounded flex flex-row items-center py-5 space-x-2 active:scale-95 transition-all duration-10 ease-out
+                className={`min-w-1/5 min-h-6 shadow-xl rounded flex flex-row items-center py-5 space-x-2 clickEffect
                     ${theme[variant]} ${buttonClassName}`}
                 name={name}
                 value={value}

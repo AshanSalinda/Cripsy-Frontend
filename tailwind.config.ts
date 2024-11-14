@@ -123,8 +123,22 @@ const config: Config = {
     		}
     	}
     },
-	// eslint-disable-next-line @typescript-eslint/no-require-imports
-	plugins: [require("tailwindcss-animate")],
+
+    plugins: [
+        require("tailwindcss-animate"),
+        function ({ addUtilities }: { addUtilities: (utilities: Record<string, any>) => void }) {
+            addUtilities({
+              '.clickEffect': {
+                // Click Animation
+                transition: 'all 150ms ease-out',
+                cursor: 'pointer',
+              },
+              '.clickEffect:active': {
+                transform: 'scale(0.95)',
+              },
+            });
+          },
+    ],
 };
 
 export default config;
