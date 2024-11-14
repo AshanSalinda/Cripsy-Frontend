@@ -23,22 +23,21 @@ const items = [
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col min-h-screen">
-            {/* Top Navbar Row */}
-            <TopNavbar />
 
-            {/* Main Content Row */}
+            <div className="flex-shrink-0 z-50">
+                <TopNavbar />
+            </div>
+
             <div className="flex flex-1 overflow-hidden">
-                {/* Sidebar */}
+
                 <div className="flex-shrink-0">
                     <AppSidebar items={items} />
                 </div>
 
-                {/* Main Content */}
                 <main className="flex-1 p-6 overflow-y-auto mt-14">
                     {children}
                 </main>
             </div>
-
 
         </div>
     );
