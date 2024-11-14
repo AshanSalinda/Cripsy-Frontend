@@ -5,29 +5,30 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FiShoppingCart, FiUser, FiMessageSquare } from 'react-icons/fi';
 import SearchBar from '@/components/SearchBar/SearchBar';
-import jsonData from '@/data/data.json'; 
+import jsonData from '@/data/data.json';
 
 const TopNavbar: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSuggestionSelect = (suggestion: string) => {
-    setSearchQuery(suggestion);
-  };
+    const handleSuggestionSelect = (suggestion: string) => {
+        setSearchQuery(suggestion);
+    };
 
-  return (
-    <nav className="flex items-center justify-between px-6 py-2 bg-white shadow-md">
-      <LogoSection />
-      <NavigationLinks />
-      <SearchBarSection 
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        handleSuggestionSelect={handleSuggestionSelect}
-        suggestions={jsonData.searchBarSuggestions} // Pass suggestions from JSON data
-      />
-      <IconsSection />
-    </nav>
-  );
+    return (
+        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 bg-white shadow-md">
+            <LogoSection />
+            <NavigationLinks />
+            <SearchBarSection
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                handleSuggestionSelect={handleSuggestionSelect}
+                suggestions={jsonData.searchBarSuggestions} // Pass suggestions from JSON data
+            />
+            <IconsSection />
+        </nav>
+    );
 };
+
 
 const LogoSection: React.FC = () => (
   <div className="flex items-center space-x-2">
