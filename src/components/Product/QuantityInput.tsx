@@ -19,39 +19,45 @@ const QuantityInput: React.FC<Props> = ({
 }) => {
     const [quantity, setQuantity] = useState(value);
 
+
+    const setValue = (value: number) => {
+        setQuantity(value);
+        onChange && onChange(value);
+    }
+
     const handleIncrement = () => {
         if (quantity < max) {
             const newQuantity = quantity + 1;
-            setQuantity(newQuantity);
-            onChange && onChange(newQuantity);
+            setValue(newQuantity);
         }
     };
 
     const handleDecrement = () => {
         if (quantity > min) {
             const newQuantity = quantity - 1;
-            setQuantity(newQuantity);
-            onChange && onChange(newQuantity);
+            setValue(newQuantity);
         }
     };
 
-
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const key = event.key;
-
-        if(key == 'ArrowUp' || key == 'ArrowRight'){
-            handleIncrement();
-        } else if (key == 'ArrowDown' || key == 'ArrowLeft') {
-            handleDecrement();
-        }
+        if(key == 'ArrowUp'){ handleIncrement(); } 
+        else if (key == 'ArrowDown') { handleDecrement(); }
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value, 10);
-        if (!isNaN(value) && value >= min && value <= max) {
-            setQuantity(value);
-            onChange && onChange(value);
-        }
+        isNaN(value) ? setValue(0) : setValue(value);
+    };
+
+    const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let value = parseInt(event.target.value, 10);
+
+        if(isNaN(value)){ value = min; } 
+        else if (value < min){ value = min; } 
+        else if (value > max){ value = max; }
+
+        setValue(value);
     };
 
     return (
@@ -70,6 +76,7 @@ const QuantityInput: React.FC<Props> = ({
                 name="quantity"
                 value={quantity}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
                 className="w-32 h-10 text-center text-white md:text-lg rounded-none border-none focus-visible:ring-0 bg-neutral-700"
             />
