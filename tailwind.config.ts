@@ -42,6 +42,9 @@ const config: Config = {
     				'800': '#991b1b',
     				'900': '#7f1d1d'
     			},
+				fontFamily: {
+					inter: 'Inter'
+				},
     			card: {
     				DEFAULT: 'hsl(var(--card))',
     				foreground: 'hsl(var(--card-foreground))'

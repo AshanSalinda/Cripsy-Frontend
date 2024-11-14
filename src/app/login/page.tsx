@@ -1,11 +1,12 @@
 import React from 'react'
+import LoginForm from "@/section/LoginFormSection/LoginForm";
 
 const page = () => {
   return (
-    <div>
-      <h1>This login</h1>
-    </div>
+      <>
+        <LoginForm/>
+      </>
   )
 }
 
-export default page
+export default page;
