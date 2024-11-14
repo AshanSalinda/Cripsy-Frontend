@@ -27,13 +27,13 @@ const ProductDetails: React.FC<DetailsType> = ({ name, price, rating, ratingCoun
 
     return (
         <div className="flex-[100%] md:flex-[45%] pr-5 ml-3 lg:ml-0">
-            <h1 className="text-white font-medium mt-5 md:mt-0 leading-none">{name}</h1>
+            <h1 className="text-white font-medium mt-10 md:mt-0 leading-none">{name}</h1>
             <div className="flex items-center mt-5">
                 <h3 className="text-white font-extralight tracking-wider mr-3">{rating}</h3>
                 <RatingStars value={rating} />
             </div>
-            <p className="text-neutral-400 font-light mb-5">{`${ratingCount} Ratings | 53 Comments`}</p>
-            <h2 className="text-carnation-500 tracking-wider mb-5">{`Rs ${price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
+            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | 53 Comments`}</p>
+            <h2 className="text-carnation-500 tracking-wider mb-10">{`Rs ${price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
             <form onSubmit={handleSubmit}>
                 <p className="text-neutral-400 font-normal mb-1">Quantity:</p>
                 <QuantityInput max={stock}/>

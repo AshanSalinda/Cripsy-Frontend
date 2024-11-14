@@ -1,6 +1,8 @@
 import React from "react";
 import item from "@/data/productIem.json";
 import Overview from "@/components/Product/SingleProduct/Overview";
+import TopNavbar from "@/components/TopNavbar/TopNavbar";
+import Footer from "@/components/Footer/Footer";
 
 const ProductItem : React.FC = () => {
     const productData = {
@@ -14,7 +16,9 @@ const ProductItem : React.FC = () => {
     
     return (
         <div>
+            <TopNavbar />
             <Overview {...productData} />
+            <Footer />
         </div>
     );
 };
