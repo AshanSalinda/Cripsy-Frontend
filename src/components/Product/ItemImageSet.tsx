@@ -13,7 +13,7 @@ function ItemImageSet({ images, alt }: ItemImageSetProps) {
     const [activeImage, setActiveImage] = useState(0);
 
     return (
-        <div className="flex flex-[55%] flex-col items-center">
+        <div className="flex flex-[45%] lg:flex-[55%] flex-col items-center">
             <div className='w-fit'>
                 {images.length > 0 &&
                     <Image
