@@ -35,11 +35,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         <>
             <Button
                 variant={'outline'}
-                className={`min-w-1/5 min-h-10 border-gray-400 rounded-md bg-carnation-400 shadow-xl hover:bg-red-700 hover:text-white 
+                className={`min-w-1/5 min-h-10 rounded-md bg-carnation-400 shadow-xl hover:bg-[#F05151] hover:text-white 
                     text-customSlate font-medium hover:font-semibold py-4 flex flex-row items-center space-x-2 font-inter ${buttonClassName}`}
                 onClick={handleButtonClick}
             >
-                <span className={`text-xs xl:text-sm w-full ${buttonClassName}`}>{buttonLabel}</span>
+                <span className={`text-xs text-white xl:text-sm w-full ${buttonClassName}`}>{buttonLabel}</span>
                 {showIcon && icon}
             </Button>
             {isModalOpen && modalContent && (

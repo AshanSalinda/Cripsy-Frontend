@@ -27,9 +27,9 @@ export function AppSidebar({ items }: AppSidebarProps) {
     }
 
     return (
-        <SidebarProvider>
-            <Sidebar className="h-full mt-14 w-64 flex-shrink-0 overflow-y-auto border-r border-gray-200">
-                <SidebarContent className="flex flex-col p-7 h-full">
+        <SidebarProvider className='bg-white'>
+            <Sidebar className="h-full mt-14 w-64 flex-shrink-0 overflow-y-auto bg-white border-r border-gray-200">
+                <SidebarContent className="flex flex-col p-7 h-full bg-white">
                     <SidebarGroup>
                         <SidebarGroupLabel className="text-xl text-black pb-5 w-1/3">Account</SidebarGroupLabel>
                         <SidebarGroupContent className="flex-grow">
