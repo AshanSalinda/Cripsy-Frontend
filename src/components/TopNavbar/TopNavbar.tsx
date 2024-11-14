@@ -16,7 +16,7 @@ const TopNavbar: React.FC = () => {
   };
 
   return (
-    <nav className="px-6 py-2 bg-white shadow-md">
+    <nav className="fixed top-0 left-0 w-full px-6 py-2 bg-white shadow-md z-50">
       <div className="flex items-center justify-between md:justify-start">
 
         {/* Logo Section */}
@@ -49,7 +49,7 @@ const TopNavbar: React.FC = () => {
       </div>
 
       {/* Mobile Search Bar and Links */}
-      <div className="md:hidden mt-2  px-4">
+      <div className="md:hidden mt-2 px-4">
         <SearchBarSection
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
