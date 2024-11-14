@@ -37,7 +37,7 @@ export function AppSidebar({ items }: AppSidebarProps) {
                                 {items.map((item) => (
                                     <SidebarMenuItem className="p-1 text-[#6F6F6F]" key={item.title}>
                                         <SidebarMenuButton asChild>
-                                            <a href={item.url} className="hover:text-[#FF5757] rounded-md transition-colors duration-200">
+                                            <a href={item.url} className="hover:text-[#f83b3b] rounded-md transition-colors duration-200">
                                                 <item.icon />
                                                 <span>{item.title}</span>
                                             </a>
