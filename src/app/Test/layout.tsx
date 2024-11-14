@@ -2,6 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/NavBar/AppSidebar";
 import { Heart, Inbox, User } from "lucide-react";
 import Footer from "@/components/Footer/Footer";
+import TopNavbar from "@/components/TopNavbar/TopNavbar";
 
 const items = [
     {
@@ -24,18 +25,28 @@ const items = [
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col min-h-screen">
-            {/* SidebarProvider and AppSidebar (uncomment if needed) */}
-            <SidebarProvider>
-                <AppSidebar items={items} />
-            </SidebarProvider>
+            {/* Top Navbar Row */}
+            <div className="flex-shrink-0 z-50">
+                <TopNavbar />
+            </div>
 
-            {/* Main Content */}
-            <main className="flex-grow">
-                {children}
-            </main>
+            {/* Main Content Row */}
+            <div className="flex flex-1 overflow-hidden">
+                {/* Sidebar */}
+                <div className="flex-shrink-0">
+                    <AppSidebar items={items} />
+                </div>
 
-            {/* Footer */}
-            <Footer />
+                {/* Main Content */}
+                <main className="flex-1 p-6 overflow-y-auto mt-14">
+                    {children}
+                </main>
+            </div>
+
+            {/* Footer Row */}
+            <div className="flex-shrink-0 z-50">
+                <Footer />
+            </div>
         </div>
     );
 }
