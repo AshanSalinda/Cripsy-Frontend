@@ -3,24 +3,37 @@
 import React, { useState } from "react";
 import Rating from '@mui/material/Rating';
 
-type RatingProps = Readonly<{
-    value: number | null,
+interface RatingProps {
+    value?: number,
     readOnly?: boolean,
     small?: boolean,
-}>
+}
 
-export default function RatingStar(props: RatingProps) {
-    const [value, setValue] = useState<number | null>(props.value);
+ 
+const RatingStar: React.FC<RatingProps> = ({
+    value = 0,
+    readOnly = true,
+    small = false
+}) => {
+    const [rating, setValue] = useState<number | null>(value);
 
     return (
         <Rating
             name="rating stars"
-            value={value}
-            readOnly={props.readOnly || false}
+            value={rating}
+            readOnly={readOnly}
             precision={0.5}
-            size={props.small ? 'small' : 'large'}
+            size={small ? 'small' : 'large'}
             onChange={(e, newValue) => { setValue(newValue)}}
+            sx={{
+                '& .MuiRating-iconEmpty': {
+                    color: '#737373',
+                }
+            }}
       />
 
     );
 }
+
+
+export default RatingStar;

@@ -39,7 +39,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
     const theme = {
         'primary': 'bg-carnation-400 hover:bg-carnation-500 text-white',
-        'outline': 'bg-transparent hover:bg-neutral-900 border-2 border-carnation-400 text-carnation-400',
+        'outline': 'bg-transparent hover:bg-carnation-500 hover:text-white border border-carnation-400 text-carnation-400',
         'ghost': 'bg-transparent hover:bg-neutral-900 text-white'
     }
 
