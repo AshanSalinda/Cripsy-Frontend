@@ -39,20 +39,20 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
     const theme = {
         'primary': 'bg-carnation-400 hover:bg-carnation-500 text-white',
-        'outline': 'bg-transparent hover:bg-carnation-500 hover:text-white border border-carnation-400 text-carnation-400',
+        'outline': 'bg-transparent hover:bg-carnation-400 hover:text-white border border-carnation-400 text-carnation-400',
         'ghost': 'bg-transparent hover:bg-neutral-900 text-white'
     }
 
     return (
         <>
             <Button
-                className={`min-w-1/5 min-h-6 shadow-xl rounded flex flex-row items-center py-5 space-x-2 active:scale-95 transition-all duration-10 ease-out
+                className={`min-w-1/5 min-h-6 shadow-xl rounded flex flex-row items-center py-5 space-x-2 clickEffect
                     ${theme[variant]} ${buttonClassName}`}
                 name={name}
                 value={value}
                 onClick={handleButtonClick}
             >
-                <span className={'font-normal text-xs md:text-base font-sans tracking-wide w-full'}>{buttonLabel}</span>
+                <span className={'text-xs md:text-base font-sans tracking-wide w-full'}>{buttonLabel}</span>
                 {showIcon && icon}
             </Button>
             {isModalOpen && modalContent && (
