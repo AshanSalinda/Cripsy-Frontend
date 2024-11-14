@@ -1,7 +1,8 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/NavBar/AppSidebar";
-import { Heart, Inbox, User } from "lucide-react";
+import {SidebarProvider} from "@/components/ui/sidebar";
+import {AppSidebar} from "@/components/NavBar/AppSidebar";
+import {Heart, Inbox, User} from "lucide-react";
 import Footer from "@/components/Footer/Footer";
+import TopNavbar from "@/components/TopNavbar/TopNavbar";
 
 const items = [
     {
@@ -21,21 +22,29 @@ const items = [
     },
 ];
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({children}: { children: React.ReactNode }) {
     return (
-        <div className="flex flex-col min-h-screen">
-            {/* SidebarProvider and AppSidebar (uncomment if needed) */}
-            <SidebarProvider>
-                <AppSidebar items={items} />
-            </SidebarProvider>
+        <div className="grid min-h-screen grid-rows-[auto,1fr,auto]">
+            {/* Top Navbar Row */}
+            <div className="row-span-1">
+                <TopNavbar/>
+            </div>
 
-            {/* Main Content */}
-            <main className="flex-grow">
-                {children}
-            </main>
+            {/* Middle Content Row */}
+            <div className="grid grid-cols-[auto,1fr] row-span-1">
+                <div className='h-14'>
+                    <AppSidebar items={items}/>
+                </div>
 
-            {/* Footer */}
-            <Footer />
+                <main className="p-6">
+                    {children}
+                </main>
+            </div>
+
+            {/* Footer Row */}
+            <div className="row-span-1">
+                <Footer/>
+            </div>
         </div>
     );
 }

@@ -6,7 +6,6 @@ const Page = () => {
     <div>
       <h2 className='text-4xl'>Test Page</h2>
       <BranchTable />
-      
     </div>
   )
 }
