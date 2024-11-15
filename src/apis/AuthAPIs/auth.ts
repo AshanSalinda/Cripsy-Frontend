@@ -47,12 +47,11 @@ export const userSignUp = async(formData: { username: string; email:string; pass
 
 export const forgotPassword = async(formData: { email:string; }) => {
     try {
-        const response = await api.post("/auth/signup", {
-            email: formData.email,
-        });
+        const response = await api.post(`/forgot-password/verify-mail/${formData.email}`);
 
         if (response.status === 200) {
             console.log("SignUp Successful:");
+            alert("OTP Sent Successfully");
         }
     } catch (error) {
         // setErrors("Invalid username or password.");

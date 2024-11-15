@@ -1,10 +1,10 @@
 import React from 'react'
-import LoginForm from "@/section/LoginFormSection/LoginForm";
+import ForgotPasswordFrom from "@/section/ForgotPasswordForm/ForgotPasswordForm";
 
 const page = () => {
     return (
         <div>
-            <LoginForm/>
+            <ForgotPasswordFrom/>
         </div>
     )
 }

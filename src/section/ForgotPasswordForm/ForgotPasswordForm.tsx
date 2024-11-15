@@ -5,12 +5,13 @@ import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import {forgotPassword} from "@/apis/AuthAPIs/auth";
 import {SignupSchema} from "@/schema/AuthSchema/SignupSchema";
+import {ForgotPasswordSchema} from "@/schema/AuthSchema/ForgotPasswordSchema";
 
 interface SignUpFormValues {
     email: string;
 }
 
-const SignupForm = () => {
+const ForgotPasswordFrom = () => {
 
     const [formData, setFormData] = useState<SignUpFormValues>({
         email: ''
@@ -29,7 +30,7 @@ const SignupForm = () => {
     const handleSignUp = async (e: FormEvent) => {
         e.preventDefault();
 
-        const validation = SignupSchema.safeParse(formData);
+        const validation = ForgotPasswordSchema.safeParse(formData);
 
         if (!validation.success) {
             setErrors(validation.error.errors[0]?.message || "Invalid input");
@@ -81,9 +82,9 @@ const SignupForm = () => {
                         {/* Input Fields */}
                         <div className="my-8">
 
-                            <div className="flex">
-                                <p>
-                                    Enter your email address associated with your account and <br/>
+                            <div className="flex items-center justify-between mb-6 bg-red-400">
+                                <p className="text-center mt-6 mb-4">
+                                    Enter your email address associated with your account and
                                     we will send you an OTP to reset your password.
                                 </p>
                             </div>
@@ -112,7 +113,7 @@ const SignupForm = () => {
                             />
                             <CustomButton
                                 buttonLabel={ "Cancel"}
-                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
+                                buttonClassName="w-full bg-['#EAEAEA'] py-3 text-black mt-2 rounded-lg"
                                 onClick={cancelSubmit}
                             />
                         </div>
@@ -127,4 +128,4 @@ const SignupForm = () => {
     );
 };
 
-export default SignupForm;
+export default ForgotPasswordFrom;
