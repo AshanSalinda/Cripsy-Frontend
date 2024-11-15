@@ -43,3 +43,53 @@ export const userSignUp = async(formData: { username: string; email:string; pass
         console.error("SignUp failed:", error);
     }
 }
+
+
+export const forgotPassword = async(formData: { email:string; }) => {
+    try {
+        const response = await api.post(`/forgot-password/verify-mail/${formData.email}`);
+
+        if (response.status === 200) {
+            console.log("SignUp Successful:");
+            alert("OTP Sent Successfully");
+        }
+    } catch (error) {
+        // setErrors("Invalid username or password.");
+        console.error("SignUp failed:", error);
+    }
+}
+
+
+export const verifyOTP = async(email:string , otp: string) => {
+    try {
+        const response = await api.post(`/forgot-password/verify-otp/${otp}/${email}`);
+
+        const url = `/forgot-password/verify-otp/${otp}/${email}`;
+        console.log("Request URL: ", url);
+
+        if (response.status === 200) {
+            console.log("OTP Verified:");
+            alert(response.data);
+        }
+    } catch (error) {
+        console.error("Invalid OTP:", error);
+    }
+}
+
+
+export const resetPassword = async(formData: {password: string; confirmPassword:string },  email:string) => {
+    console.log(email)
+    try {
+        const response = await api.post(`/forgot-password/change-password/${email}`, {
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+        });
+
+        if (response.status === 200) {
+            console.log("Password Reset Successful:");
+        }
+    } catch (error) {
+        // setErrors("Invalid username or password.");
+        console.error("Password Reset failed:", error);
+    }
+}
