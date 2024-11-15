@@ -1,7 +1,8 @@
 import React from 'react';
 import RatingStar from '@/components/Product/RatingStar';
-import { Progress } from "@/components/ui/progress"
 import Button from '@/components/Button/CustomButton';
+import { Progress } from "@/components/ui/progress"
+import { FaUser } from "react-icons/fa6";
 
 
 interface PropsType {
@@ -68,12 +69,16 @@ const RatingStats: React.FC<RatingStatsType> = ({ rating, percentage = 0 }) => {
 
 const Comment: React.FC = () => {
     return (
-        <div className="flex flex-col space-y-2 bg-neutral-100 shadow-md">
-            <div className="flex items-center">
+        <div className="flex flex-col space-y-2 bg-neutral-100 shadow-md rounded p-3">
+            <div className='flex justify-between'>
+                <div className="flex items-center space-x-1">
+                    <span className='text-carnation-400'><FaUser/></span>
+                    <span className="text-neutral-600 text-lg font-semibold">John Doe</span>
+                </div>
                 <RatingStar value={5} small />
-                <span className="text-neutral-600 text-sm">by John Doe</span>
             </div>
-            <p className="text-sm text-neutral-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nunc nec ultricies bibendum, nunc odio tincidunt purus, nec varius magna justo id libero.</p>
+            <p className="text-sm text-neutral-700 text-justify p-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nunc nec ultricies bibendum, nunc odio tincidunt purus, nec varius magna justo id libero.</p>
+            <p className='text-xs text-neutral-500 text-right font-light'>01/05/2024</p>
         </div>
     );
 }
