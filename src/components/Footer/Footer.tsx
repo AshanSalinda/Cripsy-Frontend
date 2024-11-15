@@ -12,14 +12,14 @@ const Footer: React.FC = () => {
           {/* Left Side - Contact Info */}
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-semibold py-4">Contact</h3>
+            <div className="font-thin py-2 transform transition duration-200 hover:translate-x-3">
+                <a href={`tel:${footerData.contact.phone}`}>{footerData.contact.phone}</a>
+            </div>
+            <div className="font-thin py-2 transform transition duration-200 hover:translate-x-3">
+                <a href={`mailto:${footerData.contact.email}`}>{footerData.contact.email}</a>
+            </div>
             <p className="font-thin py-2 transform transition duration-200 hover:translate-x-3">
-              {footerData.contact.phone}
-            </p>
-            <p className="font-thin py-2 transform transition duration-200 hover:translate-x-3">
-              {footerData.contact.email}
-            </p>
-            <p className="font-thin py-2 transform transition duration-200 hover:translate-x-3">
-              {footerData.contact.address}
+                {footerData.contact.address}
             </p>
           </div>
 
