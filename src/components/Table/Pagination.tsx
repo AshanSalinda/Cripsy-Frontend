@@ -42,7 +42,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
     return (
         <div className="flex justify-end mt-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 overflow-x-auto">
                 <Button
                     variant="outline"
                     className="px-2 py-1 bg-gray-100 border-stone-300"
@@ -70,7 +70,7 @@ const Pagination: React.FC<PaginationProps> = ({
                                 "rounded-lg py-1 w-10",
                                 isCurrentPage
                                     ? "bg-carnation-550 text-white scale-105 transition-all duration-300"
-                                    : "bg-white text-gray-300 hover:bg-gray-100  border-stone-400 scale-100"
+                                    : "bg-white text-neutral-500 hover:bg-neutral-200 scale-100"
                             )}
                             onClick={() => handlePageChange(pageNumber)}
                             aria-current={isCurrentPage ? "page" : undefined}

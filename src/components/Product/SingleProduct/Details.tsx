@@ -9,10 +9,11 @@ export interface DetailsType {
     price: number,
     rating: number,
     ratingCount: number,
+    totalReviewsCount: number,
     stock: number,
 }
 
-const ProductDetails: React.FC<DetailsType> = ({ name, price, rating, ratingCount, stock}) => {
+const ProductDetails: React.FC<DetailsType> = ({ name, price, rating, ratingCount, totalReviewsCount, stock}) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const quantity = ((e.target as HTMLFormElement).elements.namedItem("quantity") as HTMLInputElement)?.value;
@@ -32,7 +33,7 @@ const ProductDetails: React.FC<DetailsType> = ({ name, price, rating, ratingCoun
                 <h3 className="text-white font-extralight tracking-wider mr-3">{rating}</h3>
                 <RatingStars value={rating} />
             </div>
-            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | 53 Comments`}</p>
+            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | ${totalReviewsCount} Reviews`}</p>
             <h2 className="text-carnation-500 tracking-wider mb-10">{`Rs ${price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
             <form onSubmit={handleSubmit}>
                 <p className="text-neutral-400 font-normal mb-1">Quantity:</p>
