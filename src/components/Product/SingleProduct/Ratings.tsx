@@ -51,7 +51,7 @@ const Ratings: React.FC<PropsType> = ({ rating, ratingCount }) => {
                 <Comment />
                 <Comment />
             </div>
-            <Pagination currentPage={10} totalPages={50} onPageChange={() => {}} />
+            <Pagination currentPage={currentPage} totalPages={50} onPageChange={setCurrentPage} />
         </div>
     );
 };
