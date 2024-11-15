@@ -1,23 +1,34 @@
 import React from "react";
 import item from "@/data/productIem.json";
 import Overview from "@/components/Product/SingleProduct/Overview";
-import Ratings from "@/components/Product/SingleProduct/Ratings";
+import RatingAndReviews from "@/components/Product/SingleProduct/RatingAndReviews";
 
 const ProductItem : React.FC = () => {
-    const productData = {
-        name: item.name,
-        price: item.price,
+    const commonData = {
         rating: item.rating,
         ratingCount: item.ratingCount,
+        totalReviewsCount: item.totalReviewsCount,
+    }
+
+    const productData = {
+        ...commonData,
+        name: item.name,
+        price: item.price,
         stock: item.stock,
         images: item.images
+    }
+
+    const ratingAndReviewsData = {
+        ...commonData,
+        ratingStats: item.ratingStats,
+        reviews: item.initialReviews
     }
     
     return (
         <div>
             <Overview {...productData} />
             <Description description={item.description} />
-            <Ratings rating={item.rating} ratingCount={item.ratingCount} />
+            <RatingAndReviews {...ratingAndReviewsData} />
         </div>
     );
 };
