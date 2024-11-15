@@ -41,7 +41,7 @@ const Overview: React.FC<PropsType> = (props) => {
                         { isFavorite ? <IoMdHeart/> : <IoMdHeartEmpty/> }
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                        <p>Add to WatchList</p>
+                        <p>{ isFavorite ? "Remove from Watchlist" : "Add to WatchList" }</p>
                     </TooltipContent>
                 </Tooltip></TooltipProvider>
                 <TooltipProvider><Tooltip>
