@@ -29,6 +29,7 @@ const config: Config = {
     				'550': '#FD7B7B',
     				'600': '#e51d1d',
     				'700': '#c11414',
+					'750': '#922323',
     				'800': '#a01414',
     				'900': '#841818',
     				'950': '#480707'
@@ -45,6 +46,9 @@ const config: Config = {
     				'800': '#991b1b',
     				'900': '#7f1d1d'
     			},
+				fontFamily: {
+					inter: 'Inter'
+				},
     			card: {
     				DEFAULT: 'hsl(var(--card))',
     				foreground: 'hsl(var(--card-foreground))'
