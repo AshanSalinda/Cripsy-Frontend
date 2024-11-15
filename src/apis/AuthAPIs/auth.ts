@@ -75,3 +75,21 @@ export const verifyOTP = async(email:string , otp: string) => {
         console.error("Invalid OTP:", error);
     }
 }
+
+
+export const resetPassword = async(formData: {password: string; confirmPassword:string },  email:string) => {
+    console.log(email)
+    try {
+        const response = await api.post(`/forgot-password/change-password/${email}`, {
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+        });
+
+        if (response.status === 200) {
+            console.log("Password Reset Successful:");
+        }
+    } catch (error) {
+        // setErrors("Invalid username or password.");
+        console.error("Password Reset failed:", error);
+    }
+}
