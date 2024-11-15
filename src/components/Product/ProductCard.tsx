@@ -1,10 +1,14 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import CustomButton from '../Button/CustomButton';
 import { FaOpencart } from "react-icons/fa";
 import RatingStar from './RatingStar';
 
-interface ProductCardProps {
+export interface ProductCardProps {
+    productId?: string;
     imageSrc: string;
     title: string;
     description: string;
@@ -14,6 +18,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+    productId = 1,
     imageSrc,
     title,
     description,
@@ -21,14 +26,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
     reviews,
     price,
 }) => {
+    const router = useRouter();
+    const handleClick = () => {
+        router.push(`/product/${productId}`);
+    }
+
     return (
-        <div className="max-w-80 rounded-lg overflow-hidden shadow-lg border border-gray-200 transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:border-carnation-200">
-            <div className="pt-2 bg-gray-300">
+        <div onClick={handleClick} className="max-w-80 rounded-lg shadow-lg border border-gray-200 transform transition duration-300 hover:scale-[1.02] hover:shadow-2xl hover:border-carnation-200">
+            <div className="bg-gray-300">
                 <Image
-                    className="w-full h-72 object-cover"
+                    className="w-full h-72"
                     src={imageSrc}
                     width={300}
                     height={200}
+                    objectFit='cover'
                     priority
                     alt={title}
                 />

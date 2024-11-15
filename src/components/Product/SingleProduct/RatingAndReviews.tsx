@@ -16,7 +16,7 @@ interface RatingStatsType {
     }[]
 }
 
-interface reviewType {
+interface ReviewType {
     user: string,
     rating: number,
     comment: string,
@@ -26,7 +26,7 @@ interface reviewType {
 interface RatingAndReviewsType extends RatingStatsType {
     rating: number,
     totalReviewsCount: number,
-    reviews: reviewType[]
+    reviews: ReviewType[]
 }
 
 
@@ -44,7 +44,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
     }
 
     return (
-        <div className="px-3 py-7 md:p-7 box-border">
+        <div className="px-3 py-7 md:p-7">
             <h3 className="font-semibold">Ratings & Reviews</h3>
 
             <div className='lg:w-11/12 max-w-[1300px] mx-auto'>
@@ -67,7 +67,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
                 </div>
 
                 {/* Comments */}
-                <div className="my-10 space-y-3">
+                <div className="my-10 space-y-4">
                     {currentReviews.map((review, index) => (
                         <ReviewCard key={index + review.user} {...review} />
                     ))}
@@ -106,7 +106,7 @@ const RatingStats: React.FC<RatingStatsType> = ({ ratingStats = [], ratingCount 
 
 
 
-const ReviewCard: React.FC<reviewType> = ({ user, rating, comment, date }) => {
+const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, date }) => {
     return (
         <div className="flex flex-col space-y-2 bg-neutral-100 shadow-md rounded p-3">
             <div className='flex justify-between'>

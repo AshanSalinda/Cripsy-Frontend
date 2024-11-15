@@ -1,5 +1,6 @@
 import React from "react";
 import item from "@/data/productIem.json";
+import ProductCard, { ProductCardProps } from "@/components/Product/ProductCard";
 import Overview from "@/components/Product/SingleProduct/Overview";
 import RatingAndReviews from "@/components/Product/SingleProduct/RatingAndReviews";
 
@@ -29,6 +30,7 @@ const ProductItem : React.FC = () => {
             <Overview {...productData} />
             <Description description={item.description} />
             <RatingAndReviews {...ratingAndReviewsData} />
+            <RelatedItems relatedItems={item.relatedItems} />
         </div>
     );
 };
@@ -46,5 +48,24 @@ const Description: React.FC<PropsType> = ({description}) => {
         </div>
     );
 };
+
+interface RelatedItemsType {
+    relatedItems: ProductCardProps[]
+}
+
+
+const RelatedItems: React.FC<RelatedItemsType> = ({ relatedItems }) => {
+    return (
+        <div className="px-3 py-7 md:p-7">
+            <h3 className="font-semibold">Related Items</h3>
+
+            <div className="flex md:w-fit md:mx-auto pt-5 pb-16 space-x-3 overflow-x-auto">
+                {relatedItems.map((item, index) => (
+                    <ProductCard key={index} {...item} />
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default ProductItem;
