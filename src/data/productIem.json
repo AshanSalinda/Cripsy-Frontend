@@ -5,7 +5,47 @@
     "description": "Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
     "rating": 3.5,
     "ratingCount": 6483,
+    "totalReviewsCount": 100,
     "stock": 20,
+    "ratingStats": [
+        { "scale": 5, "count": 6000 },
+        { "scale": 4, "count": 4000 },
+        { "scale": 3, "count": 2000 },
+        { "scale": 2, "count": 1000 },
+        { "scale": 1, "count": 1000 }
+    ],
+    "initialReviews": [
+        {
+            "user": "John Doe",
+            "rating": 5,
+            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+            "date": "2021-01-01"
+        },
+        {
+            "user": "Jane Doe",
+            "rating": 4,
+            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+            "date": "2021-01-01"
+        },
+        {
+            "user": "John Smith",
+            "rating": 3,
+            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+            "date": "2021-01-01"
+        },
+        {
+            "user": "Jane Doe",
+            "rating": 4,
+            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+            "date": "2021-01-01"
+        },
+        {
+            "user": "John Smith",
+            "rating": 3,
+            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+            "date": "2021-01-01"
+        }
+    ],
     "images": [
         "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
         "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",

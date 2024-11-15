@@ -13,7 +13,8 @@ interface PropsType extends DetailsType {
     images: string[]
 }
 
-const Overview: React.FC<PropsType> = ({ name, price, rating, ratingCount, stock, images }) => {
+const Overview: React.FC<PropsType> = (props) => {
+    const { images, ...details } = props;
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleFav = () => {
@@ -54,8 +55,8 @@ const Overview: React.FC<PropsType> = ({ name, price, rating, ratingCount, stock
             </div>
             <div className="flex bg-black items-start md:items-center min-h-fit h-full">
                 <div className="flex flex-wrap justify-between items-start mt-5 mb-10 md:items-center w-full">
-                    <ImageSet images={images} alt={name}/>
-                    <ProductDetails name={name} price={price} rating={rating} ratingCount={ratingCount} stock={stock}/>
+                    <ImageSet images={images} alt={props.name}/>
+                    <ProductDetails {...details} />
                 </div>
             </div>
         </div>
