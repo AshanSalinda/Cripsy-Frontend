@@ -1,27 +1,39 @@
 import React from "react";
 import item from "@/data/productIem.json";
-import ItemImageSet from "@/components/Product/ItemImageSet";
-import RatingStars from "@/components/Product/RatingStar";
+import Overview from "@/components/Product/SingleProduct/Overview";
+import Ratings from "@/components/Product/SingleProduct/Ratings";
 
-const productItem : React.FC = () => {
+const ProductItem : React.FC = () => {
+    const productData = {
+        name: item.name,
+        price: item.price,
+        rating: item.rating,
+        ratingCount: item.ratingCount,
+        stock: item.stock,
+        images: item.images
+    }
+    
     return (
         <div>
-            {/* Product Item Details */}
-            <div className="flex items-center bg-black h-[92vh]">
-                <div className="flex flex-wrap justify-between items-center w-full">
-                    <ItemImageSet images={item.images} alt={item.name}/>
-                    <div className="bg-slate-400 md:flex-[45%] flex-[100%]">
-                        <h1 className="text-white font-medium">{item.name}</h1>
-                        <h3 className="text-white font-thin tracking-wider">{item.rating}</h3>
-                        <RatingStars />
-                        <p>{item.description}</p>
-                        <p>{item.price}</p>
-                        <button>Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <Overview {...productData} />
+            <Description description={item.description} />
+            <Ratings rating={item.rating} ratingCount={item.ratingCount} />
         </div>
     );
 };
 
-export default productItem;
+
+interface PropsType {
+    description: string,
+}
+
+const Description: React.FC<PropsType> = ({description}) => {
+    return (
+        <div className="px-3 py-7 md:p-7 box-border">
+            <h3 className="font-semibold">Product Details</h3>
+            <p className="font-light m-3 text-justify">{description}</p>
+        </div>
+    );
+};
+
+export default ProductItem;
