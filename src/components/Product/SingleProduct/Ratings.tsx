@@ -1,8 +1,11 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import RatingStar from '@/components/Product/RatingStar';
 import Button from '@/components/Button/CustomButton';
 import { Progress } from "@/components/ui/progress"
 import { FaUser } from "react-icons/fa6";
+import Pagination from '@/components/Table/Pagination';
 
 
 interface PropsType {
@@ -11,6 +14,8 @@ interface PropsType {
 }
 
 const Ratings: React.FC<PropsType> = ({ rating, ratingCount }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 50;
     return (
         <div className="px-3 py-7 md:p-7 box-border">
             <h3 className="font-semibold">Ratings & Comments</h3>
@@ -41,13 +46,12 @@ const Ratings: React.FC<PropsType> = ({ rating, ratingCount }) => {
             </div>
 
             {/* Comments */}
-            <div className="mt-5">
-                <div className="flex flex-col space-y-5 mt-3">
-                    <Comment />
-                    <Comment />
-                    <Comment />
-                </div>
+            <div className="mt-10 space-y-3">
+                <Comment />
+                <Comment />
+                <Comment />
             </div>
+            <Pagination currentPage={10} totalPages={50} onPageChange={() => {}} />
         </div>
     );
 };
@@ -78,7 +82,7 @@ const Comment: React.FC = () => {
                 <RatingStar value={5} small />
             </div>
             <p className="text-sm text-neutral-700 text-justify p-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nunc nec ultricies bibendum, nunc odio tincidunt purus, nec varius magna justo id libero.</p>
-            <p className='text-xs text-neutral-500 text-right font-light'>01/05/2024</p>
+            <p className='text-xs text-neutral-600 text-right font-light'>01/05/2024</p>
         </div>
     );
 }
