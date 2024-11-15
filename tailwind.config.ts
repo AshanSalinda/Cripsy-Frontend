@@ -92,7 +92,11 @@ const config: Config = {
     				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
     				border: 'hsl(var(--sidebar-border))',
     				ring: 'hsl(var(--sidebar-ring))'
-    			}
+    			},
+                progress: {
+                    background: 'hsl(var(--progress-background))',
+                    foreground: 'hsl(var(--progress-foreground))'
+                }
     		},
     		fontSize: {
     			xs: '0.75rem',

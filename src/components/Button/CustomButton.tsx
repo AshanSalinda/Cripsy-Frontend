@@ -16,17 +16,17 @@ interface CustomButtonProps {
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
-                                                       variant = 'primary',
-                                                       name = '',
-                                                       value = '',
-                                                       buttonLabel = '',
-                                                       buttonClassName = '',
-                                                       modalContent,
-                                                       modalClassName = '',
-                                                       onClick,
-                                                       showIcon = true,
-                                                       icon = '',
-                                                   }) => {
+    variant = 'primary',
+    name = '',
+    value = '',
+    buttonLabel = '',
+    buttonClassName = '',
+    modalContent,
+    modalClassName = '',
+    onClick,
+    showIcon = true,
+    icon = '',
+}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleButtonClick = () => {
@@ -52,7 +52,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
                 value={value}
                 onClick={handleButtonClick}
             >
-                <span className={'text-xs md:text-base font-sans tracking-wide w-full'}>{buttonLabel}</span>
+                <span className={'text-sm md:text-base font-sans tracking-wide w-full'}>{buttonLabel}</span>
                 {showIcon && icon}
             </Button>
             {isModalOpen && modalContent && (
