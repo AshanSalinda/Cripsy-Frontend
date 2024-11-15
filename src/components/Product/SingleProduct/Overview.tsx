@@ -25,7 +25,7 @@ const Overview: React.FC<PropsType> = ({ name, price, rating, ratingCount, stock
         
         navigator.clipboard.writeText(currentUrl)
         .then(() => {
-            console.log("URL copied to clipboard:", currentUrl);
+            alert("URL copied to clipboard: " + currentUrl);
         })
         .catch((err) => {
             console.log("Failed to copy URL:", err);
