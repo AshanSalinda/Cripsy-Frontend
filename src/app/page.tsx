@@ -1,5 +1,6 @@
+import ProductCard from "@/components/Product/ProductCard";
 import Image from "next/image";
-import { FaShoppingCart, FaInfoCircle, FaPhoneAlt, FaQuestionCircle, FaHeadset } from "react-icons/fa";
+import { FaShoppingCart, FaInfoCircle} from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -45,30 +46,15 @@ export default function Home() {
 
       {/* Footer with Links */}
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/contact"
-          aria-label="Contact Us"
-          title="Contact Us"
-        >
-          <FaPhoneAlt /> Contact Us
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/faq"
-          aria-label="FAQ"
-          title="FAQ"
-        >
-          <FaQuestionCircle /> FAQ
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/support"
-          aria-label="Customer Support"
-          title="Customer Support"
-        >
-          <FaHeadset /> Customer Support
-        </a>
+
+        <ProductCard
+          imageSrc="/LogingPhoto.png"
+          title="POLO Shirt"
+          description="The perfection of men's wear"
+          rating={2}
+          reviews={234}
+          price={22340.00}
+        />
       </footer>
     </div>
   );

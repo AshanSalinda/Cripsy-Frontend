@@ -36,7 +36,7 @@ const Popup: React.FC<PopupProps> = ({
                 onInteractOutside={(event) => event.preventDefault()}
             >
                 <div className="flex items-center justify-between px-6 py-3 text-white bg-carnation-400">
-                    <DialogTitle className="font-semibold text-md">{title}</DialogTitle>
+                    <DialogTitle className="font-semibold">{title}</DialogTitle>
                 </div>
 
                 {/* Dialog content (form content) */}

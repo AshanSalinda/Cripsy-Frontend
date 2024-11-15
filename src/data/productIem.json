@@ -2,9 +2,10 @@
     "id": 1,
     "name": "AirPods Max",
     "price": 64099.00,
-    "description": "Product 1 description",
-    "rating": 4.5,
+    "description": "Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+    "rating": 3.5,
     "ratingCount": 6483,
+    "stock": 20,
     "images": [
         "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
         "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",
