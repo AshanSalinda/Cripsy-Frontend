@@ -23,9 +23,12 @@ const RatingStar: React.FC<RatingProps> = ({
             value={rating}
             readOnly={readOnly}
             precision={0.5}
-            size={small ? 'small' : 'large'}
+            size={small ? 'medium' : 'large'}
             onChange={(e, newValue) => { setValue(newValue)}}
             sx={{
+                '& .MuiRating-iconFilled': {
+                    color: '#FFCD12',
+                },
                 '& .MuiRating-iconEmpty': {
                     color: '#737373',
                 }
