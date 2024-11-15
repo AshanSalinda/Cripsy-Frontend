@@ -45,11 +45,11 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
 
     return (
         <div className="px-3 py-7 md:p-7">
-            <h3 className="font-semibold">Ratings & Reviews</h3>
+            <h3 className="font-medium">Ratings & Reviews</h3>
 
             <div className='lg:w-11/12 max-w-[1300px] mx-auto'>
                 {/* Ratings Top Section */}
-                <div className="max-w-[1000px] flex flex-col md:flex-row justify-around items-center mt-5 mx-auto">
+                <div className="max-w-[1000px] flex flex-col md:flex-row justify-around items-center mt-10 mx-auto">
 
                     {/* Overall Ratings */}
                     <div className="w-max flex flex-col items-center">
@@ -108,7 +108,7 @@ const RatingStats: React.FC<RatingStatsType> = ({ ratingStats = [], ratingCount 
 
 const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, date }) => {
     return (
-        <div className="flex flex-col space-y-2 bg-neutral-100 shadow-md rounded p-3">
+        <div className="flex flex-col space-y-2 bg-slate-50 shadow-md rounded p-3">
             <div className='flex justify-between'>
                 <div className="flex items-center space-x-1">
                     <span className='text-carnation-400'><FaUser/></span>
