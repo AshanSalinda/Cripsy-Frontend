@@ -1,15 +1,6 @@
-import type { Metadata } from "next";
+
 import "./globals.css";
-
-
-
-export const metadata: Metadata = {
-  title: "Cripsy - Your E-commerce Site",
-  description: "Discover amazing products at Cripsy.",
-  icons:{
-    icon: "/icon.png",
-  }
-};
+import TopNavbar from "@/components/TopNavbar/TopNavbar";
 
 export default function RootLayout({
   children,
@@ -19,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/*<TopNavbar />*/}
+        <TopNavbar />
 
         {children}
       </body>
