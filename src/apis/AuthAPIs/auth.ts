@@ -58,3 +58,20 @@ export const forgotPassword = async(formData: { email:string; }) => {
         console.error("SignUp failed:", error);
     }
 }
+
+
+export const verifyOTP = async(email:string , otp: string) => {
+    try {
+        const response = await api.post(`/forgot-password/verify-otp/${otp}/${email}`);
+
+        const url = `/forgot-password/verify-otp/${otp}/${email}`;
+        console.log("Request URL: ", url);
+
+        if (response.status === 200) {
+            console.log("OTP Verified:");
+            alert(response.data);
+        }
+    } catch (error) {
+        console.error("Invalid OTP:", error);
+    }
+}

@@ -1,61 +1,57 @@
 "use client";
 
-import React, {FormEvent, useState} from "react";
-import InputField from "@/components/InputField/InputField";
+import React, {FormEvent, useEffect, useState} from "react";
 import CustomButton from "@/components/Button/CustomButton";
-import {forgotPassword} from "@/apis/AuthAPIs/auth";
-import {ForgotPasswordSchema} from "@/schema/AuthSchema/ForgotPasswordSchema";
+import {verifyOTP} from "@/apis/AuthAPIs/auth";
+import { InputOTP, InputOTPGroup, InputOTPItem } from "keep-react";
 
-interface ForgotPasswordFormValues {
-    email: string;
-}
 
-const ForgotPasswordFrom = () => {
+const VerifyOtpFrom = () => {
 
-    const [formData, setFormData] = useState<ForgotPasswordFormValues>({
-        email: ''
-    });
-
+    const [email, setEmail] = useState('');
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false);
+    const [value, setValue] = useState('')
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, value: keyof ForgotPasswordFormValues) => {
-        setFormData({
-            ...formData,
-            [value]: e.target.value
-        });
-    }
+    useEffect(() => {
+        const email = localStorage.getItem("userEmail");
+        if (email) {
+            setEmail(JSON.parse(email));
+        }
+    }, []);
 
-    const handleSignUp = async (e: FormEvent) => {
+
+    const handleOtpVerification = async (e: FormEvent) => {
         e.preventDefault();
 
-        const validation = ForgotPasswordSchema.safeParse(formData);
+        console.log("opt: ", value);
+        console.log("Email: ", email);
 
-        if (!validation.success) {
-            setErrors(validation.error.errors[0]?.message || "Invalid input");
+
+        if (!email) {
+            setErrors("Email not found. Please try again.");
             return;
         }
+
+        if (value.length !== 6) {
+            setErrors("Please enter a valid 6-digit OTP.");
+            return;
+        }
+
         setLoading(true);
         try {
-            await forgotPassword(formData);
-            setFormData({
-                email: '',
-            });
-            localStorage.setItem("userEmail", JSON.stringify(formData.email));
-
+            await verifyOTP(email , value);
+            setValue("")
+            setErrors("");
         } catch (error: any) {
             setErrors(error?.message || "Invalid input");
         } finally {
             setLoading(false);
         }
-
-
-    }
+    };
 
     const cancelSubmit = ()=>{
-        setFormData({
-            email: '',
-        });
+        setEmail('')
     }
 
     return (
@@ -73,36 +69,39 @@ const ForgotPasswordFrom = () => {
                 <div className="bg-white p-10 rounded-lg shadow-lg w-3/4">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h2 className="text-4xl font-bold">Forgot</h2>
-                            <p className="text-gray-500">your password ?</p>
+                            <h2 className="text-4xl font-bold">OTP</h2>
+                            <p className="text-gray-500">Verification</p>
                         </div>
                         <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
-                    <form onSubmit={handleSignUp}>
+                    <form onSubmit={handleOtpVerification}>
                         {/* Input Fields */}
                         <div className="my-8">
 
-                            <div className="flex items-center justify-between mb-6 bg-red-400">
+                            <div className="flex items-center justify-between mb-6">
                                 <p className="text-center mt-6 mb-4">
-                                    Enter your email address associated with your account and
-                                    we will send you an OTP to reset your password.
+                                    Please check your email and enter the OTP below to proceed.
                                 </p>
                             </div>
 
+                            {/* OTP Input */}
                             <div className="mb-4 mt-4">
-                                <InputField
-                                    id="email"
-                                    type="email"
-                                    placeholder="Email"
-                                    value={formData.email || ''}
-                                    onChange={(e) => handleInputChange(e, 'email')}
-                                    icon={undefined}
-                                    label={false}
-                                    labelName="email"
-                                />
+                                <div className="mb-6 flex flex-col items-center">
+                                    <InputOTP value={value} onChange={(newValue) => setValue(newValue)} maxLength={6}>
+                                        <InputOTPGroup>
+                                            {[...Array(6)].map((_, index) => (
+                                                <InputOTPItem
+                                                    key={index}
+                                                    index={index}
+                                                    className="otp-box border-red-500 border-2 rounded-lg p-3 text-center text-xl w-12 h-12 sm:w-16 sm:h-16 mx-2"
+                                                    inputMode="numeric"
+                                                />
+                                            ))}
+                                        </InputOTPGroup>
+                                    </InputOTP>
+                                </div>
                             </div>
-
                         </div>
 
 
@@ -113,7 +112,7 @@ const ForgotPasswordFrom = () => {
                                 buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
                             />
                             <CustomButton
-                                buttonLabel={ "Cancel"}
+                                buttonLabel={"Cancel"}
                                 buttonClassName="w-full bg-['#EAEAEA'] py-3 text-black mt-2 rounded-lg"
                                 onClick={cancelSubmit}
                             />
@@ -129,4 +128,4 @@ const ForgotPasswordFrom = () => {
     );
 };
 
-export default ForgotPasswordFrom;
+export default VerifyOtpFrom;
