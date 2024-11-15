@@ -43,3 +43,19 @@ export const userSignUp = async(formData: { username: string; email:string; pass
         console.error("SignUp failed:", error);
     }
 }
+
+
+export const forgotPassword = async(formData: { email:string; }) => {
+    try {
+        const response = await api.post("/auth/signup", {
+            email: formData.email,
+        });
+
+        if (response.status === 200) {
+            console.log("SignUp Successful:");
+        }
+    } catch (error) {
+        // setErrors("Invalid username or password.");
+        console.error("SignUp failed:", error);
+    }
+}
