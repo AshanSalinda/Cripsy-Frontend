@@ -19,7 +19,22 @@ const ProductItem : React.FC = () => {
         <div>
             <TopNavbar />
             <Overview {...productData} />
+            <Description description={item.description} />
             <Footer />
+        </div>
+    );
+};
+
+
+interface PropsType {
+    description: string,
+}
+
+const Description: React.FC<PropsType> = ({description}) => {
+    return (
+        <div className="p-7 box-border">
+            <h3 className="font-semibold">Product Details</h3>
+            <p className="font-light m-3 text-justify">{description}</p>
         </div>
     );
 };
