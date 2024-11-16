@@ -4,14 +4,17 @@ import React, {FormEvent, useEffect, useState} from "react";
 import CustomButton from "@/components/Button/CustomButton";
 import {verifyOTP} from "@/apis/AuthAPIs/auth";
 import { InputOTP, InputOTPGroup, InputOTPItem } from "keep-react";
-
+import {useRouter} from "next/navigation";
+import Image from 'next/image';
 
 const VerifyOtpFrom = () => {
 
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false);
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
+
+    const router = useRouter();
 
     useEffect(() => {
         const email = localStorage.getItem("userEmail");
@@ -40,11 +43,12 @@ const VerifyOtpFrom = () => {
 
         setLoading(true);
         try {
-            await verifyOTP(email , value);
+            await verifyOTP(email , value, router);
             setValue("")
             setErrors("");
-        } catch (error: any) {
-            setErrors(error?.message || "Invalid input");
+        } catch (error: unknown) {
+            console.log(error);
+            setErrors("Invalid input");
         } finally {
             setLoading(false);
         }
@@ -61,7 +65,7 @@ const VerifyOtpFrom = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <Image className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
             </div>
 
             {/* Right Section (Login Form) */}
@@ -72,7 +76,7 @@ const VerifyOtpFrom = () => {
                             <h2 className="text-4xl font-bold">OTP</h2>
                             <p className="text-gray-500">Verification</p>
                         </div>
-                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <Image className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
                     <form onSubmit={handleOtpVerification}>

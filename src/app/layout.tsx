@@ -1,20 +1,22 @@
-import Footer from "@/components/Footer/Footer";
-import TopNavbar from "@/components/TopNavbar/TopNavbar";
 import "./globals.css";
+import NavbarWrapper from "@/components/NavbarWrapper/NavbarWrapper";
+import Footer from "@/components/Footer/Footer";
+
 
 export const metadata = {
-  title: "Cripsy",
-  description: "Discover amazing products at Cripsy.",
-  icons: {
-    icon: "/icon.png",
-  },
+    title: "Cripsy",
+    description: "Discover amazing products at Cripsy.",
+    icons: {
+        icon: "/icon.png",
+    },
 };
 
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
       <head>
@@ -27,7 +29,7 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-50 text-gray-900">
         {/* Navigation */}
-        <TopNavbar />
+         <NavbarWrapper/>
 
         {/* Main Content */}
         <main className="min-h-screen">{children}</main>
@@ -37,4 +39,5 @@ export default function RootLayout({
       </body>
     </html>
   );
+
 }

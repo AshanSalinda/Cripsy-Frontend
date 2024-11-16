@@ -5,6 +5,8 @@ import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import {resetPassword} from "@/apis/AuthAPIs/auth";
 import {ResetPasswordSchema} from "@/schema/AuthSchema/ResetPasswordSchema";
+import {useRouter} from "next/navigation";
+import Image from 'next/image';
 
 interface ResetPasswordFormValues {
     password: string;
@@ -22,6 +24,7 @@ const ResetPasswordForm = () => {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
 
+    const router = useRouter();
 
     useEffect(()=>{
         const userEmail = localStorage.getItem("userEmail");
@@ -48,13 +51,14 @@ const ResetPasswordForm = () => {
         }
         setLoading(true);
         try {
-            await resetPassword(formData,email);
+            await resetPassword(formData,email,router);
             setFormData({
                 password: '',
                 confirmPassword: ''
             });
-        } catch (error: any) {
-            setErrors(error?.message || "Invalid input");
+        } catch (error: unknown) {
+            console.log(error);
+            setErrors("Invalid input");
         } finally {
             setLoading(false);
         }
@@ -74,7 +78,7 @@ const ResetPasswordForm = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <Image className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
             </div>
 
             {/* Right Section (Login Form) */}
@@ -85,7 +89,7 @@ const ResetPasswordForm = () => {
                             <h2 className="text-4xl font-bold">Reset</h2>
                             <p className="text-gray-500">Your Password</p>
                         </div>
-                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <Image className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
                     <form onSubmit={handleResetPassword}>

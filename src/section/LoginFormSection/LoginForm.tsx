@@ -5,6 +5,9 @@ import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import {LoginSchema} from "@/schema/AuthSchema/LoginSchema";
 import {userLogin} from "@/apis/AuthAPIs/auth";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
+import Image from 'next/image';
 
 interface LoginFormValues {
     username: string;
@@ -20,6 +23,8 @@ const LoginForm = () => {
 
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, value: keyof LoginFormValues) => {
         setFormData({
@@ -39,11 +44,12 @@ const LoginForm = () => {
         }
         setLoading(true);
         try {
-            await userLogin(formData);
+            await userLogin(formData,router);
             console.log("Username: ", formData.username, "Password: ", formData.password);
             setFormData({username: '', password: ''});
-        } catch (error: any) {
-            setErrors(error?.message || "Invalid input");
+        } catch (error: unknown) {
+            console.log(error);
+            setErrors("Invalid input");
         } finally {
             setLoading(false);
         }
@@ -58,7 +64,7 @@ const LoginForm = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <Image className="h-18 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
             </div>
 
             {/* Right Section (Login Form) */}
@@ -69,7 +75,7 @@ const LoginForm = () => {
                             <h2 className="text-4xl font-bold">Login</h2>
                             <p className="text-gray-500">to shopping</p>
                         </div>
-                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <Image className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
                     <form onSubmit={handleLogin}>
@@ -102,7 +108,9 @@ const LoginForm = () => {
 
                         </div>
 
-                        <p className="text-right text-blue-600 mt-3 cursor-pointer">Forgot Password?</p>
+                        <Link href="/auth/forgotPassword">
+                            <p className="text-center text-blue-600 mt-3 cursor-pointer">Forgot Password?</p>
+                        </Link>
 
                         {/* Login Button */}
                         <div className="mt-6">
@@ -119,7 +127,10 @@ const LoginForm = () => {
                     {/* Register Link */}
                     <div className="text-center mt-6">
                         <p className="text-gray-500">
-                            New User? <a href="#" className="text-blue-600 font-semibold">Register</a>
+                            New User?
+                            <Link className="text-blue-600 font-semibold" href="/auth/signup">
+                                Register
+                            </Link>
                         </p>
                     </div>
                 </div>
