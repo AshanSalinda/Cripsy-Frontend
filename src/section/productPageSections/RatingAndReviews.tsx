@@ -40,7 +40,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
         setCurrentPage(page);
         // const startIndex = (page - 1) * numberOfReviewsPerPage;
         // const endIndex = startIndex + numberOfReviewsPerPage;
-        // setCurrentReviews(reviews.slice(startIndex, endIndex));
+        setCurrentReviews(reviews.slice(0, 5));
     }
 
     return (
