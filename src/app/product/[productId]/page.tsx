@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
 import item from "@/data/productIem.json";
-import Overview from "@/components/Product/SingleProduct/Overview";
-import RatingAndReviews from "@/components/Product/SingleProduct/RatingAndReviews";
+import Overview from "@/section/productPageSections/Overview";
+import Description from "@/section/productPageSections/Description";
+import RatingAndReviews from "@/section/productPageSections/RatingAndReviews";
+import RelatedItems from "@/section/productPageSections/RelatedItems";
 
 const ProductItem : React.FC = () => {
     const commonData = {
@@ -29,22 +31,10 @@ const ProductItem : React.FC = () => {
             <Overview {...productData} />
             <Description description={item.description} />
             <RatingAndReviews {...ratingAndReviewsData} />
+            <RelatedItems relatedItems={item.relatedItems} />
         </div>
     );
 };
 
-
-interface PropsType {
-    description: string,
-}
-
-const Description: React.FC<PropsType> = ({description}) => {
-    return (
-        <div className="px-3 py-7 md:p-7 box-border">
-            <h3 className="font-semibold">Product Details</h3>
-            <p className="font-light m-3 text-justify">{description}</p>
-        </div>
-    );
-};
 
 export default ProductItem;

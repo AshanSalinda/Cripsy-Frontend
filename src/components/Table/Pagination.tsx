@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({
         } else {
             setVisibleRange([currentPage - 2, currentPage + 2])
         }
-    }, [currentPage]);
+    }, [currentPage, totalPages]);
 
     const handlePageChange = (newPage: number) => {
         if (newPage < 1 || newPage > totalPages) return
