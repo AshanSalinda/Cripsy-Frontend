@@ -1,5 +1,6 @@
-import "./globals.css";
+import Footer from "@/components/Footer/Footer";
 import TopNavbar from "@/components/TopNavbar/TopNavbar";
+import "./globals.css";
 
 export const metadata = {
   title: "Cripsy",
@@ -17,14 +18,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Metadata */}
+        {/* Meta Information */}
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
         <link rel="icon" href={metadata.icons.icon} />
       </head>
-      <body>
+      <body className="bg-gray-50 text-gray-900">
+        {/* Navigation */}
         <TopNavbar />
-        <main>{children}</main>
+
+        {/* Main Content */}
+        <main className="min-h-screen">{children}</main>
+
+        {/* Footer */}
+        <Footer />
       </body>
     </html>
   );
