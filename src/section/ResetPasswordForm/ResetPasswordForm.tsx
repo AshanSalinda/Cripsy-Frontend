@@ -6,8 +6,6 @@ import CustomButton from "@/components/Button/CustomButton";
 import {resetPassword} from "@/apis/AuthAPIs/auth";
 import {ResetPasswordSchema} from "@/schema/AuthSchema/ResetPasswordSchema";
 import {useRouter} from "next/navigation";
-import Image from 'next/image';
-
 interface ResetPasswordFormValues {
     password: string;
     confirmPassword: string;
@@ -78,7 +76,7 @@ const ResetPasswordForm = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <Image className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
             </div>
 
             {/* Right Section (Login Form) */}
@@ -89,7 +87,7 @@ const ResetPasswordForm = () => {
                             <h2 className="text-4xl font-bold">Reset</h2>
                             <p className="text-gray-500">Your Password</p>
                         </div>
-                        <Image className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
                     <form onSubmit={handleResetPassword}>

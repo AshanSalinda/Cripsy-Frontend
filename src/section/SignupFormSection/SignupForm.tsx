@@ -8,7 +8,6 @@ import {SignupSchema} from "@/schema/AuthSchema/SignupSchema";
 import CheckBox from "@/components/CheckBox/CheckBox";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import Image from 'next/image';
 
 interface SignUpFormValues {
     username: string;
@@ -73,7 +72,7 @@ const SignupForm = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <Image className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
             </div>
 
             {/* Right Section (Login Form) */}
@@ -84,7 +83,7 @@ const SignupForm = () => {
                             <h2 className="text-4xl font-bold">SignUp</h2>
                             <p className="text-gray-500">to shopping</p>
                         </div>
-                        <Image className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
                     </div>
 
                     <form onSubmit={handleSignUp}>
