@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import item from "@/data/productIem.json";
 import Overview from "@/section/productPageSections/Overview";
 import Description from "@/section/productPageSections/Description";
