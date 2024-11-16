@@ -1,66 +1,90 @@
-import Image from "next/image";
-import { FaShoppingCart, FaInfoCircle, FaPhoneAlt, FaQuestionCircle, FaHeadset } from "react-icons/fa";
+import MainImageCarousel from "@/components/Carosel/MainImageCarousel";
+import ProductCard from "@/components/Product/ProductCard";
+import Link from "next/link";
+
+const products = [
+  {
+    productId: "1",
+    imageSrc: "/images/product1.jpg",
+    title: "POLO Shirt",
+    description: "The perfection of men's ware",
+    rating: 4.5,
+    reviews: 234,
+    price: 2340,
+  },
+  {
+    productId: "2",
+    imageSrc: "/images/headphones.jpg",
+    title: "Airpods Max",
+    description: "High-quality audio and noise cancellation",
+    rating: 4.0,
+    reviews: 120,
+    price: 2340,
+  },
+  {
+    productId: "3",
+    imageSrc: "/images/headphones.jpg",
+    title: "Airpods Max",
+    description: "High-quality audio and noise cancellation",
+    rating: 3.8,
+    reviews: 98,
+    price: 2340,
+  },
+  {
+    productId: "4",
+    imageSrc: "/images/headphones.jpg",
+    title: "Airpods Max",
+    description: "High-quality audio and noise cancellation",
+    rating: 4.8,
+    reviews: 560,
+    price: 80000,
+  },
+  {
+    productId: "5",
+    imageSrc: "/images/iphone.jpg",
+    title: "iPhone 14",
+    description: "The latest in iPhone technology",
+    rating: 4.9,
+    reviews: 1090,
+    price: 150000,
+  },
+  {
+    productId: "6",
+    imageSrc: "/images/monitor.jpg",
+    title: "Curved Gaming Monitor",
+    description: "27-inch immersive experience",
+    rating: 4.3,
+    reviews: 432,
+    price: 45000,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        {/* Logo */}
-        <Image
-          className="dark:invert"
-          src="/cripsy-logo.png" // Replace with your Cripsy logo
-          alt="Cripsy logo"
-          width={180}
-          height={38}
-          priority
-        />
-
-        {/* Welcome Message */}
-        <h1 className="text-2xl sm:text-4xl font-bold text-center sm:text-left">
-          Welcome to Cripsy!
-        </h1>
-        <p className="text-center sm:text-left text-gray-600 dark:text-gray-300">
-          Discover amazing products with exclusive deals, just for you.
-        </p>
-
-        {/* Call to Action Buttons */}
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-blue-600 text-white gap-2 hover:bg-blue-700 text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="/shop"
-          >
-            <FaShoppingCart /> Start Shopping
-          </a>
-          <a
-            className="rounded-full border border-solid border-gray-300 dark:border-gray-600 transition-colors flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="/about"
-          >
-            <FaInfoCircle /> Learn More About Us
-          </a>
+    <>
+      <MainImageCarousel />
+      <div className="py-6 px-4 sm:px-6 lg:px-8">
+        {/* Super Deals Section */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-left md:text-center flex-grow">
+            Super Deals
+          </h2>
+          <Link href="/all-deals" className="text-carnation-500 text-sm font-medium">
+            View All
+          </Link>
         </div>
-      </main>
 
-      {/* Footer with Links */}
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/contact"
-        >
-          <FaPhoneAlt /> Contact Us
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/faq"
-        >
-          <FaQuestionCircle /> FAQ
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/support"
-        >
-          <FaHeadset /> Customer Support
-        </a>
-      </footer>
-    </div>
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {products.map((product) => (
+            <div key={product.productId} className="w-full flex justify-center">
+              <div className="w-full max-w-[300px]">
+                <ProductCard {...product} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
