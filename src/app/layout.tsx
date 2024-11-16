@@ -1,6 +1,6 @@
 import "./globals.css";
-import NavbarWrapper from "@/components/NavbarWrapper/NavbarWrapper";
-import Footer from "@/components/Footer/Footer";
+import NavbarWrapper from "@/components/LayoutWrapper/NavbarWrapper";
+import FooterWrapper from "@/components/LayoutWrapper/FooterWrapper";
 
 
 export const metadata = {
@@ -35,7 +35,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
 
         {/* Footer */}
-        <Footer />
+        <FooterWrapper/>
       </body>
     </html>
   );
