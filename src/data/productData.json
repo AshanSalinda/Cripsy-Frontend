@@ -1,0 +1,64 @@
+{
+    "productData": [
+        {
+            "productId": "P001",
+            "productName": "Wireless Mouse",
+            "qty": 50,
+            "price": 25.99
+        },
+        {
+            "productId": "P002",
+            "productName": "Bluetooth Headphones",
+            "qty": 30,
+            "price": 49.99
+        },
+        {
+            "productId": "P003",
+            "productName": "USB-C Adapter",
+            "qty": 100,
+            "price": 14.99
+        },
+        {
+            "productId": "P004",
+            "productName": "Mechanical Keyboard",
+            "qty": 20,
+            "price": 79.99
+        },
+        {
+            "productId": "P005",
+            "productName": "Laptop Stand",
+            "qty": 60,
+            "price": 29.99
+        },
+        {
+            "productId": "P006",
+            "productName": "Portable SSD 1TB",
+            "qty": 15,
+            "price": 119.99
+        },
+        {
+            "productId": "P007",
+            "productName": "Smartphone Charger",
+            "qty": 75,
+            "price": 19.99
+        },
+        {
+            "productId": "P008",
+            "productName": "Gaming Monitor 27\"",
+            "qty": 10,
+            "price": 299.99
+        },
+        {
+            "productId": "P009",
+            "productName": "Noise Cancelling Earbuds",
+            "qty": 40,
+            "price": 99.99
+        },
+        {
+            "productId": "P010",
+            "productName": "Graphics Tablet",
+            "qty": 25,
+            "price": 159.99
+        }
+    ]
+}
