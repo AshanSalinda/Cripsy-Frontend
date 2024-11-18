@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
 import item from "@/data/productIem.json";
 import Overview from "@/section/productPageSections/Overview";
 import Description from "@/section/productPageSections/Description";
 import RatingAndReviews from "@/section/productPageSections/RatingAndReviews";
 import RelatedItems from "@/section/productPageSections/RelatedItems";
 
+
 const ProductItem : React.FC = () => {
+
     const commonData = {
         rating: item.rating,
         ratingCount: item.ratingCount,

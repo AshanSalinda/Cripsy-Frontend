@@ -9,6 +9,14 @@ body {
   @apply font-sans;
 }
 
+
+.ProseMirror p.is-editor-empty:first-child::before {
+    /* Styles for Tiptap Editor */
+    @apply text-gray-400 h-0 pointer-events-none float-left;
+    content: attr(data-placeholder);
+}
+  
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -105,6 +113,12 @@ body {
     }
     p {
       @apply text-base;
+    }
+    ol{
+        @apply list-decimal pl-4;
+    }
+    ul{
+        @apply list-disc pl-4;
     }
   }
   

@@ -22,7 +22,9 @@ const QuantityInput: React.FC<Props> = ({
 
     const setValue = (value: number) => {
         setQuantity(value);
-        onChange && onChange(value);
+        if (typeof onChange === "function"){
+            onChange(value);
+        }   
     }
 
     const handleIncrement = () => {
@@ -47,7 +49,7 @@ const QuantityInput: React.FC<Props> = ({
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value, 10);
-        isNaN(value) ? setValue(0) : setValue(value);
+        setValue(isNaN(value) ? 0 : value);
     };
 
     const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
