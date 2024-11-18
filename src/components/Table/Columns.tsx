@@ -10,6 +10,13 @@ export interface Branch {
     contactNo: string;
 }
 
+export interface Product {
+    productId: string;
+    productName: string;
+    qty: number;
+    price: number;
+}
+
 
 
 type Column<T> = {
@@ -44,3 +51,26 @@ export const branchColumns: Column<Branch>[] = [
         ),
     },
 ];
+
+// Product Columns
+
+export const productColumns: Column<Product>[] = [
+    { header: "Product ID", accessor: "productId" },
+    { header: "Product Name", accessor: "productName" },
+    { header: "Quantity", accessor: "qty" },
+    { header: "Price", accessor: "price" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Product,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaTrash
+                    className="text-gray-400 hover:text-red-700 cursor-pointer"
+                    onClick={() => handlers?.delete(row)}
+                    aria-label="Delete Product"
+                />
+            </div>
+        ),
+    },
+];
+
