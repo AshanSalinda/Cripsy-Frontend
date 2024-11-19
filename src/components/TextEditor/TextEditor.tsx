@@ -27,7 +27,7 @@ const TextEditor: React.FC<EditorPropsType> = ({ className, onChange = () => {}}
                 hardBreak: false
             }),
             Placeholder.configure({
-                placeholder: 'Product Description..',
+                placeholder: 'Description..',
             }),
         ],
         editorProps: {
@@ -73,13 +73,13 @@ const TextEditor: React.FC<EditorPropsType> = ({ className, onChange = () => {}}
     const buttonClass = 'border border-gray-400 p-2 rounded-md hover:bg-carnation-400 hover:text-white clickEffect';
 
     const isActive = (type: string) => {
-        return editor?.isActive(type) ? ' bg-carnation-500 text-white' : ' bg-gray-100';
+        return editor?.isActive(type) ? ' bg-carnation-200 text-white' : ' bg-white';
     }
 
 
     return (
         <div className={'border border-gray-400 rounded-md focus-within:border-carnation-300 ' + className} >
-            <div className={`flex justify-between rounded-t-md ${editor?.isFocused ? 'bg-carnation-100' : ' bg-gray-200'}`}>
+            <div className={`flex justify-between rounded-t-md bg-white`}>
                 <div className='flex space-x-1 px-2 py-2'>
                     <Tooltip className={buttonClass + isActive('bold')} label='Bold' onClick={toggleBold}><FaBold/></Tooltip>
                     <Tooltip className={buttonClass + isActive('italic')} label='Italic' onClick={toggleItalic}><FaItalic/></Tooltip>
@@ -88,9 +88,9 @@ const TextEditor: React.FC<EditorPropsType> = ({ className, onChange = () => {}}
                 </div>
 
                 <div className='flex space-x-1 px-2 py-2'>
-                    <Tooltip className={buttonClass + ' bg-gray-100'} label='Undo' onClick={undo}><ImUndo2/></Tooltip>
-                    <Tooltip className={buttonClass + ' bg-gray-100'} label='Redo' onClick={redo}><ImRedo2/></Tooltip>
-                    <Tooltip className={buttonClass + ' bg-gray-100'} label='Clear All' onClick={handleClear}><IoMdBackspace/></Tooltip>
+                    <Tooltip className={buttonClass + ' bg-white'} label='Undo' onClick={undo}><ImUndo2/></Tooltip>
+                    <Tooltip className={buttonClass + ' bg-white'} label='Redo' onClick={redo}><ImRedo2/></Tooltip>
+                    <Tooltip className={buttonClass + ' bg-white'} label='Clear All' onClick={handleClear}><IoMdBackspace/></Tooltip>
                 </div>
             </div>
 
