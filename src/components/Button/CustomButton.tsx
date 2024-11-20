@@ -47,7 +47,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     return (
         <>
             <Button
-                className={`flex items-center justify-center gap-2 px-6 py-3 rounded-full border transition-all
+                className={`flex items-center text-center justify-center gap-2 px-6 py-3 rounded-md border transition-all
                     ${theme[variant]} ${buttonClassName}`}
                 name={name}
                 value={value}
