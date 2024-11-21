@@ -44,8 +44,7 @@ const page = () => {
                 <div className="md:col-span-4">
                     <ProductImgUploader/>
                 </div>
-                <div className="flex justify-between items-center">
-                    <h2 className='text-2xl'> </h2>
+                <div className="flex justify-between items-center pl-2">
                     <CustomButton buttonLabel='Add Product'/>
                 </div>
             </div>

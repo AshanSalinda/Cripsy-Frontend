@@ -17,7 +17,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, placeholder = "Select an o
     return (
         <div>
             <Select>
-                <SelectTrigger className="w-72 mt-2 mb-3">
+                <SelectTrigger className="w-72 mt-2 mb-1">
                     <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
                 <SelectContent>
