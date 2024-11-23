@@ -126,5 +126,42 @@
         "Bat",
         "Ball",
         "Samsung Phone"
+    ],
+    "order": [
+        {
+            "orderId": "1",
+            "fullName": "Saci",
+            "district": "Colombo",
+            "postalCode": "90000",
+            "contactNo": "0342222231"
+        },
+        {
+            "orderId": "2",
+            "fullName": "John Doe",
+            "district": "Galle",
+            "postalCode": "80000",
+            "contactNo": "0712345678"
+        },
+        {
+            "orderId": "3",
+            "fullName": "Jane Smith",
+            "district": "Kandy",
+            "postalCode": "20000",
+            "contactNo": "0776543210"
+        },
+        {
+            "orderId": "4",
+            "fullName": "Amara Silva",
+            "district": "Matara",
+            "postalCode": "81000",
+            "contactNo": "0709876543"
+        },
+        {
+            "orderId": "5",
+            "fullName": "Lahiru Perera",
+            "district": "Jaffna",
+            "postalCode": "40000",
+            "contactNo": "0781234567"
+        }
     ]
 }
