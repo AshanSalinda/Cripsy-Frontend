@@ -1,5 +1,6 @@
 {
     "id": 1,
+    "isAddedtoFavorites": false,
     "name": "AirPods Max",
     "price": 64099.00,
     "description": "<p>Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.</p><p></p><ul><li><p>Bluetooth version: V3.0+EDR Bluetooth.</p></li><li><p>Transmission distance: 10 meters.</p></li><li><p>Use time: 4 hours.</p></li><li><p>Standby time: 120 hours.</p></li><li><p>Battery: 250mAh rechargeable lithium battery.</p></li><li><p>Weight: 330g.</p></li></ul>",
@@ -46,7 +47,7 @@
         "date": "2021-01-01"
       }
     ],
-    "images": [
+    "imageUrls": [
       "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
       "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",
       "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/e9/73/e973592ca701a4c1b5a9326020ed2962/201209150026254305.webp",
