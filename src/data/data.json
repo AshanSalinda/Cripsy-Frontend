@@ -126,5 +126,40 @@
         "Bat",
         "Ball",
         "Samsung Phone"
+    ],
+    "productData":[
+        
+            {
+              "productId": 1,
+              "imageSrc": "/path/to/image1.jpg",
+              "title": "POLO Shirt - Original",
+              "description": "High-quality polo shirt made from premium materials.",
+              "rating": 4.5,
+                "availableItems": 10,
+              "reviews": 120,
+              "price": 64099
+            },
+            {
+              "productId": 2,
+              "imageSrc": "/path/to/image2.jpg",
+              "title": "Casual Shirt",
+              "description": "Lightweight and comfortable for everyday wear.",
+              "rating": 4.3,
+              "availableItems": 5,
+              "reviews": 85,
+              "price": 45999
+            },
+            {
+              "productId": 3,
+              "imageSrc": "/path/to/image3.jpg",
+              "title": "Formal Shirt",
+              "description": "Perfect for office or formal occasions.",
+              "rating": 4.7,
+                "availableItems": 7,
+              "reviews": 150,
+              "price": 55999
+            }
+          
+          
     ]
 }
