@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/NavBar/AppSidebar";
 import { Clock9,Heart, Inbox, User,Gift,Truck,ShieldX } from "lucide-react";
 import TopNavbar from "@/components/TopNavbar/TopNavbar";
-import { DeliveredOrdersSection } from "@/section/DeliveredOrdersSection/DeliveredOrdersSection";
+import {RefundRequestSection} from "@/section/RefundRequestSection/RefundRequestSection";
 import Footer from "@/components/Footer/Footer";
 
 const acitems = [
@@ -50,13 +50,29 @@ const oritems =[
 export default function page({ children }: { children: React.ReactNode }) {
     return (
 
-        <div>
-            <TopNavbar />
-            <AppSidebar accountItems={acitems} orderItems ={oritems} />
-            <DeliveredOrdersSection/>
-            <Footer/> 
 
-        </div>
+
+<div className="flex flex-col min-h-screen">
+
+<div className="flex-shrink-0 z-50">
+    <TopNavbar />
+</div>
+
+<div className="flex flex-1 overflow-hidden">
+
+    <div className="flex-shrink-0">
+        <AppSidebar accountItems={acitems} orderItems ={oritems} />
+    </div>
+
+    <main className="flex-1 p-6 overflow-y-auto mt-20">
+    <RefundRequestSection/>
+    </main>
+</div>
+
+</div>
+
+
+
         
     );
 }
