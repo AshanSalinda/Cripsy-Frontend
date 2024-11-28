@@ -29,6 +29,7 @@ export interface WatchlistCardProps {
     onRemoveFromWatchlist?: () => void;
     onPreviewClick?: () => void;
     hideAddToCart?: boolean;
+    hideHartIcon?: boolean;
 }
 
 const WatchlistCard: React.FC<WatchlistCardProps> = ({
@@ -43,6 +44,7 @@ const WatchlistCard: React.FC<WatchlistCardProps> = ({
     availableItems,
     onPreviewClick,
     hideAddToCart = false,
+    hideHartIcon = false,
 }) => {
     const router = useRouter();
 
@@ -102,12 +104,14 @@ const WatchlistCard: React.FC<WatchlistCardProps> = ({
                         {/* Favorite Icon */}
 
                         <div className="pl-40 pt-0">
+                        {!hideHartIcon && (
                             <Tooltip
                                 label={isFavorite ? "Remove from Watchlist" : "Add to WatchList"}
                                 className='clickEffect'
                                 onClick={handleFav} >
                                 {isFavorite ? <IoMdHeart className="text-carnation-500 text-3xl" /> : <IoMdHeartEmpty className="text-carnation-500 text-3xl" />}
                             </Tooltip>
+                        )}
                         </div>
                         
                     {/* Product Price */}
