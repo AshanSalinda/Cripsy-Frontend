@@ -8,6 +8,7 @@ import CustomButton from "@/components/Button/CustomButton";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import AddNewBranch from "@/components/TestBranch/AddNewBranch";
 import { Branch } from "@/components/Table/Columns"; 
+import { Separator } from "@radix-ui/react-separator";
 
 const BranchTable = () => {
     const [isNewBranchPopupOpen, setIsNewBranchPopupOpen] = useState(false);
@@ -41,6 +42,15 @@ const BranchTable = () => {
                 handleDelete={handleDelete}
                 getRowId={(row) => row.branchId}
                 handleEdit={() => {}}
+            />
+
+            <Separator orientation="vertical" className="mt-4 mb-4 border-2 bg-black " />
+
+            <Separator
+                className="SeparatorRoot h-5"
+                decorative
+                orientation="vertical"
+                style={{ margin: "0 15px" }}
             />
 
             {isNewBranchPopupOpen && (
