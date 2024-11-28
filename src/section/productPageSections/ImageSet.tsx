@@ -7,7 +7,7 @@ interface ImageSetType {
     alt: string
 }
 
-const ImageSet: React.FC<ImageSetType> = ({ images, alt }) => {
+const ImageSet: React.FC<ImageSetType> = ({ images = [], alt }) => {
     const [activeImage, setActiveImage] = useState(0);
 
     return (

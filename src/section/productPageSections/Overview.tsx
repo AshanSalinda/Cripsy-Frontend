@@ -9,11 +9,11 @@ import Tooltip from '@/components/Tooltip/Tooltip';
 
 
 interface PropsType extends DetailsType {
-    images: string[]
+    imageUrls: string[]
 }
 
 const Overview: React.FC<PropsType> = (props) => {
-    const { images, ...details } = props;
+    const { imageUrls, ...details } = props;
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleFav = () => {
@@ -50,7 +50,7 @@ const Overview: React.FC<PropsType> = (props) => {
             </div>
             <div className="flex bg-black items-start md:items-center min-h-fit h-full">
                 <div className="flex flex-wrap justify-between items-start mt-5 mb-10 md:items-center w-full">
-                    <ImageSet images={images} alt={props.name}/>
+                    <ImageSet images={imageUrls} alt={props.name}/>
                     <ProductDetails {...details} />
                 </div>
             </div>

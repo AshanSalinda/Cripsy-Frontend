@@ -5,7 +5,7 @@ interface DescriptionType {
 }
 
 const Description: React.FC<DescriptionType> = ({description}) => {
-    const styledDescription = description.replace(/<p>/g, '<p style="min-height: 20px;">');
+    const styledDescription = description?.replace(/<p>/g, '<p style="min-height: 20px;">');
 
     return (
         <div className="px-3 py-7 md:p-7 box-border">

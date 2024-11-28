@@ -7,13 +7,13 @@ import Button from "@/components/Button/CustomButton";
 export interface DetailsType {
     name: string,
     price: number,
-    rating: number,
+    avgRatings: number,
     ratingCount: number,
-    totalReviewsCount: number,
+    reviewCount: number,
     stock: number,
 }
 
-const ProductDetails: React.FC<DetailsType> = ({ name, price, rating, ratingCount, totalReviewsCount, stock}) => {
+const ProductDetails: React.FC<DetailsType> = ({ name, price, avgRatings, ratingCount, reviewCount, stock}) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const quantity = ((e.target as HTMLFormElement).elements.namedItem("quantity") as HTMLInputElement)?.value;
@@ -28,13 +28,13 @@ const ProductDetails: React.FC<DetailsType> = ({ name, price, rating, ratingCoun
 
     return (
         <div className="flex-[100%] md:flex-[45%] pr-5 ml-3 lg:ml-0">
-            <h1 className="text-white font-medium mt-10 md:mt-0 leading-none">{name}</h1>
+            <h1 className="text-white font-medium mt-10 md:mt-0 leading-none min-h-12">{name}</h1>
             <div className="flex items-center mt-5">
-                <h3 className="text-white font-extralight tracking-wider mr-3">{rating}</h3>
-                <RatingStars value={rating} />
+                <h3 className="text-white font-extralight tracking-wider mr-3">{avgRatings?.toPrecision(2)}</h3>
+                <RatingStars value={avgRatings} />
             </div>
-            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | ${totalReviewsCount} Reviews`}</p>
-            <h2 className="text-carnation-500 tracking-wider mb-10">{`Rs ${price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
+            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
+            <h2 className="text-carnation-500 tracking-wider mb-10">{`Rs ${price?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
             <form onSubmit={handleSubmit}>
                 <p className="text-neutral-400 font-normal mb-1">Quantity:</p>
                 <QuantityInput max={stock}/>
