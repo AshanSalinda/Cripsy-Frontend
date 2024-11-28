@@ -1,70 +1,99 @@
 "use client";
 import React, { useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { storage } from "@/utils/firebaseConfig";
 
-const ProductImgUploader: React.FC = () => {
-    const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
+export interface UploadedImage {
+    file: File;
+    preview: string;
+    url: string;
+    storagePath: string;
+}
+
+interface ProductImgUploaderProps {
+    images: UploadedImage[];
+    setImages: React.Dispatch<React.SetStateAction<UploadedImage[]>>;
+}
+
+const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({ images, setImages }) => {
     const [uploading, setUploading] = useState(false);
-    const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+    const [selectedImage, setSelectedImage] = useState<UploadedImage | null>(images[0] || null);
 
     const handleAddImages = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            const files = Array.from(event.target.files).map((file) => ({
-                file,
-                preview: URL.createObjectURL(file),
-            }));
-            setImages((prevImages) => [...prevImages, ...files]);
-        }
-    };
+            const files = Array.from(event.target.files);
 
-    const handleUploadImages = async () => {
-        if (images.length === 0) {
-            alert("No images to upload!");
-            return;
-        }
+            files.forEach(async (file) => {
+                const preview = URL.createObjectURL(file);
 
-        setUploading(true);
+                // Start uploading the image to Firebase
+                const storagePath = `images/${file.name}-${Date.now()}`;
+                const storageRef = ref(storage, storagePath);
 
-        const uploadPromises = images.map(({ file }) => {
-            const storageRef = ref(storage, `images/${file.name}-${Date.now()}`);
-            const uploadTask = uploadBytesResumable(storageRef, file);
+                setUploading(true);
+                const uploadTask = uploadBytesResumable(storageRef, file);
 
-            return new Promise<string>((resolve, reject) => {
                 uploadTask.on(
                     "state_changed",
                     null,
-                    (error) => reject(error),
+                    (error) => {
+                        console.error("Upload error:", error);
+                        setUploading(false);
+                    },
                     async () => {
-                        const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
-                        resolve(downloadUrl);
+                        const url = await getDownloadURL(uploadTask.snapshot.ref);
+
+                        const newImage = { file, preview, url, storagePath };
+                        setImages((prevImages) => [...prevImages, newImage]);
+
+                        // Set the first added image as the selected image if none is selected
+                        if (!selectedImage) setSelectedImage(newImage);
+
+                        setUploading(false);
                     }
                 );
             });
-        });
-
-        try {
-            const urls = await Promise.all(uploadPromises);
-            setUploadedUrls(urls);
-            alert("Images uploaded successfully!");
-        } catch (error) {
-            console.error("Error uploading images:", error);
-            alert("Failed to upload images!");
-        } finally {
-            setUploading(false);
         }
+    };
+
+    const handleDeleteImage = async (image: UploadedImage) => {
+        try {
+            // Delete image from Firebase Storage
+            const storageRef = ref(storage, image.storagePath);
+            await deleteObject(storageRef);
+
+            // Remove image from the view
+            setImages((prevImages) =>
+                prevImages.filter((img) => img.storagePath !== image.storagePath)
+            );
+
+            // Update the selected image if the deleted image was the selected one
+            if (selectedImage?.storagePath === image.storagePath) {
+                setSelectedImage(images.length > 1 ? images[0] : null);
+            }
+
+            alert("Image deleted successfully!");
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            alert("Failed to delete the image!");
+        }
+    };
+
+    const handleImageClick = (image: UploadedImage) => {
+        setSelectedImage(image);
     };
 
     return (
         <div className="p-1">
             <h2 className="text-2xl mb-4">Upload Images</h2>
+
             <div className="rounded-lg shadow-lg w-full h-[22rem] p-3 mb-4">
-                {images.length > 0 ? (
+                {selectedImage ? (
                     <Image
-                        src={images[0].preview}
-                        alt="Uploaded Preview"
+                        src={selectedImage.preview}
+                        alt="Selected Preview"
                         width={500}
                         height={320}
                         className="w-full h-80 object-cover rounded-lg"
@@ -75,11 +104,17 @@ const ProductImgUploader: React.FC = () => {
                     </div>
                 )}
             </div>
-            <div className="flex space-x-4 mb-4">
+
+            <div className="flex space-x-4 mb-4 flex-wrap">
                 {images.map((image, index) => (
                     <div
                         key={index}
-                        className="relative w-20 h-20 border-2 border-gray-200 rounded-lg overflow-hidden"
+                        className={`relative w-20 h-20 mb-3 mr-0 border-2 rounded-lg overflow-hidden cursor-pointer ${
+                            selectedImage?.storagePath === image.storagePath
+                                ? "border-[#FF5757]"
+                                : "border-gray-200"
+                        }`}
+                        onClick={() => handleImageClick(image)}
                     >
                         <Image
                             src={image.preview}
@@ -87,42 +122,32 @@ const ProductImgUploader: React.FC = () => {
                             layout="fill"
                             objectFit="cover"
                         />
+                        <button
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteImage(image);
+                            }}
+                        >
+                            <AiOutlineClose size={16} />
+                        </button>
                     </div>
                 ))}
-                <label className="w-20 h-20 border-2 border-dashed border-[#FF5757] rounded-lg flex items-center justify-center cursor-pointer">
-                    <AiOutlinePlus size={24} className="text-[#FF5757]" />
-                    <input
-                        type="file"
-                        multiple
-                        className="hidden"
-                        onChange={handleAddImages}
-                        accept="image/*"
-                    />
-                </label>
+                {images.length < 5 && (
+                    <label className="w-20 h-20 border-2 border-dashed border-[#FF5757] rounded-lg flex items-center justify-center cursor-pointer">
+                        <AiOutlinePlus size={24} className="text-[#FF5757]" />
+                        <input
+                            type="file"
+                            multiple
+                            className="hidden"
+                            onChange={handleAddImages}
+                            accept="image/*"
+                        />
+                    </label>
+                )}
             </div>
-            <button
-                onClick={handleUploadImages}
-                className={`px-4 py-2 text-white rounded-lg ${
-                    uploading ? "bg-gray-500 cursor-not-allowed" : "bg-[#FF5757]"
-                }`}
-                disabled={uploading}
-            >
-                {uploading ? "Uploading..." : "Upload Images"}
-            </button>
-            {uploadedUrls.length > 0 && (
-                <div className="mt-4">
-                    <h3 className="text-lg font-semibold">Uploaded Image URLs:</h3>
-                    <ul>
-                        {uploadedUrls.map((url, index) => (
-                            <li key={index}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">
-                                    {url}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+
+            {uploading && <p className="text-gray-500">Uploading...</p>}
         </div>
     );
 };
