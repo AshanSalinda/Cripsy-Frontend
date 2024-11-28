@@ -8,6 +8,13 @@ import ProductImgUploader, { UploadedImage } from "@/components/Image/ProductImg
 
 const AddProductForm = () => {
     const [images, setImages] = useState<UploadedImage[]>([]);
+    const [editorContent, setEditorContent] = useState<string>('');
+
+    const handleEditorChange = (content: string) => {
+        setEditorContent(content);
+        console.log("Editor content:", content); // Logs the current editor content
+    };
+
     const options = [
         { label: 'Light', value: 'light' },
         { label: 'Dark', value: 'dark' },
@@ -21,7 +28,7 @@ const AddProductForm = () => {
                     <h2 className="text-2xl mb-4">General Information</h2>
                     <InputField id='name' type='text' placeholder='Name' label={true} labelName='Name'/>
                     <h2 className="text-2xl mt-2">Description</h2>
-                    <TextEditor/>
+                    <TextEditor className="mb-4" onChange={handleEditorChange} />
 
                     <h2 className='text-2xl mt-5'>Pricing and Stock</h2>
                     <div className="grid grid-cols-1 w-full md:grid-cols-10 gap-7 mt-3">
