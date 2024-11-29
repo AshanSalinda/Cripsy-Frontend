@@ -48,7 +48,7 @@ const ProductItem: React.FC = () => {
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const product = await getProductItemDetails( 2, "Ashan" );
+            const product = await getProductItemDetails( 2, "string" );
             setProductItem(product);
         };
 

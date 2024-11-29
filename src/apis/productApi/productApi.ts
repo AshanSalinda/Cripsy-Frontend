@@ -54,9 +54,7 @@ export const getProductById = async (id: number) => {
 export const getProductItemDetails = async (productId: number, userName: string ) => {
     try {
         const response = await api.get(`/api/product/${productId}/${userName}`);
-        const product = response.data;
-        console.log("product:", product);
-        return product;
+        return response.data;
     } catch (error) {
         console.log("Error Getting product Details:", error);
         return {
@@ -83,6 +81,18 @@ export const getProductItemDetails = async (productId: number, userName: string 
         };
     }
 };
+
+
+export const getReviews = async (productId: number, pageNo: number) => {
+    try {
+        const response = await api.get(`/api/product/${productId}/reviews/${pageNo}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching reviews:", error);
+        return [];
+    }
+}
+
 
 // Update a product
 export const updateProduct = async (
