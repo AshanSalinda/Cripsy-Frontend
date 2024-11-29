@@ -9,9 +9,11 @@ import { getProductItemDetails } from '@/apis/productApi/productApi';
 
 
 const ProductItem: React.FC = () => {
+    const productId = 1;
+
     const [productItem, setProductItem] = React.useState({
         productId: 0,
-        name: "Product Item",
+        name: "",
         description: "",
         discount: 0,
         price: 0,
@@ -42,13 +44,13 @@ const ProductItem: React.FC = () => {
     };
 
     const ratingAndReviewsData = {
-        avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
+        productId, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
     };
 
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const product = await getProductItemDetails( 2, "string" );
+            const product = await getProductItemDetails( productId, "string" );
             setProductItem(product);
         };
 
