@@ -57,6 +57,7 @@ const AddProductForm = () => {
             await addProduct(payload);
             console.log("Product added successfully!");
         } catch (error) {
+            
             console.error("Failed to add product:", error);
         }
     };
@@ -114,7 +115,7 @@ const AddProductForm = () => {
                     <Dropdown
                         options={options}
                         placeholder="Select Category"
-                        onChange={(value) => setCategory(value)}
+                        onChange={(value) => setCategory(Number(value))}
                     />
                 </div>
 

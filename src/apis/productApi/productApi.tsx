@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios instance with base URL
 const api = axios.create({
-    baseURL: "http://localhost:8082"
+    baseURL: "http://localhost:8080"
 });
 
 // Add a product
@@ -92,7 +92,7 @@ export const deleteProduct = async (id: number) => {
 
 export const getCategories = async () => {
     try {
-        const response = await api.get("/api/category/getAll"); // Use the api instance for consistency
+        const response = await api.get("/api/product/category/getAll"); // Use the api instance for consistency
         return response.data;
     } catch (error) {
         console.error("Error fetching categories:", error);
