@@ -24,6 +24,7 @@ interface ReviewType {
 }
 
 interface RatingAndReviewsType extends RatingStatsType {
+    productId: number,
     avgRatings: number,
     reviewCount: number,
     isUserRated: boolean,
@@ -31,7 +32,7 @@ interface RatingAndReviewsType extends RatingStatsType {
 }
 
 
-const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] }) => {
+const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentReviews, setCurrentReviews] = useState(reviews);
     const numberOfReviewsPerPage = 5;
@@ -42,7 +43,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ avgRatings, ratingCo
     }, [reviews]);
 
     const handlePagination = async (page: number) => {
-        const newReviews = await getReviews(2, page);
+        const newReviews = await getReviews(productId, page);
         setCurrentReviews(newReviews);
         setCurrentPage(page);
     }
