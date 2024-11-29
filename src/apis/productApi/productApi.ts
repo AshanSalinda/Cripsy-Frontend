@@ -94,6 +94,17 @@ export const getReviews = async (productId: number, pageNo: number) => {
 }
 
 
+export const getCartItems = async (userId: number) => {
+    try{
+        const response = await api.get(`/api/product/cart/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
+        return [];
+    }
+}
+
+
 // Update a product
 export const updateProduct = async (
     id: number,
