@@ -57,7 +57,6 @@ const AddProductForm = () => {
             await addProduct(payload);
             console.log("Product added successfully!");
         } catch (error) {
-            
             console.error("Failed to add product:", error);
         }
     };
