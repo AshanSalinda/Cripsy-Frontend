@@ -15,6 +15,7 @@ export const addProduct = async (productData: {
     discount: number;
     rating: number;
     ratingCount: number;
+    category: number;
     imageUrls: string[];
 }) => {
     try {
@@ -88,3 +89,14 @@ export const deleteProduct = async (id: number) => {
         throw error;
     }
 };
+
+export const getCategories = async () => {
+    try {
+        const response = await api.get("/api/category/getAll"); // Use the api instance for consistency
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+        throw error;
+    }
+};
+
