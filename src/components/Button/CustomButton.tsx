@@ -47,13 +47,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     return (
         <>
             <Button
-                className={`flex items-center text-center justify-center gap-0 px-6 py-3 rounded-md clickEffect
+                className={`flex items-center text-center justify-center gap-0 px-6 py-3 rounded-md text-sm font-medium clickEffect
                     ${theme[variant]} ${buttonClassName}`}
                 name={name}
                 value={value}
                 onClick={handleButtonClick}
             >
-                <span className="text-sm font-medium">{buttonLabel}</span>
+                <span>{buttonLabel}</span>
                 {showIcon && <span className="text-base">{icon}</span>}
             </Button>
             {isModalOpen && modalContent && (
