@@ -6,6 +6,7 @@ import Button from '@/components/Button/CustomButton';
 import { Progress } from "@/components/ui/progress"
 import { FaUser } from "react-icons/fa6";
 import Pagination from '@/components/Table/Pagination';
+import { getReviews } from '@/apis/productApi/productApi';
 
 
 interface RatingStatsType {
@@ -40,11 +41,10 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ avgRatings, ratingCo
         setCurrentReviews(reviews);
     }, [reviews]);
 
-    const handlePagination = (page: number) => {
+    const handlePagination = async (page: number) => {
+        const newReviews = await getReviews(2, page);
+        setCurrentReviews(newReviews);
         setCurrentPage(page);
-        // const startIndex = (page - 1) * numberOfReviewsPerPage;
-        // const endIndex = startIndex + numberOfReviewsPerPage;
-        setCurrentReviews(reviews.slice(0, 5));
     }
 
     return (
