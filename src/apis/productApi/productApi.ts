@@ -88,7 +88,7 @@ export const getCartItems = async (userId: number) => {
 export const addToCart = async (productId: number, userId: number, quantity: number) => {
     try {
         await api.post(
-            '/api/product/cart/add',
+            '/api/product/cart',
             { productId, userId, quantity }
         );
     } catch (error) {
@@ -100,7 +100,7 @@ export const addToCart = async (productId: number, userId: number, quantity: num
 export const updateCartQuantity = async (productId: number, userId: number, quantity: number) => {
     try {
         const response = await api.put(
-            '/api/product/cart/update',
+            '/api/product/cart',
             { productId, userId, quantity }
         );
         return response.data;

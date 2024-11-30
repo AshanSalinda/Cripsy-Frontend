@@ -5,6 +5,7 @@ import Button from '@/components/Button/CustomButton';
 import QuantityInput from '@/components/Product/QuantityInput';
 import RatingStar from '@/components/Product/RatingStar';
 import { updateCartQuantity } from '@/apis/productApi/productApi';
+import { CartItemType } from '@/app/cart/page';
 
 interface PropsType {
     productId: number;
@@ -18,10 +19,11 @@ interface PropsType {
     reviewCount: number;
     stock: number;
     quantity: number;
+    setCartItems: React.Dispatch<React.SetStateAction<CartItemType[]>>;
 }
 
 const CartProductCard: React.FC<PropsType> = (props) => {
-    const { productId, userId, imageUrl, name, price, description, avgRatings, ratingCount, reviewCount, stock, quantity } = props;
+    const { productId, userId, imageUrl, name, price, description, avgRatings, ratingCount, reviewCount, stock, quantity, setCartItems } = props;
     const [isQuantityChanged, setIsQuantityChanged] = useState(false);
 
     const router = useRouter();
@@ -36,7 +38,7 @@ const CartProductCard: React.FC<PropsType> = (props) => {
         setIsQuantityChanged(false);
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const value = ((e.target as HTMLFormElement).elements.namedItem("quantity") as HTMLInputElement)?.value;
         const action = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
@@ -44,7 +46,9 @@ const CartProductCard: React.FC<PropsType> = (props) => {
         if (action === "removeFromCart") {
             console.log("removeFromCart");
         } else if (action === "updateQuantity") {
-            // updateCartQuantity(productId, userId, parseInt(value));
+            const updatedCartItems = await updateCartQuantity(productId, userId, parseInt(value));
+            setCartItems(updatedCartItems);
+            setIsQuantityChanged(false);
             console.log("updateQuantity", value);
         }
     };

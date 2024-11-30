@@ -47,6 +47,7 @@ const QuantityInput: React.FC<Props> = ({
         const key = event.key;
         if(key == 'ArrowUp'){ handleIncrement(); } 
         else if (key == 'ArrowDown') { handleDecrement(); }
+        else if (key == 'Enter') { event.currentTarget.blur(); }
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,10 +65,10 @@ const QuantityInput: React.FC<Props> = ({
         setValue(value);
     };
 
-    const buttonClasses = `bg-carnation-400 hover:bg-carnation-500 border-none text-white select-none ${small ? 'w-7 h-7 text-md rounded-full' : 'w-10 h-10 text-lg'}`;
+    const buttonClasses = `relative bg-carnation-400 hover:bg-carnation-500 border-none text-white select-none rounded-full ${small ? 'w-7 h-7' : 'w-10 h-10'}`;
 
     return (
-        <div className='flex items-center'>
+        <div className={`flex items-center w-fit rounded-full ${small ? 'shadow-sm' : 'bg-zinc-800'}`} >
             <Button
                 type="button"
                 size="sm"
@@ -75,16 +76,17 @@ const QuantityInput: React.FC<Props> = ({
                 disabled={quantity <= min}
                 className={'rounded-l-sm rounded-r-none ' + buttonClasses}
             >
-                -
+                <span className={`absolute top-1/2 translate-y-[-55%] ${small ? 'text-lg' : 'text-2xl' }`}>-</span>
             </Button>
             <Input
                 type="text"
                 name="quantity"
                 value={quantity}
+                autoComplete="off"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
-                className={"text-center md:text-lg rounded-none border-none focus-visible:ring-0 " + (small ? 'h-7 w-14' : ' h-10 w-32 bg-neutral-700 text-white')}
+                className={"text-center md:text-lg rounded-none border-none focus-visible:ring-0 " + (small ? 'h-7 w-14' : 'h-10 w-24 text-white')}
             />
             <Button
                 type="button"
@@ -93,7 +95,7 @@ const QuantityInput: React.FC<Props> = ({
                 disabled={quantity >= max}
                 className={"rounded-l-none rounded-r-sm " + buttonClasses}
             >
-                +
+                <span className={`absolute top-1/2 translate-y-[-55%] ${small ? 'text-lg' : 'text-2xl' }`}>+</span>
             </Button>
         </div>
     );
