@@ -39,8 +39,8 @@ const ProductDetails: React.FC<DetailsType> = (props) => {
                 <h3 className="text-white font-extralight tracking-wider mr-3">{avgRatings?.toPrecision(2)}</h3>
                 <RatingStars value={avgRatings} />
             </div>
-            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
-            <h2 className="text-carnation-500 tracking-wider mb-10">{`Rs ${price?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
+            <p className="text-neutral-400 font-light">{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
+            <h2 className="text-carnation-500 tracking-wider my-5">{`Rs ${price?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
             <form onSubmit={handleSubmit}>
                 <p className="text-neutral-400 font-normal mb-1">Quantity:</p>
                 <QuantityInput max={stock}/>
