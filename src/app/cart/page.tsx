@@ -5,7 +5,7 @@ import TopNavbar from '@/components/TopNavbar/TopNavbar';
 import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
 import CartProductCard from '@/section/CartPageSections/CartItemCard';
-import { getCartItems } from '@/apis/productApi/productApi';
+import { getCartItems } from '@/apis/cartApi/cartApi';
 
 
 export interface CartItemType {
@@ -29,23 +29,6 @@ const Cart: React.FC = () => {
     const [totalAmount, setTotalAmount] = React.useState(0);
     const ShippingCharge = 200;
     const userId = 1;
-
-    useEffect(() => {
-        const fetchCartItems = async () => {
-            const cartItems = await getCartItems(userId);
-            setCartItems(cartItems);
-        };
-
-        fetchCartItems();
-    }, []);
-
-
-    useEffect(() => {
-        const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
-        setTotalAmount(total + ShippingCharge);
-    }, [cartItems]);
-
-
 
     const getCartItemProps = (item: CartItemType) => {
         return {
@@ -75,6 +58,27 @@ const Cart: React.FC = () => {
             isError: item?.stock < item?.quantity
         }
     }
+
+
+    const handleCheckout = () => {
+        console.log("Checkout button clicked");
+    }
+
+    
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            const cartItems = await getCartItems(userId);
+            setCartItems(cartItems);
+        };
+
+        fetchCartItems();
+    }, []);
+
+
+    useEffect(() => {
+        const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
+        setTotalAmount(total + ShippingCharge);
+    }, [cartItems]);
 
 
     return (
@@ -118,7 +122,7 @@ const Cart: React.FC = () => {
                                     {`Rs ${totalAmount?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
                                 </p>
                             </div>
-                            <Button buttonClassName='w-full mt-4 mx-auto' buttonLabel='Checkout' />
+                            <Button buttonClassName='w-full mt-4 mx-auto' buttonLabel='Checkout' onClick={handleCheckout} />
                         </div>
                     </div>                    
                 </div>

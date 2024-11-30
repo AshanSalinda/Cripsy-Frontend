@@ -24,10 +24,10 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
             <button className='w-full flex justify-between items-center' onClick={toggleExpand} >
                 <div className='flex flex-grow items-center overflow-hidden'>
                     <IoCaretForwardSharp className={`transition-transform duration-200 ease-in-out mr-2 ${isExpanded ? 'rotate-90' : 'rotate-0' }`}/>
-                    <p className={isError ? 'text-[#ff0000] font-semibold' : 'font-normal'}>{name}</p>
+                    <p className={isError ? 'text-[#ff0000] font-semibold' : 'font-medium'}>{name}</p>
                 </div>
 
-                <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0' }`}>
+                <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-28' : 'opacity-100 translate-y-0' }`}>
                     {`Rs ${total?.toLocaleString()}`}
                 </p>
             </button>

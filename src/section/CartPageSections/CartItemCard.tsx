@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Button from '@/components/Button/CustomButton';
 import QuantityInput from '@/components/Product/QuantityInput';
 import RatingStar from '@/components/Product/RatingStar';
-import { updateCartQuantity, removeFromCart } from '@/apis/productApi/productApi';
+import { updateCartQuantity, removeFromCart } from '@/apis/cartApi/cartApi';
 import { CartItemType } from '@/app/cart/page';
 
 interface PropsType {
