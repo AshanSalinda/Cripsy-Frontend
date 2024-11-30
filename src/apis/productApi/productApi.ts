@@ -41,17 +41,7 @@ export const getProducts = async () => {
     }
 };
 
-// Get product by ID
-export const getProductById = async (id: number) => {
-    try {
-        const response = await api.get(`/api/product/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching product:", error);
-        throw error;
-    }
-};
-
+// Get product by Item
 export const getProductItemDetails = async (productId: number, userName: string ) => {
     try {
         const response = await api.get(`/api/product/${productId}/${userName}`);
@@ -62,61 +52,13 @@ export const getProductItemDetails = async (productId: number, userName: string 
     }
 };
 
-
+// Get Product Reviews
 export const getReviews = async (productId: number, pageNo: number) => {
     try {
         const response = await api.get(`/api/product/${productId}/reviews/${pageNo}`);
         return response.data;
     } catch (error) {
         console.log("Error fetching reviews:", error);
-        return [];
-    }
-}
-
-
-export const getCartItems = async (userId: number) => {
-    try{
-        const response = await api.get(`/api/product/cart/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.log("Error fetching cart items:", error);
-        return [];
-    }
-}
-
-
-export const addToCart = async (productId: number, userId: number, quantity: number) => {
-    try {
-        await api.post(
-            '/api/product/cart',
-            { productId, userId, quantity }
-        );
-    } catch (error) {
-        console.log("Error adding to cart:", error);
-    }
-}
-
-
-export const updateCartQuantity = async (productId: number, userId: number, quantity: number) => {
-    try {
-        const response = await api.put(
-            '/api/product/cart',
-            { productId, userId, quantity }
-        );
-        return response.data;
-    } catch (error) {
-        console.log("Error updating cart quantity:", error);
-        return [];
-    }
-}
-
-
-export const removeFromCart = async (productId: number, userId: number) => {
-    try {
-        const response = await api.delete(`/api/product/cart/${productId}/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.log("Error removing from cart:", error);
         return [];
     }
 }

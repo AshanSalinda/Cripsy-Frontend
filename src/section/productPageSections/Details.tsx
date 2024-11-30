@@ -2,7 +2,7 @@ import React from 'react';
 import RatingStars from "@/components/Product/RatingStar";
 import QuantityInput from "@/components/Product/QuantityInput";
 import Button from "@/components/Button/CustomButton";
-import { addToCart } from '@/apis/productApi/productApi';
+import { addToCart } from '@/apis/cartApi/cartApi';
 
 
 export interface DetailsType {

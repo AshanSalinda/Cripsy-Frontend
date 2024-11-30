@@ -5,7 +5,7 @@ import TopNavbar from '@/components/TopNavbar/TopNavbar';
 import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
 import CartProductCard from '@/section/CartPageSections/CartItemCard';
-import { getCartItems } from '@/apis/productApi/productApi';
+import { getCartItems } from '@/apis/cartApi/cartApi';
 
 
 export interface CartItemType {

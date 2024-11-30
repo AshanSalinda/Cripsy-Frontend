@@ -27,7 +27,7 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
                     <p className={isError ? 'text-[#ff0000] font-semibold' : 'font-medium'}>{name}</p>
                 </div>
 
-                <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0' }`}>
+                <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-28' : 'opacity-100 translate-y-0' }`}>
                     {`Rs ${total?.toLocaleString()}`}
                 </p>
             </button>
