@@ -8,7 +8,7 @@ import CartProductCard from '@/section/CartPageSections/CartItemCard';
 import { getCartItems } from '@/apis/productApi/productApi';
 
 
-interface CartItemType {
+export interface CartItemType {
     productId: number;
     imageUrl: string;
     name: string;
@@ -33,20 +33,24 @@ const Cart: React.FC = () => {
     useEffect(() => {
         const fetchCartItems = async () => {
             const cartItems = await getCartItems(userId);
-            const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
-            setTotalAmount(total + ShippingCharge);
             setCartItems(cartItems);
-            console.log(cartItems);
         };
 
         fetchCartItems();
     }, []);
 
 
+    useEffect(() => {
+        const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
+        setTotalAmount(total + ShippingCharge);
+    }, [cartItems]);
+
+
 
     const getCartItemProps = (item: CartItemType) => {
         return {
             productId: item?.productId,
+            userId: userId,
             imageUrl: item?.imageUrl,
             name: item?.name,
             price: item?.price,
@@ -56,6 +60,7 @@ const Cart: React.FC = () => {
             reviewCount: item?.reviewCount,
             stock: item?.stock,
             quantity: item?.quantity,
+            setCartItems: setCartItems
         }
     }
 
@@ -66,7 +71,8 @@ const Cart: React.FC = () => {
             price: item?.price,
             quantity: item?.quantity,
             discount: item?.discount,
-            total: item?.total
+            total: item?.total,
+            isError: item?.stock < item?.quantity
         }
     }
 

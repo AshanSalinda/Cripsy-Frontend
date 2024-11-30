@@ -22,13 +22,12 @@ const ProductDetails: React.FC<DetailsType> = (props) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const quantity = ((e.target as HTMLFormElement).elements.namedItem("quantity") as HTMLInputElement)?.value;
-        const submitter = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
+        const action = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
 
-        if (submitter === "buy") {
+        if (action === "buyNow") {
             console.log("Buy Now clicked", quantity);
-        } else if (submitter === "addToCart") {
-            addToCart(productId, userId, parseInt(quantity))
-            console.log("Add to Cart clicked", quantity);
+        } else if (action === "addToCart") {
+            addToCart(productId, userId, parseInt(quantity));
         }
     };
 
@@ -49,8 +48,8 @@ const ProductDetails: React.FC<DetailsType> = (props) => {
                     <span className="text-white font-normal ml-2">{stock}</span>
                 </div>
                 <div className="flex items-center mt-5">
-                    <Button name="action" value="buy" buttonLabel="Buy Now" variant="primary" buttonClassName="px-8 mr-6"></Button>
-                    <Button name="action" value="addToCart" buttonLabel="Add to Cart" variant="outline" buttonClassName="px-5"></Button>
+                    <Button value="buyNow" buttonLabel="Buy Now" variant="primary" buttonClassName="px-8 mr-6"></Button>
+                    <Button value="addToCart" buttonLabel="Add to Cart" variant="outline" buttonClassName="px-5"></Button>
                 </div>
             </form>
         </div>

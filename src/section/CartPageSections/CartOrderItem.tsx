@@ -1,7 +1,6 @@
 "use client";
-
 import React, { useState } from 'react';
-import { IoCaretForwardSharp, IoCaretDownSharp } from "react-icons/io5";
+import { IoCaretForwardSharp } from "react-icons/io5";
 
 
 interface PropsType {
@@ -10,25 +9,28 @@ interface PropsType {
     quantity: number;
     discount: number;
     total: number;
+    isError: boolean;
 }
 
 const CartOrderItem: React.FC<PropsType> = (props) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const { name, price, quantity, discount, total } = props;
+    const { name, price, quantity, discount, total, isError = false } = props;
+    const [isExpanded, setIsExpanded] = useState(isError);
+
     const toggleExpand = () => setIsExpanded(!isExpanded);
 
     return (
         <div className="w-full mt-2 border-b pb-2" >
 
-            <div className="flex justify-between cursor-pointer" onClick={toggleExpand} >
-                <div className='flex items-center'>
-                    { isExpanded ? <IoCaretDownSharp/> : <IoCaretForwardSharp/>  }
-                    <p className="font-normal ml-2">{name}</p>
+            <button className='w-full flex justify-between items-center' onClick={toggleExpand} >
+                <div className='flex flex-grow items-center overflow-hidden'>
+                    <IoCaretForwardSharp className={`transition-transform duration-200 ease-in-out mr-2 ${isExpanded ? 'rotate-90' : 'rotate-0' }`}/>
+                    <p className={isError ? 'text-[#ff0000] font-semibold' : 'font-normal'}>{name}</p>
                 </div>
 
-                { !isExpanded && <p className="font-light">{`Rs ${total?.toLocaleString()}`}</p> }
-        
-            </div>
+                <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0' }`}>
+                    {`Rs ${total?.toLocaleString()}`}
+                </p>
+            </button>
 
             <div className={`overflow-hidden transition-max-height duration-300 ease-in-out ${isExpanded ? 'max-h-40' : 'max-h-0'}`} >
                 <div className="flex justify-between pl-8 mt-2">
@@ -36,8 +38,10 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
                     <p className="font-light">{price}</p>
                 </div> 
                 <div className="flex justify-between pl-8">
-                    <p className="font-light">Quantity</p>
-                    <p className="font-light">{quantity}</p>
+                    <p className="font-light">
+                        Quantity {isError && <span className='text-[#ff0000]'>(Limited Stock)</span>}
+                    </p>
+                    <p className={isError ? 'text-[#ff0000] font-medium' : 'font-light'}>{quantity}</p>
                 </div>
                 <div className="flex justify-between pl-8">
                     <p className="font-light">Discount</p>
