@@ -89,7 +89,7 @@ export const getReviews = async (productId: number, pageNo: number) => {
         const response = await api.get(`/api/product/${productId}/reviews/${pageNo}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.log("Error fetching reviews:", error);
         return [];
     }
 }
@@ -100,7 +100,7 @@ export const getCartItems = async (userId: number) => {
         const response = await api.get(`/api/product/cart/${userId}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching cart items:", error);
+        console.log("Error fetching cart items:", error);
         return [];
     }
 }
