@@ -38,18 +38,20 @@ const CartProductCard: React.FC<PropsType> = (props) => {
                 onClick={navigateToProduct}
             />
 
-            <div className='flex md:justify-between flex-col md:flex-row pl-4'>
-                <div className='md:flex-1'>
-                    <h4 className='font-semibold cursor-pointer' onClick={navigateToProduct}>{name}</h4>
+            <div className='flex flex-col md:flex-row w-full pl-4'>
+                <div className='md:flex-grow'>
+                    <button onClick={navigateToProduct}>
+                        <h4 className='font-semibold cursor-pointer'>{name}</h4>
+                    </button>
                     <p className='hidden md:block font-light text-sm mt-1 max-h-10 overflow-hidden'>{description}</p>
                     <div className='hidden md:flex items-center mt-2'>
-                        <span className='font-extralight text-xl mr-1'>{avgRatings}</span>
+                        <span className='font-extralight text-xl mr-1'>{avgRatings?.toPrecision(2)}</span>
                         <RatingStar small={true} value={avgRatings} />
                     </div>
                     <p className='hidden md:block font-light text-xs text-gray-400'>{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
                 </div>
 
-                <div className='h-36 w-px bg-slate-300 hidden md:block ml-3' />
+                <div className='h-36 w-px bg-slate-300 hidden md:block ml-5' />
 
                 <div className='flex h-28 md:h-auto flex-col items-start md:items-center justify-around md:px-10'>
                     <h6 className='font-semibold'>{`Rs ${price}`}</h6>
@@ -61,7 +63,6 @@ const CartProductCard: React.FC<PropsType> = (props) => {
                     />
                 </div>
             </div>
-            
         </div>
     );
 }

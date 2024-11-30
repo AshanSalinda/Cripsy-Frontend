@@ -2,9 +2,12 @@ import React from 'react';
 import RatingStars from "@/components/Product/RatingStar";
 import QuantityInput from "@/components/Product/QuantityInput";
 import Button from "@/components/Button/CustomButton";
+import { addToCart } from '@/apis/productApi/productApi';
 
 
 export interface DetailsType {
+    productId: number,
+    userId: number,
     name: string,
     price: number,
     avgRatings: number,
@@ -13,7 +16,9 @@ export interface DetailsType {
     stock: number,
 }
 
-const ProductDetails: React.FC<DetailsType> = ({ name, price, avgRatings, ratingCount, reviewCount, stock}) => {
+const ProductDetails: React.FC<DetailsType> = (props) => {
+    const { productId, userId, name, price, avgRatings, ratingCount, reviewCount, stock} = props;
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const quantity = ((e.target as HTMLFormElement).elements.namedItem("quantity") as HTMLInputElement)?.value;
@@ -22,6 +27,7 @@ const ProductDetails: React.FC<DetailsType> = ({ name, price, avgRatings, rating
         if (submitter === "buy") {
             console.log("Buy Now clicked", quantity);
         } else if (submitter === "addToCart") {
+            addToCart(productId, userId, parseInt(quantity))
             console.log("Add to Cart clicked", quantity);
         }
     };
@@ -33,8 +39,8 @@ const ProductDetails: React.FC<DetailsType> = ({ name, price, avgRatings, rating
                 <h3 className="text-white font-extralight tracking-wider mr-3">{avgRatings?.toPrecision(2)}</h3>
                 <RatingStars value={avgRatings} />
             </div>
-            <p className="text-neutral-400 font-light mb-10">{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
-            <h2 className="text-carnation-500 tracking-wider mb-10">{`Rs ${price?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
+            <p className="text-neutral-400 font-light">{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
+            <h2 className="text-carnation-500 tracking-wider my-5">{`Rs ${price?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
             <form onSubmit={handleSubmit}>
                 <p className="text-neutral-400 font-normal mb-1">Quantity:</p>
                 <QuantityInput max={stock}/>
