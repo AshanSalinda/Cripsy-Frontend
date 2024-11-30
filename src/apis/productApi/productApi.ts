@@ -111,6 +111,17 @@ export const updateCartQuantity = async (productId: number, userId: number, quan
 }
 
 
+export const removeFromCart = async (productId: number, userId: number) => {
+    try {
+        const response = await api.delete(`/api/product/cart/${productId}/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.log("Error removing from cart:", error);
+        return [];
+    }
+}
+
+
 // Update a product
 export const updateProduct = async (
     id: number,

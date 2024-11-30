@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Button from '@/components/Button/CustomButton';
 import QuantityInput from '@/components/Product/QuantityInput';
 import RatingStar from '@/components/Product/RatingStar';
-import { updateCartQuantity } from '@/apis/productApi/productApi';
+import { updateCartQuantity, removeFromCart } from '@/apis/productApi/productApi';
 import { CartItemType } from '@/app/cart/page';
 
 interface PropsType {
@@ -44,12 +44,12 @@ const CartProductCard: React.FC<PropsType> = (props) => {
         const action = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
 
         if (action === "removeFromCart") {
-            console.log("removeFromCart");
+            const updatedCartItems = await removeFromCart(productId, userId);
+            setCartItems(updatedCartItems);
         } else if (action === "updateQuantity") {
             const updatedCartItems = await updateCartQuantity(productId, userId, parseInt(value));
             setCartItems(updatedCartItems);
             setIsQuantityChanged(false);
-            console.log("updateQuantity", value);
         }
     };
     
