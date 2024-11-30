@@ -97,6 +97,20 @@ export const addToCart = async (productId: number, userId: number, quantity: num
 }
 
 
+export const updateCartQuantity = async (productId: number, userId: number, quantity: number) => {
+    try {
+        const response = await api.put(
+            '/api/product/cart/update',
+            { productId, userId, quantity }
+        );
+        return response.data;
+    } catch (error) {
+        console.log("Error updating cart quantity:", error);
+        return [];
+    }
+}
+
+
 // Update a product
 export const updateProduct = async (
     id: number,

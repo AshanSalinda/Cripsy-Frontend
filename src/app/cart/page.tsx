@@ -47,6 +47,7 @@ const Cart: React.FC = () => {
     const getCartItemProps = (item: CartItemType) => {
         return {
             productId: item?.productId,
+            userId: userId,
             imageUrl: item?.imageUrl,
             name: item?.name,
             price: item?.price,
@@ -66,7 +67,8 @@ const Cart: React.FC = () => {
             price: item?.price,
             quantity: item?.quantity,
             discount: item?.discount,
-            total: item?.total
+            total: item?.total,
+            isError: item?.stock < item?.quantity
         }
     }
 

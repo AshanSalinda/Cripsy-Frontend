@@ -9,11 +9,13 @@ interface PropsType {
     quantity: number;
     discount: number;
     total: number;
+    isError: boolean;
 }
 
 const CartOrderItem: React.FC<PropsType> = (props) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const { name, price, quantity, discount, total } = props;
+    const { name, price, quantity, discount, total, isError = false } = props;
+    const [isExpanded, setIsExpanded] = useState(isError);
+
     const toggleExpand = () => setIsExpanded(!isExpanded);
 
     return (
@@ -21,9 +23,8 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
 
             <button className='w-full flex justify-between items-center' onClick={toggleExpand} >
                 <div className='flex flex-grow items-center overflow-hidden'>
-                    {/* { isExpanded ? <IoCaretDownSharp/> : <IoCaretForwardSharp/>  } */}
-                    <IoCaretForwardSharp className={`transition-transform duration-200 ease-in-out ${isExpanded ? 'rotate-90' : 'rotate-0' }`}/>
-                    <p className="font-normal ml-2">{name}</p>
+                    <IoCaretForwardSharp className={`transition-transform duration-200 ease-in-out mr-2 ${isExpanded ? 'rotate-90' : 'rotate-0' }`}/>
+                    <p className={isError ? 'text-[#ff0000] font-semibold' : 'font-normal'}>{name}</p>
                 </div>
 
                 <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0' }`}>
@@ -37,8 +38,10 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
                     <p className="font-light">{price}</p>
                 </div> 
                 <div className="flex justify-between pl-8">
-                    <p className="font-light">Quantity</p>
-                    <p className="font-light">{quantity}</p>
+                    <p className="font-light">
+                        Quantity {isError && <span className='text-[#ff0000]'>(Limited Stock)</span>}
+                    </p>
+                    <p className={isError ? 'text-[#ff0000] font-medium' : 'font-light'}>{quantity}</p>
                 </div>
                 <div className="flex justify-between pl-8">
                     <p className="font-light">Discount</p>
