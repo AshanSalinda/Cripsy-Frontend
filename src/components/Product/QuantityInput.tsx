@@ -8,6 +8,7 @@ interface Props {
     min?: number;
     max?: number;
     value?: number;
+    small?: boolean;
     onChange?: (quantity: number) => void;
 }
 
@@ -15,6 +16,7 @@ const QuantityInput: React.FC<Props> = ({
     min = 1,
     max = 1000,
     value = 1,
+    small = false,
     onChange,
 }) => {
     const [quantity, setQuantity] = useState(value);
@@ -62,14 +64,16 @@ const QuantityInput: React.FC<Props> = ({
         setValue(value);
     };
 
+    const buttonClasses = `bg-carnation-400 hover:bg-carnation-500 border-none text-white select-none ${small ? 'w-7 h-7 text-md rounded-full' : 'w-10 h-10 text-lg'}`;
+
     return (
-        <div className="flex items-center">
+        <div className='flex items-center'>
             <Button
                 type="button"
                 size="sm"
                 onClick={handleDecrement}
                 disabled={quantity <= min}
-                className="bg-carnation-400 hover:bg-carnation-500 rounded-l-sm rounded-r-none border-none w-10 h-10 text-white text-lg select-none"
+                className={'rounded-l-sm rounded-r-none ' + buttonClasses}
             >
                 -
             </Button>
@@ -80,14 +84,14 @@ const QuantityInput: React.FC<Props> = ({
                 onChange={handleChange}
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
-                className="w-32 h-10 text-center text-white md:text-lg rounded-none border-none focus-visible:ring-0 bg-neutral-700"
+                className={"text-center md:text-lg rounded-none border-none focus-visible:ring-0 " + (small ? 'h-7 w-14' : ' h-10 w-32 bg-neutral-700 text-white')}
             />
             <Button
                 type="button"
                 size="sm"
                 onClick={handleIncrement}
                 disabled={quantity >= max}
-                className="bg-carnation-400 hover:bg-carnation-500 rounded-l-none rounded-r-sm border-none w-10 h-10 text-white text-lg select-none"
+                className={"rounded-l-none rounded-r-sm " + buttonClasses}
             >
                 +
             </Button>
