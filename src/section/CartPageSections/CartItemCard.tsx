@@ -45,7 +45,7 @@ const CartProductCard: React.FC<PropsType> = (props) => {
                     </button>
                     <p className='hidden md:block font-light text-sm mt-1 max-h-10 overflow-hidden'>{description}</p>
                     <div className='hidden md:flex items-center mt-2'>
-                        <span className='font-extralight text-xl mr-1'>{avgRatings}</span>
+                        <span className='font-extralight text-xl mr-1'>{avgRatings?.toPrecision(2)}</span>
                         <RatingStar small={true} value={avgRatings} />
                     </div>
                     <p className='hidden md:block font-light text-xs text-gray-400'>{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
@@ -63,7 +63,6 @@ const CartProductCard: React.FC<PropsType> = (props) => {
                     />
                 </div>
             </div>
-            
         </div>
     );
 }

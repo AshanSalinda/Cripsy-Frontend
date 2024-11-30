@@ -10,6 +10,7 @@ import { getProductItemDetails } from '@/apis/productApi/productApi';
 
 const ProductItem: React.FC = () => {
     const productId = 1;
+    const userId = 1;
 
     const [productItem, setProductItem] = React.useState({
         productId: 0,
@@ -40,7 +41,7 @@ const ProductItem: React.FC = () => {
     } = productItem;
 
     const productData = {
-        name, price, stock, imageUrls, avgRatings, ratingCount, reviewCount
+        productId, userId, name, price, stock, imageUrls, avgRatings, ratingCount, reviewCount
     };
 
     const ratingAndReviewsData = {

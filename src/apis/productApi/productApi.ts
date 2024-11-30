@@ -106,6 +106,18 @@ export const getCartItems = async (userId: number) => {
 }
 
 
+export const addToCart = async (productId: number, userId: number, quantity: number) => {
+    try {
+        await api.post(
+            '/api/product/cart/add',
+            { productId, userId, quantity }
+        );
+    } catch (error) {
+        console.log("Error adding to cart:", error);
+    }
+}
+
+
 // Update a product
 export const updateProduct = async (
     id: number,

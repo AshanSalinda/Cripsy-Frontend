@@ -2,9 +2,12 @@ import React from 'react';
 import RatingStars from "@/components/Product/RatingStar";
 import QuantityInput from "@/components/Product/QuantityInput";
 import Button from "@/components/Button/CustomButton";
+import { addToCart } from '@/apis/productApi/productApi';
 
 
 export interface DetailsType {
+    productId: number,
+    userId: number,
     name: string,
     price: number,
     avgRatings: number,
@@ -13,7 +16,9 @@ export interface DetailsType {
     stock: number,
 }
 
-const ProductDetails: React.FC<DetailsType> = ({ name, price, avgRatings, ratingCount, reviewCount, stock}) => {
+const ProductDetails: React.FC<DetailsType> = (props) => {
+    const { productId, userId, name, price, avgRatings, ratingCount, reviewCount, stock} = props;
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const quantity = ((e.target as HTMLFormElement).elements.namedItem("quantity") as HTMLInputElement)?.value;
@@ -22,6 +27,7 @@ const ProductDetails: React.FC<DetailsType> = ({ name, price, avgRatings, rating
         if (submitter === "buy") {
             console.log("Buy Now clicked", quantity);
         } else if (submitter === "addToCart") {
+            addToCart(productId, userId, parseInt(quantity))
             console.log("Add to Cart clicked", quantity);
         }
     };
