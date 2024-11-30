@@ -1,7 +1,6 @@
 "use client";
-
 import React, { useState } from 'react';
-import { IoCaretForwardSharp, IoCaretDownSharp } from "react-icons/io5";
+import { IoCaretForwardSharp } from "react-icons/io5";
 
 
 interface PropsType {
@@ -20,15 +19,17 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
     return (
         <div className="w-full mt-2 border-b pb-2" >
 
-            <div className="flex justify-between cursor-pointer" onClick={toggleExpand} >
-                <div className='flex items-center'>
-                    { isExpanded ? <IoCaretDownSharp/> : <IoCaretForwardSharp/>  }
+            <button className='w-full flex justify-between items-center' onClick={toggleExpand} >
+                <div className='flex flex-grow items-center overflow-hidden'>
+                    {/* { isExpanded ? <IoCaretDownSharp/> : <IoCaretForwardSharp/>  } */}
+                    <IoCaretForwardSharp className={`transition-transform duration-200 ease-in-out ${isExpanded ? 'rotate-90' : 'rotate-0' }`}/>
                     <p className="font-normal ml-2">{name}</p>
                 </div>
 
-                { !isExpanded && <p className="font-light">{`Rs ${total?.toLocaleString()}`}</p> }
-        
-            </div>
+                <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0' }`}>
+                    {`Rs ${total?.toLocaleString()}`}
+                </p>
+            </button>
 
             <div className={`overflow-hidden transition-max-height duration-300 ease-in-out ${isExpanded ? 'max-h-40' : 'max-h-0'}`} >
                 <div className="flex justify-between pl-8 mt-2">
