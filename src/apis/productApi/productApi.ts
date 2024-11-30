@@ -145,3 +145,12 @@ export const getCategories = async () => {
     }
 };
 
+export const addCategory = async (categoryData: { categoryName: string }) => {
+    try {
+        const response = await api.post("/api/product/category/add", categoryData); // Adjust the endpoint to match your API
+        return response.data;
+    } catch (error) {
+        console.error("Error adding category:", error);
+        throw error;
+    }
+};
