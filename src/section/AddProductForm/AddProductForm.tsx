@@ -5,7 +5,8 @@ import CustomButton from "@/components/Button/CustomButton";
 import TextEditor from "@/components/TextEditor/TextEditor";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import ProductImgUploader, { UploadedImage } from "@/components/Image/ProductImgUploader";
-import { addProduct, getCategories } from "@/apis/productApi/productApi";
+import { addProduct, getCategories, addCategory } from "@/apis/productApi/productApi";
+import PopupContainer from "@/components/Popup/PopupContainer";
 
 const AddProductForm = () => {
     const [images, setImages] = useState<UploadedImage[]>([]);
@@ -15,7 +16,9 @@ const AddProductForm = () => {
     const [price, setPrice] = useState<number>(0);
     const [discount, setDiscount] = useState<number>(0);
     const [category, setCategory] = useState<number>(0);
-    const [options, setOptions] = useState<{ label: string; value: string }[]>([]); // Dynamic options
+    const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [newCategory, setNewCategory] = useState<string>("");
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
@@ -25,7 +28,6 @@ const AddProductForm = () => {
         const fetchCategories = async () => {
             try {
                 const categories = await getCategories();
-                console.log(categories)
                 const categoryOptions = categories.map((cat: { categoryId: number; categoryName: string }) => ({
                     label: cat.categoryName,
                     value: cat.categoryId,
@@ -37,6 +39,25 @@ const AddProductForm = () => {
         };
         fetchCategories();
     }, []);
+
+    const handleAddCategory = async () => {
+        if (!newCategory.trim()) {
+            alert("Category name cannot be empty.");
+            return;
+        }
+        try {
+            const addedCategory = await addCategory({ categoryName: newCategory });
+            setOptions((prev) => [
+                ...prev,
+                { label: addedCategory.categoryName, value: addedCategory.categoryId },
+            ]);
+            setShowPopup(false);
+            setNewCategory("");
+            console.log("Category added successfully!");
+        } catch (error) {
+            console.error("Failed to add category:", error);
+        }
+    };
 
     const handleSubmit = async () => {
         const payload = {
@@ -52,7 +73,6 @@ const AddProductForm = () => {
             imageUrls: images.map((image) => image.url),
         };
 
-        console.log(payload)
         try {
             await addProduct(payload);
             console.log("Product added successfully!");
@@ -111,11 +131,14 @@ const AddProductForm = () => {
                         </div>
                     </div>
                     <h2 className="text-2xl mt-5">Category</h2>
-                    <Dropdown
-                        options={options}
-                        placeholder="Select Category"
-                        onChange={(value) => setCategory(Number(value))}
-                    />
+                    <div className="flex items-center gap-2">
+                        <Dropdown
+                            options={options}
+                            placeholder="Select Category"
+                            onChange={(value) => setCategory(Number(value))}
+                        />
+                        <CustomButton buttonLabel="+" onClick={() => setShowPopup(true)} variant={"primary"}/>
+                    </div>
                 </div>
 
                 <div className="md:col-span-4">
@@ -125,6 +148,25 @@ const AddProductForm = () => {
                     <CustomButton buttonLabel="Add Product" onClick={handleSubmit} />
                 </div>
             </div>
+
+            <PopupContainer isOpen={showPopup} onClose={()=> {setShowPopup(false)}}>
+                    <div className="bg-white rounded-lg p-6 w-96 ">
+                        <h2 className="text-2xl mb-4">Add New Category</h2>
+                        <InputField
+                            id="newCategory"
+                            type="text"
+                            placeholder="Enter category name"
+                            label={true}
+                            labelName="Category Name"
+                            onChange={(e) => setNewCategory(e.target.value)}
+                        />
+                        <div className="flex justify-end gap-2 mt-4">
+                            <CustomButton buttonLabel="Cancel" onClick={() => setShowPopup(false)} variant={"outline"}/>
+                            <CustomButton buttonLabel="Add" onClick={handleAddCategory} variant={"primary"}/>
+                        </div>
+                    </div>
+            </PopupContainer>
+
         </div>
     );
 };
