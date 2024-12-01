@@ -63,6 +63,20 @@ export const getReviews = async (productId: number, pageNo: number) => {
     }
 }
 
+// Add a review
+export const addReview = async (productId: number, user: string, rating: number, comment: string ) => {
+    try {
+        const response = await api.post(
+            `/api/product/review/add`, 
+            { productId, user, rating, comment }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error adding review:", error);
+        return [];
+    }
+};
+
 
 // Update a product
 export const updateProduct = async (
