@@ -31,7 +31,7 @@ const ProductDetails: React.FC<DetailsType> = (props) => {
             addToCart(productId, userId, parseInt(quantity));
         }
     };
-    // #7CfE8C #9EFFAA
+
     return (
         <div className="flex-[100%] md:flex-[45%] pr-5 ml-3 lg:ml-0">
             <h1 className="text-white font-medium mt-10 md:mt-0 leading-none min-h-12">{name}</h1>
