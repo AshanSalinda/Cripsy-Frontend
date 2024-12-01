@@ -7,7 +7,7 @@ import WatchlistCard from '@/components/Product/WatchlistCard';
 const deliveredOrders = [
   {
     productId: 1,
-    imageSrc: "/path/to/image1.jpg",
+    imageSrc: "https://us.mavi.com/cdn/shop/products/c9f3fe9c0b28b40afe2c255b9e45c3a7d5b55ae1ab4cdaec5914cb329f422110.jpg?v=1674634752",
     title: "POLO Shirt - Original",
     description: "Comfortable cotton polo shirt in black color.",
     rating: 4.5,
@@ -17,7 +17,7 @@ const deliveredOrders = [
   },
   {
     productId: 2,
-    imageSrc: "/path/to/image2.jpg",
+    imageSrc: "https://us.mavi.com/cdn/shop/products/c9f3fe9c0b28b40afe2c255b9e45c3a7d5b55ae1ab4cdaec5914cb329f422110.jpg?v=1674634752",
     title: "POLO Shirt - Original",
     description: "Stylish cotton polo shirt in black color.",
     rating: 4.3,
@@ -32,6 +32,8 @@ const deliveredOrders = [
 export const DeliveredOrdersSection = () => {
   return (
     <div>
+
+      <h2 className="text-2xl font-semibold text-gray-800">Orders / Delivered</h2>
      
       {deliveredOrders.map((order) => (
         <div className="px-10 py-5">
