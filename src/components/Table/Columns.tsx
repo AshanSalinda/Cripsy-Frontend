@@ -1,7 +1,10 @@
 "use client";
-import {  FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
+import { FaRegEdit } from "react-icons/fa";
 
 
+
+// Interfaces
 export interface Branch {
     branchId: string;
     branchName: string;
@@ -10,8 +13,32 @@ export interface Branch {
     contactNo: string;
 }
 
+export interface Product {
+    productId: string;
+    productName: string;
+    qty: number;
+    price: number;
+}
 
+// Admin Interface
+export interface Admin {
+    adminId: string;
+    adminName: string;
+    email: string;
+    contactNo: string;
+}
 
+// order interface
+export interface Order {
+    orderId:string;
+    fullName: string;
+    district: string;
+    address: string;
+    postalCode: string;
+    contactNo: string;
+}
+
+// Column Type Definition
 type Column<T> = {
     header: string;
     accessor: keyof T;
@@ -22,8 +49,7 @@ type Column<T> = {
     ) => React.ReactNode;
 };
 
-//Branch Columns
-
+// Branch Columns
 export const branchColumns: Column<Branch>[] = [
     { header: "Branch ID", accessor: "branchId" },
     { header: "Branch Name", accessor: "branchName" },
@@ -34,7 +60,6 @@ export const branchColumns: Column<Branch>[] = [
         accessor: "action" as keyof Branch,
         render: (_value, row, handlers) => (
             <div className="flex space-x-4">
-                
                 <FaTrash
                     className="text-gray-400 hover:text-red-700 cursor-pointer"
                     onClick={() => handlers?.delete(row)}
@@ -44,3 +69,68 @@ export const branchColumns: Column<Branch>[] = [
         ),
     },
 ];
+
+// Product Columns
+export const productColumns: Column<Product>[] = [
+    { header: "Product ID", accessor: "productId" },
+    { header: "Product Name", accessor: "productName" },
+    { header: "Quantity", accessor: "qty" },
+    { header: "Price", accessor: "price" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Product,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaTrash
+                    className="text-gray-400 hover:text-red-700 cursor-pointer"
+                    onClick={() => handlers?.delete(row)}
+                    aria-label="Delete Product"
+                />
+            </div>
+        ),
+    },
+];
+
+// Admin Columns
+export const adminColumns: Column<Admin>[] = [
+    { header: "Admin ID", accessor: "adminId" },
+    { header: "Admin Name", accessor: "adminName" },
+    { header: "Email", accessor: "email" },
+    { header: "Contact No", accessor: "contactNo" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Admin,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaTrash
+                    className="text-gray-400 hover:text-red-700 cursor-pointer"
+                    onClick={() => handlers?.delete(row)}
+                    aria-label="Delete Admin"
+                />
+            </div>
+        ),
+    },
+];
+
+
+//order details table
+export const orderColumns: Column<Order>[] = [
+    { header: "Full Name", accessor: "fullName" },
+    { header: "District", accessor: "district" },
+    { header: "Postal Code", accessor: "postalCode" },
+    { header: "Contact No", accessor: "contactNo" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Order,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Edit Order"
+                />
+            </div>
+        ),
+    },
+];
+

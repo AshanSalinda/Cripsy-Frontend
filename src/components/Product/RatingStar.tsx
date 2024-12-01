@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Rating from '@mui/material/Rating';
 
 interface RatingProps {
@@ -15,7 +15,11 @@ const RatingStar: React.FC<RatingProps> = ({
     readOnly = true,
     small = false
 }) => {
-    const [rating, setValue] = useState<number | null>(value);
+    const [rating, setRating] = useState<number | null>(value);
+    
+    useEffect(() => {
+        setRating(value);
+    }, [value]);
 
     return (
         <Rating
@@ -24,13 +28,13 @@ const RatingStar: React.FC<RatingProps> = ({
             readOnly={readOnly}
             precision={0.5}
             size={small ? 'medium' : 'large'}
-            onChange={(e, newValue) => { setValue(newValue)}}
+            onChange={(e, newValue) => { setRating(newValue)}}
             sx={{
                 '& .MuiRating-iconFilled': {
                     color: '#FFCD12',
                 },
                 '& .MuiRating-iconEmpty': {
-                    color: '#737373',
+                    color: '#949494',
                 }
             }}
       />
