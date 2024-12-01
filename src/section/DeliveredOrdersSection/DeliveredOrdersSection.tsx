@@ -1,8 +1,9 @@
 "use client";
 
 
-import React from 'react'
+import React, { useState } from "react"
 import WatchlistCard from '@/components/Product/WatchlistCard';
+
 
 const deliveredOrders = [
   {
@@ -30,13 +31,16 @@ const deliveredOrders = [
 
 
 export const DeliveredOrdersSection = () => {
+
+
+
   return (
     <div>
 
       <h2 className="text-2xl font-semibold text-gray-800">Orders / Delivered</h2>
      
       {deliveredOrders.map((order) => (
-        <div className="px-10 py-5">
+        <div className="px-10 py-5" key={order.productId}>
         <WatchlistCard
           key={order.productId}
           productId={order.productId}
