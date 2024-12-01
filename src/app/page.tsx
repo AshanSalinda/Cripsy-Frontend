@@ -18,7 +18,7 @@ export default function Home() {
             <hr className="flex-grow border-t border-gray-300" />
           </div>
           <Link
-            href="/all-deals"
+            href="/product/allProducts"
             className="text-carnation-500 text-sm font-medium ml-4 whitespace-nowrap"
           >
             View All

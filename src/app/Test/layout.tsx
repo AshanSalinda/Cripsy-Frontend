@@ -30,14 +30,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </SidebarProvider> */}
 
             {/* Top Navbar Row */}
-            <TopNavbar />
-
+          
             {/* Main Content Row */}
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar */}
-                <div className="flex-shrink-0">
+                {/* <div className="flex-shrink-0">
                     <AppSidebar items={items} />
-                </div>
+                </div> */}
 
                 {/* Main Content */}
                 <main className="flex-1 p-6 overflow-y-auto mt-14">
