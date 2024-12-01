@@ -41,7 +41,7 @@ const ProductDetails: React.FC<DetailsType> = (props) => {
             </div>
             <p className="text-neutral-400 font-light mb-5">{`${ratingCount} Ratings | ${reviewCount} Reviews`}</p>
             <h2 className="text-carnation-500 tracking-wider">{`Rs ${price?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</h2>
-            { discount > 0 && <p className="discount-badge w-fit pl-2 pr-7 py-1 mt-3 font-semibold text-gray-800">{`${discount}% OFF`}</p> }
+            { discount > 0 && <p className="discount-badge w-fit pl-2 pr-7 py-1 mt-3 font-semibold text-[#1D4922]">{`${discount}% OFF`}</p> }
             <form onSubmit={handleSubmit}>
                 <p className="text-neutral-400 font-normal mt-5 mb-1">Quantity:</p>
                 <QuantityInput max={stock}/>
