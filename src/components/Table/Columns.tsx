@@ -1,5 +1,8 @@
 "use client";
 import { FaTrash } from 'react-icons/fa';
+import { FaRegEdit } from "react-icons/fa";
+
+
 
 // Interfaces
 export interface Branch {
@@ -22,6 +25,16 @@ export interface Admin {
     adminId: string;
     adminName: string;
     email: string;
+    contactNo: string;
+}
+
+// order interface
+export interface Order {
+    orderId:string;
+    fullName: string;
+    district: string;
+    address: string;
+    postalCode: string;
     contactNo: string;
 }
 
@@ -98,3 +111,26 @@ export const adminColumns: Column<Admin>[] = [
         ),
     },
 ];
+
+
+//order details table
+export const orderColumns: Column<Order>[] = [
+    { header: "Full Name", accessor: "fullName" },
+    { header: "District", accessor: "district" },
+    { header: "Postal Code", accessor: "postalCode" },
+    { header: "Contact No", accessor: "contactNo" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Order,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Edit Order"
+                />
+            </div>
+        ),
+    },
+];
+
