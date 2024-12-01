@@ -1,12 +1,12 @@
 import React from 'react'
 import WatchlistCard from '@/components/Product/WatchlistCard';
-import data from '@/data/data.json';
+import data from '@/data/productIem.json';
 
 const WatchListProducts = () => {
   return (
     <div>
        
-      {data.productData.map((productData) => (
+      {data.SuperDeals.map((productData) => (
         <div className="px-10 py-5">
           <WatchlistCard
             key={productData.productId}
