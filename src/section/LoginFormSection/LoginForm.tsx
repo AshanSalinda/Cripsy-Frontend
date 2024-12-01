@@ -1,5 +1,4 @@
 "use client";
-
 import React, {FormEvent, useState} from "react";
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";

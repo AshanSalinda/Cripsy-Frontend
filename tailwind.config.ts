@@ -14,6 +14,13 @@ const config: Config = {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 			},
+			boxShadow: {
+				'custom-light': '0 2px 4px rgba(0, 0, 0, 0.1)',
+				'custom-dark': '0 5px 8px rgba(0, 0, 0, 0.3)',
+				'custom-card': '-2px 6px 10px rgba(0, 0, 0, 0.1)',
+				'custom-glow': '0 0 15px rgba(255, 255, 255, 0.6)',
+				'custom-outline': '0 0 0 4px rgba(34, 139, 230, 0.5)',
+			  },
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
