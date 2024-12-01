@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useState, ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
 interface CustomButtonProps {
-    variant?: 'primary' | 'outline' | 'ghost',
-    name?: string,
-    value?: string,
+    variant?: "primary" | "outline" | "ghost";
+    name?: string;
+    value?: string;
     buttonLabel?: string;
     buttonClassName?: string;
     modalContent?: ReactNode;
@@ -16,16 +16,16 @@ interface CustomButtonProps {
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
-    variant = 'primary',
-    name = '',
-    value = '',
-    buttonLabel = '',
-    buttonClassName = '',
+    variant = "primary",
+    name = "",
+    value = "",
+    buttonLabel = "",
+    buttonClassName = "",
     modalContent,
-    modalClassName = '',
+    modalClassName = "",
     onClick,
     showIcon = true,
-    icon = '',
+    icon = "",
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -38,22 +38,23 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     };
 
     const theme = {
-        'primary': 'bg-carnation-400 hover:bg-carnation-500 text-white',
-        'outline': 'bg-transparent hover:bg-carnation-400 hover:text-white border border-carnation-400 text-carnation-400',
-        'ghost': 'bg-transparent hover:bg-neutral-900 text-white'
-    }
+        primary: "bg-carnation-400 hover:bg-carnation-500 text-white",
+        outline:
+            "bg-transparent hover:bg-carnation-400 hover:text-white border border-carnation-400 text-carnation-400",
+        ghost: "bg-transparent hover:bg-neutral-900 text-white",
+    };
 
     return (
         <>
             <Button
-                className={`min-w-1/5 min-h-6 shadow-xl rounded flex flex-row items-center py-5 space-x-2 clickEffect
+                className={`flex items-center text-center justify-center gap-0 px-6 py-3 rounded-md text-md font-medium clickEffect
                     ${theme[variant]} ${buttonClassName}`}
                 name={name}
                 value={value}
                 onClick={handleButtonClick}
             >
-                <span className={'text-sm md:text-base font-sans tracking-wide w-full'}>{buttonLabel}</span>
-                {showIcon && icon}
+                <span>{buttonLabel}</span>
+                {showIcon && <span className="text-base">{icon}</span>}
             </Button>
             {isModalOpen && modalContent && (
                 <div className={modalClassName}>

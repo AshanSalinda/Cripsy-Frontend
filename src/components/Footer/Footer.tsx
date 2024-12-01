@@ -5,7 +5,7 @@ import footerData from '@/data/data.json';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white py-8 px-4 md:px-20 mt-6 mb-0">
+    <footer className="bg-black text-white py-8 px-4 md:px-20 mt-0 mb-0">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
           

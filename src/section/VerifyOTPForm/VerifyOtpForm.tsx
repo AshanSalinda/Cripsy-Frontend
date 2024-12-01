@@ -4,14 +4,16 @@ import React, {FormEvent, useEffect, useState} from "react";
 import CustomButton from "@/components/Button/CustomButton";
 import {verifyOTP} from "@/apis/AuthAPIs/auth";
 import { InputOTP, InputOTPGroup, InputOTPItem } from "keep-react";
-
+import {useRouter} from "next/navigation";
 
 const VerifyOtpFrom = () => {
 
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false);
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
+
+    const router = useRouter();
 
     useEffect(() => {
         const email = localStorage.getItem("userEmail");
@@ -40,11 +42,12 @@ const VerifyOtpFrom = () => {
 
         setLoading(true);
         try {
-            await verifyOTP(email , value);
+            await verifyOTP(email , value, router);
             setValue("")
             setErrors("");
-        } catch (error: any) {
-            setErrors(error?.message || "Invalid input");
+        } catch (error: unknown) {
+            console.log(error);
+            setErrors("Invalid input");
         } finally {
             setLoading(false);
         }

@@ -1,46 +1,51 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RatingStar from '@/components/Product/RatingStar';
 import Button from '@/components/Button/CustomButton';
 import { Progress } from "@/components/ui/progress"
 import { FaUser } from "react-icons/fa6";
 import Pagination from '@/components/Table/Pagination';
+import { getReviews } from '@/apis/productApi/productApi';
 
 
 interface RatingStatsType {
     ratingCount: number,
     ratingStats: {
-        scale: number, 
-        count: number
-    }[]
+        [key in `rating${1 | 2 | 3 | 4 | 5}`]: number;
+    }
 }
 
 interface ReviewType {
     user: string,
     rating: number,
     comment: string,
-    date: string
+    ratedDate: string
 }
 
 interface RatingAndReviewsType extends RatingStatsType {
-    rating: number,
-    totalReviewsCount: number,
+    productId: number,
+    avgRatings: number,
+    reviewCount: number,
+    isUserRated: boolean,
     reviews: ReviewType[]
 }
 
 
-const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount, ratingStats, totalReviewsCount, reviews = [] }) => {
+const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentReviews, setCurrentReviews] = useState(reviews);
     const numberOfReviewsPerPage = 5;
-    const totalPages = Math.ceil(totalReviewsCount / numberOfReviewsPerPage);
+    const totalPages = Math.ceil(reviewCount / numberOfReviewsPerPage);
 
-    const handlePagination = (page: number) => {
+    useEffect(() => {
+        setCurrentReviews(reviews);
+    }, [reviews]);
+
+    const handlePagination = async (page: number) => {
+        const newReviews = await getReviews(productId, page);
+        setCurrentReviews(newReviews);
         setCurrentPage(page);
-        // const startIndex = (page - 1) * numberOfReviewsPerPage;
-        // const endIndex = startIndex + numberOfReviewsPerPage;
-        // setCurrentReviews(reviews.slice(startIndex, endIndex));
     }
 
     return (
@@ -54,16 +59,16 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
                     {/* Overall Ratings */}
                     <div className="w-max flex flex-col items-center">
                         <div className="flex items-start mx-auto">
-                            <span className="text-4xl tracking-wider leading-tight">{ rating }</span>
+                            <span className="text-4xl tracking-wider leading-tight">{ avgRatings?.toPrecision(2) }</span>
                             <span className="text-2xl font-light text-neutral-600">/5</span>
                         </div>
-                        <RatingStar value={rating} />
+                        <RatingStar value={avgRatings} />
                         <span className="text-neutral-600 w-full text-sm pl-1">{ ratingCount } ratings</span>
                     </div>
 
                     <RatingStats ratingStats={ ratingStats } ratingCount={ ratingCount } />
 
-                    <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" />
+                    {!isUserRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" />}
                 </div>
 
                 {/* Comments */}
@@ -74,7 +79,9 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
                 </div>
                     
                 {/* Pagination */}
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePagination} />
+                {totalPages > 1 && 
+                    <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePagination} />
+                }
             </div>
         </div>
     );
@@ -82,23 +89,33 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ rating, ratingCount,
 
 
 
-const RatingStats: React.FC<RatingStatsType> = ({ ratingStats = [], ratingCount : totalRatings }) => {
+const RatingStats: React.FC<RatingStatsType> = ({ ratingStats, ratingCount : totalRatings }) => {
+
     return (
         <table className="table-auto w-full md:w-[35vw] lg:w-[25vw] mt-5 mb-10 md:my-0">
             <tbody>
-                {ratingStats.map(({ scale, count}) => (
-                    <tr key={scale}>
-                        <td className="whitespace-nowrap">
-                            <RatingStar value={ scale } small />
-                        </td>
-                        <td className="w-full px-2">
-                            <Progress value={(count / totalRatings) * 100} className="flex-1 bg-progress-background" />
-                        </td>
-                        <td className="whitespace-nowrap text-sm text-neutral-500">
-                            <span>{ count }</span>
-                        </td>
-                    </tr>
-                ))}
+                {[...Array(5)].map((_, index) => {
+                    const ratingValue = 5 - index;
+                    const ratingCount = ratingStats ? ratingStats[`rating${ratingValue}` as keyof typeof ratingStats] : 0;
+                    const progressValue = totalRatings ? (ratingCount / totalRatings) * 100 : 0;    
+
+                    return(
+                        <tr key={ratingValue}>
+                            <td className="whitespace-nowrap">
+                                <RatingStar value={ ratingValue } small />
+                            </td>
+                            <td className="w-full px-2">
+                                <Progress 
+                                    value={ progressValue } 
+                                    className="flex-1 bg-progress-background" 
+                                />
+                            </td>
+                            <td className="whitespace-nowrap text-sm text-neutral-500">
+                                <span>{ ratingCount }</span>
+                            </td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     );
@@ -106,7 +123,7 @@ const RatingStats: React.FC<RatingStatsType> = ({ ratingStats = [], ratingCount 
 
 
 
-const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, date }) => {
+const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, ratedDate }) => {
     return (
         <div className="flex flex-col space-y-2 bg-slate-50 shadow-md rounded p-3">
             <div className='flex justify-between'>
@@ -117,7 +134,7 @@ const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, date }) => {
                 <RatingStar value={rating} small />
             </div>
             <p className="text-sm text-neutral-700 text-justify">{ comment }</p>
-            <p className='text-xs text-neutral-600 text-right font-light'>{ date }</p>
+            <p className='text-xs text-neutral-600 text-right font-light'>{ ratedDate }</p>
         </div>
     );
 }

@@ -1,13 +1,16 @@
+import TopNavbar from "@/components/TopNavbar/TopNavbar";
 import Footer from "@/components/Footer/Footer";
 
-
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
-        <div>
-            {children}
-            <Footer/>
-        </div>
+        <>
+            <TopNavbar />
+            <div className="mt-32 md:mt-20">{children}</div>
+            <Footer />
+        </>
     );
 }
-
-export default Layout;

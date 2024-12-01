@@ -5,6 +5,7 @@ import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import {forgotPassword} from "@/apis/AuthAPIs/auth";
 import {ForgotPasswordSchema} from "@/schema/AuthSchema/ForgotPasswordSchema";
+import {useRouter} from "next/navigation";
 
 interface ForgotPasswordFormValues {
     email: string;
@@ -18,6 +19,8 @@ const ForgotPasswordFrom = () => {
 
     const [errors, setErrors] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, value: keyof ForgotPasswordFormValues) => {
         setFormData({
@@ -37,14 +40,15 @@ const ForgotPasswordFrom = () => {
         }
         setLoading(true);
         try {
-            await forgotPassword(formData);
+            await forgotPassword(formData,router);
             setFormData({
                 email: '',
             });
             localStorage.setItem("userEmail", JSON.stringify(formData.email));
 
-        } catch (error: any) {
-            setErrors(error?.message || "Invalid input");
+        } catch (error: unknown) {
+            console.log(error);
+            setErrors("Invalid input");
         } finally {
             setLoading(false);
         }

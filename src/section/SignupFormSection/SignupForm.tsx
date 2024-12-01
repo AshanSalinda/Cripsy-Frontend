@@ -6,6 +6,8 @@ import CustomButton from "@/components/Button/CustomButton";
 import {userSignUp} from "@/apis/AuthAPIs/auth";
 import {SignupSchema} from "@/schema/AuthSchema/SignupSchema";
 import CheckBox from "@/components/CheckBox/CheckBox";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 interface SignUpFormValues {
     username: string;
@@ -27,6 +29,8 @@ const SignupForm = () => {
     const [loading, setLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
 
+    const router = useRouter();
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, value: keyof SignUpFormValues) => {
         setFormData({
             ...formData,
@@ -45,7 +49,7 @@ const SignupForm = () => {
         }
         setLoading(true);
         try {
-            await userSignUp(formData);
+            await userSignUp(formData,router);
             console.log("Username: ", formData.username, "Password: ", formData.password);
             setFormData({
                 username: '',
@@ -53,13 +57,12 @@ const SignupForm = () => {
                 password: '',
                 confirmPassword: ''
             });
-        } catch (error: any) {
-            setErrors(error?.message || "Invalid input");
+        } catch (error: unknown) {
+            console.log(error);
+            setErrors("Invalid input");
         } finally {
             setLoading(false);
         }
-
-
     }
 
     return (
@@ -164,7 +167,11 @@ const SignupForm = () => {
                     {/* Register Link */}
                     <div className="text-center mt-6">
                         <p className="text-gray-500">
-                            Already Registered ? <a href="#" className="text-blue-600 font-semibold">Login</a>
+                            Already Registered ?
+                            <Link className="text-blue-600 font-semibold" href="/auth/login">
+                                Login
+                            </Link>
+
                         </p>
                     </div>
                 </div>

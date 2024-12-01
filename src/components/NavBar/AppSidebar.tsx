@@ -18,11 +18,12 @@ interface SidebarItem {
 }
 
 interface AppSidebarProps {
-    items: SidebarItem[];
+    accountItems: SidebarItem[];
+    orderItems: SidebarItem[];
 }
 
-export function AppSidebar({ items }: AppSidebarProps) {
-    if (!items || items.length === 0) {
+export function AppSidebar({ accountItems, orderItems }: AppSidebarProps) {
+    if  ((!accountItems || accountItems.length === 0) && (!orderItems || orderItems.length === 0)) {
         throw new Error("AppSidebar requires an 'items' prop with at least one item.");
     }
 
@@ -31,15 +32,15 @@ export function AppSidebar({ items }: AppSidebarProps) {
             <Sidebar className="h-full mt-14 w-64 flex-shrink-0 overflow-y-auto bg-white border-r border-gray-200">
                 <SidebarContent className="flex flex-col p-7 h-full bg-white">
                     <SidebarGroup>
-                        <SidebarGroupLabel className="text-xl text-black pb-5 w-1/3">Account</SidebarGroupLabel>
+                        <SidebarGroupLabel className="text-xl text-black pb-5 w-1/3">Account</SidebarGroupLabel> 
                         <SidebarGroupContent className="flex-grow">
                             <SidebarMenu>
-                                {items.map((item) => (
-                                    <SidebarMenuItem className="p-1 text-[#6F6F6F]" key={item.title}>
+                                {accountItems.map((acitem) => (
+                                    <SidebarMenuItem className="p-1 text-[#6F6F6F]" key={acitem.title}>
                                         <SidebarMenuButton asChild>
-                                            <a href={item.url} className="hover:text-[#f83b3b] rounded-md transition-colors duration-200">
-                                                <item.icon />
-                                                <span>{item.title}</span>
+                                            <a href={acitem.url} className="hover:text-[#f83b3b] rounded-md transition-colors duration-200">
+                                                <acitem.icon />
+                                                <span>{acitem.title}</span>
                                             </a>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
@@ -47,6 +48,27 @@ export function AppSidebar({ items }: AppSidebarProps) {
                             </SidebarMenu>
                         </SidebarGroupContent>
                     </SidebarGroup>
+
+                    <SidebarGroup>
+                        <SidebarGroupLabel className="text-xl text-black pb-5 w-1/3">Orders</SidebarGroupLabel> 
+                        <SidebarGroupContent className="flex-grow">
+                            <SidebarMenu>
+                                {orderItems.map((oritem) => (
+                                    <SidebarMenuItem className="p-1 text-[#6F6F6F]" key={oritem.title}>
+                                        <SidebarMenuButton asChild>
+                                            <a href={oritem.url} className="hover:text-[#f83b3b] rounded-md transition-colors duration-200">
+                                                <oritem.icon />
+                                                <span>{oritem.title}</span>
+                                            </a>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                ))}
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+
+                
+
                 </SidebarContent>
             </Sidebar>
         </SidebarProvider>

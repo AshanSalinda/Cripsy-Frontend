@@ -1,74 +1,159 @@
 {
     "id": 1,
+    "isAddedtoFavorites": false,
     "name": "AirPods Max",
     "price": 64099.00,
-    "description": "Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+    "description": "<p>Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.</p><p></p><ul><li><p>Bluetooth version: V3.0+EDR Bluetooth.</p></li><li><p>Transmission distance: 10 meters.</p></li><li><p>Use time: 4 hours.</p></li><li><p>Standby time: 120 hours.</p></li><li><p>Battery: 250mAh rechargeable lithium battery.</p></li><li><p>Weight: 330g.</p></li></ul>",
+    "description1": "Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
     "rating": 3.5,
     "ratingCount": 6483,
     "totalReviewsCount": 100,
     "stock": 20,
     "ratingStats": [
-        { "scale": 5, "count": 6000 },
-        { "scale": 4, "count": 4000 },
-        { "scale": 3, "count": 2000 },
-        { "scale": 2, "count": 1000 },
-        { "scale": 1, "count": 1000 }
+      { "scale": 5, "count": 6000 },
+      { "scale": 4, "count": 4000 },
+      { "scale": 3, "count": 2000 },
+      { "scale": 2, "count": 1000 },
+      { "scale": 1, "count": 1000 }
     ],
     "initialReviews": [
-        {
-            "user": "John Doe",
-            "rating": 5,
-            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
-            "date": "2021-01-01"
-        },
-        {
-            "user": "Jane Doe",
-            "rating": 4,
-            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
-            "date": "2021-01-01"
-        },
-        {
-            "user": "John Smith",
-            "rating": 3,
-            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
-            "date": "2021-01-01"
-        },
-        {
-            "user": "Jane Doe",
-            "rating": 4,
-            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
-            "date": "2021-01-01"
-        },
-        {
-            "user": "John Smith",
-            "rating": 3,
-            "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
-            "date": "2021-01-01"
-        }
+      {
+        "user": "John Doe",
+        "rating": 5,
+        "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+        "date": "2021-01-01"
+      },
+      {
+        "user": "Jane Doe",
+        "rating": 4,
+        "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+        "date": "2021-01-01"
+      },
+      {
+        "user": "John Smith",
+        "rating": 3,
+        "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+        "date": "2021-01-01"
+      },
+      {
+        "user": "Jane Doe",
+        "rating": 4,
+        "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+        "date": "2021-01-01"
+      },
+      {
+        "user": "John Smith",
+        "rating": 3,
+        "comment": "The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
+        "date": "2021-01-01"
+      }
     ],
-    "images": [
-        "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
-        "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",
-        "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/e9/73/e973592ca701a4c1b5a9326020ed2962/201209150026254305.webp",
-        "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",
-        "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/e9/73/e973592ca701a4c1b5a9326020ed2962/201209150026254305.webp"
+    "imageUrls": [
+      "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
+      "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",
+      "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/e9/73/e973592ca701a4c1b5a9326020ed2962/201209150026254305.webp",
+      "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/ec/33/ec33cdbee39528efa369492f0fa31e51/201209150026224233.webp",
+      "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/e9/73/e973592ca701a4c1b5a9326020ed2962/201209150026254305.webp"
     ],
     "relatedItems": [
-        {
-            "imageSrc": "/LogingPhoto.png",
-            "title": "POLO Shirt",
-            "description": "The perfection of men's wear",
-            "rating": 4.5,
-            "reviews": 6452,
-            "price": 22340
-        },
-        {
-            "imageSrc": "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
-            "title": "AirPods Max",
-            "description": "The perfection of men's wear",
-            "rating": 3,
-            "reviews": 4586,
-            "price": 22712
-        }
+      {
+        "imageSrc": "/LogingPhoto.png",
+        "title": "POLO Shirt",
+        "description": "The perfection of men's wear",
+        "rating": 4.5,
+        "reviews": 6452,
+        "price": 22340
+      },
+      {
+        "imageSrc": "https://cdn0.it4profit.com/s3size/rt:fill/w:900/h:900/g:no/el:1/f:webp/plain/s3://cms/product/a4/50/a4509f1dfd41adc3da2c3416812fe0fc/201209150026197116.webp",
+        "title": "AirPods Max",
+        "description": "The perfection of men's wear",
+        "rating": 3,
+        "reviews": 4586,
+        "price": 22712
+      }
+    ],
+    "SuperDeals": [
+      {
+        "productId": "1",
+        "imageSrc": "/images/product1.jpg",
+        "title": "POLO Shirt",
+        "description": "Classic design for everyday comfort",
+        "rating": 4.5,
+        "reviews": 234,
+        "price": 2340,
+        "availableItems": 10
+      },
+      {
+        "productId": "2",
+        "imageSrc": "/images/headphones.jpg",
+        "title": "Noise Cancelling Headphones",
+        "description": "Crystal-clear sound and effective noise cancellation",
+        "rating": 4.2,
+        "reviews": 320,
+        "price": 5200,
+        "availableItems": 5
+      },
+      {
+        "productId": "3",
+        "imageSrc": "/images/phone.jpg",
+        "title": "Samsung Galaxy S24 Ultra",
+        "description": "Top-tier camera and performance",
+        "rating": 4.6,
+        "reviews": 845,
+        "price": 120000,
+        "availableItems": 3
+      },
+      {
+        "productId": "4",
+        "imageSrc": "/images/mouse.jpg",
+        "title": "Ergonomic Gaming Mouse",
+        "description": "Precision and comfort for gamers",
+        "rating": 4.8,
+        "reviews": 560,
+        "price": 4999,
+        "availableItems": 7
+      },
+      {
+        "productId": "5",
+        "imageSrc": "/images/iphone.jpg",
+        "title": "iPhone 14 Pro Max",
+        "description": "Sleek design and powerful features",
+        "rating": 4.9,
+        "reviews": 1090,
+        "price": 150000,
+        "availableItems": 2
+      },
+      {
+        "productId": "6",
+        "imageSrc": "/images/laptop.jpg",
+        "title": "Dell XPS 15",
+        "description": "High-performance laptop with stunning display",
+        "rating": 4.7,
+        "reviews": 672,
+        "price": 180000,
+        "availableItems": 4
+      },
+      {
+        "productId": "7",
+        "imageSrc": "/images/monitor.jpg",
+        "title": "4K Ultra HD Monitor",
+        "description": "Vibrant visuals for work and play",
+        "rating": 4.3,
+        "reviews": 432,
+        "price": 45000,
+        "availableItems": 6
+      },
+      {
+        "productId": "8",
+        "imageSrc": "/images/tablet.jpg",
+        "title": "iPad Pro 12.9",
+        "description": "Professional-grade tablet with incredible features",
+        "rating": 4.8,
+        "reviews": 890,
+        "price": 110000,
+        "availableItems": 1
+      }
     ]
-}
+  }
+  
