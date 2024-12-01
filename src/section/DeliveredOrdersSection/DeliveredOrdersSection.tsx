@@ -31,9 +31,7 @@ const deliveredOrders = [
 
 export const DeliveredOrdersSection = () => {
   return (
-    <div className="p-6">
-    <h2 className="text-2xl font-bold mb-6">Delivered Orders</h2>
-    <div className="space-y-6">
+    <div>
       {deliveredOrders.map((order) => (
         <WatchlistCard
           key={order.productId}
@@ -46,11 +44,11 @@ export const DeliveredOrdersSection = () => {
           price={order.price}
           availableItems={order.availableItems}
           hideHartIcon={true} // Hides the heart icon for delivered orders
-          CardButtonlabel="Reorder"
-          onPreviewClick={() => console.log(`Reordering product ID: ${order.productId}`)}
+          CardButtonlabel="Refund"
+          onPreviewClick={() => console.log(`Refund request added: ${order.productId}`)}
         />
       ))}
     </div>
-  </div>
+
   )
 }
