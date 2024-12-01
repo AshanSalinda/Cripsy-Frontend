@@ -50,20 +50,19 @@ const oritems =[
 export default function page({ children }: { children: React.ReactNode }) {
     return (
 
-        <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
         <TopNavbar />
-        <AppSidebar accountItems={acitems} orderItems={oritems} />
-        <div className="flex flex-grow">
-        
-           
-<div className="min-h-screen bg-white">
- <h2 className="text-2xl font-semibold text-gray-800 mb-6">Orders / Delivered</h2>
-     <DeliveredOrdersSection />
-  </div>
-            
-        </div>
+       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Orders / Delivered</h2>
+         <DeliveredOrdersSection />
+         <aside className="w-64 h-[calc(100vh-4rem)] bg-gray-100 border-r border-gray-200">
+         <AppSidebar accountItems={acitems} orderItems={oritems} />
+         </aside>
+     
+         
         <Footer />
+        
     </div>
+
         
     );
 }
