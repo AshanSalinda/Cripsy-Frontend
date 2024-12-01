@@ -37,7 +37,7 @@ const ProductItem: React.FC = () => {
 
     const productId = 1;
     const userId = 1;
-    const userName = "Ashan";
+    const userName = "user1";
 
     const {
         name = "",
@@ -59,7 +59,7 @@ const ProductItem: React.FC = () => {
     };
 
     const ratingAndReviewsData = {
-        productId, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
+        productId, userId, userName, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
     };
 
 

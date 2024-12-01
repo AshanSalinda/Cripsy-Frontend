@@ -1,16 +1,18 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Button from '@/components/Button/CustomButton';
 import RatingStar from '@/components/Product/RatingStar';
 import Pagination from '@/components/Table/Pagination';
 import RatingForm from './RatingForm';
-import { getReviews } from '@/apis/productApi/productApi';
+import { getReviews, addReview } from '@/apis/productApi/productApi';
 import ReviewCard, { ReviewType } from './ReviewCard';
 import RatingStats, { RatingStatsType } from './RatingStats';
 
 
 interface RatingAndReviewsType extends RatingStatsType {
     productId: number,
+    userId: number,
+    userName: string,
     avgRatings: number,
     reviewCount: number,
     isUserRated: boolean,
@@ -18,10 +20,12 @@ interface RatingAndReviewsType extends RatingStatsType {
 }
 
 
-const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] }) => {
+const RatingAndReviews: React.FC<RatingAndReviewsType> = (props) => {
+    const { productId, userName, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] } = props;
     const [currentPage, setCurrentPage] = useState(1);
     const [currentReviews, setCurrentReviews] = useState(reviews);
     const [isRateFormVisible, setIsRateFormVisible] = useState(false);
+    const [isRated, setIsRated] = useState(isUserRated);
     const numberOfReviewsPerPage = 5;
     const totalPages = Math.ceil(reviewCount / numberOfReviewsPerPage);
 
@@ -29,10 +33,38 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRating
         setCurrentReviews(reviews);
     }, [reviews]);
 
+    useEffect(() => {
+        setIsRated(isUserRated);
+    }, [isUserRated]);
+
     const handlePagination = async (page: number) => {
         const newReviews = await getReviews(productId, page);
         setCurrentReviews(newReviews);
         setCurrentPage(page);
+        setTimeout(() => {
+            const pagination = document.getElementById('pagination');
+            if (pagination) {
+                console.log(pagination);
+                pagination.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            };
+        }, 100);
+    }
+
+    const handleReview = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const rating = ((e.target as HTMLFormElement).elements.namedItem("rating stars") as HTMLInputElement)?.value;
+        const comment = ((e.target as HTMLFormElement).elements.namedItem("comment") as HTMLInputElement)?.value;
+        const action = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
+
+        if (action === "cancel") {
+            setIsRateFormVisible(false)
+        } else if (action === "submit") {
+            const updatedReviews = await addReview(productId, userName, parseInt(rating), comment.trim());
+            setCurrentReviews(updatedReviews);
+            setCurrentPage(1);
+            setIsRated(true);
+            setIsRateFormVisible(false)
+        }
     }
 
     return (
@@ -50,12 +82,12 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRating
                             <span className="text-2xl font-light text-neutral-600">/5</span>
                         </div>
                         <RatingStar value={avgRatings} />
-                        <span className="text-neutral-600 w-full text-sm pl-1">{ ratingCount } ratings</span>
+                        <span className="text-neutral-600 w-full text-sm font-light pl-1">{`${ratingCount} ratings | ${reviewCount} Reviews`}</span>
                     </div>
 
                     <RatingStats ratingStats={ ratingStats } ratingCount={ ratingCount } />
 
-                    { !isUserRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" onClick={() => setIsRateFormVisible(true)}/> }
+                    { !isRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" onClick={() => setIsRateFormVisible(true)}/> }
                 </div>
 
                 {/* Comments */}
@@ -72,7 +104,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRating
             </div>
 
             {/* Rating Form Modal */}
-            <RatingForm isRateFormVisible={isRateFormVisible} setIsRateFormVisible={setIsRateFormVisible} />
+            <RatingForm isRateFormVisible={isRateFormVisible} setIsRateFormVisible={setIsRateFormVisible} handleReview={handleReview} />
         </div>
     );
 }
