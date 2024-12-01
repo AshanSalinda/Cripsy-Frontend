@@ -127,7 +127,7 @@ const WatchlistCard: React.FC<WatchlistCardProps> = ({
                             <CustomButton
                                 buttonLabel={CardButtonlabel} 
                                 variant="outline"
-                                buttonClassName="rounded-5 pl-2 pr-0 py-2 my-10   items-center transition "
+                                buttonClassName="rounded-5 px-2  py-2 my-10   items-center transition "
                                 onClick={onPreviewClick} 
                             
                             />
@@ -138,8 +138,8 @@ const WatchlistCard: React.FC<WatchlistCardProps> = ({
                                 <CustomButton
                                     buttonLabel=""
                                     variant="outline"
-                                    buttonClassName="rounded-5 pl-2 pr-3 py-0 my-10   items-center transition  border-slate-500 text-slate-500 hover:border-white "
-                                    icon={<MdOutlineShoppingCart />}
+                                    buttonClassName="rounded-5 p-3 my-10   items-center  border-slate-500 text-slate-500 hover:border-white "
+                                    icon={<MdOutlineShoppingCart className="p-0 m-0" />}
 
                                 />
                             )}
