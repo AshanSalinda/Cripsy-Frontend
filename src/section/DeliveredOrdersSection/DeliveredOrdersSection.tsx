@@ -32,7 +32,9 @@ const deliveredOrders = [
 export const DeliveredOrdersSection = () => {
   return (
     <div>
+     
       {deliveredOrders.map((order) => (
+        <div className="px-10 py-5">
         <WatchlistCard
           key={order.productId}
           productId={order.productId}
@@ -47,8 +49,12 @@ export const DeliveredOrdersSection = () => {
           CardButtonlabel="Refund"
           onPreviewClick={() => console.log(`Refund request added: ${order.productId}`)}
         />
+        </div>
       ))}
     </div>
+
+
+
 
   )
 }
