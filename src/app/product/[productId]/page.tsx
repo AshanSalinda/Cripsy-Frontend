@@ -37,10 +37,12 @@ const ProductItem: React.FC = () => {
 
     const productId = 1;
     const userId = 1;
+    const userName = "user1";
 
     const {
         name = "",
         description = "",
+        discount = 0,
         price = 0,
         stock = 0,
         imageUrls = [],
@@ -53,17 +55,17 @@ const ProductItem: React.FC = () => {
     } = productItem || {};
 
     const productData = {
-        productId, userId, name, price, stock, imageUrls, avgRatings, ratingCount, reviewCount
+        productId, userId, name, price, discount, stock, imageUrls, avgRatings, ratingCount, reviewCount
     };
 
     const ratingAndReviewsData = {
-        productId, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
+        productId, userId, userName, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
     };
 
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const product = await getProductItemDetails( productId, "string" );
+            const product = await getProductItemDetails( productId, userName );
             setProductItem(product);
         };
 

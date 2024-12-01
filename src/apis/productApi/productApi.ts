@@ -43,17 +43,7 @@ export const getProducts = async () => {
     }
 };
 
-// Get product by ID
-export const getProductById = async (id: number) => {
-    try {
-        const response = await api.get(`/api/product/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching product:", error);
-        throw error;
-    }
-};
-
+// Get product by Item
 export const getProductItemDetails = async (productId: number, userName: string ) => {
     try {
         const response = await api.get(`/api/product/${productId}/${userName}`);
@@ -64,7 +54,7 @@ export const getProductItemDetails = async (productId: number, userName: string 
     }
 };
 
-
+// Get Product Reviews
 export const getReviews = async (productId: number, pageNo: number) => {
     try {
         const response = await api.get(`/api/product/${productId}/reviews/${pageNo}`);
@@ -75,28 +65,19 @@ export const getReviews = async (productId: number, pageNo: number) => {
     }
 }
 
-
-export const getCartItems = async (userId: number) => {
-    try{
-        const response = await api.get(`/api/product/cart/${userId}`);
+// Add a review
+export const addReview = async (productId: number, user: string, rating: number, comment: string ) => {
+    try {
+        const response = await api.post(
+            `/api/product/review/add`, 
+            { productId, user, rating, comment }
+        );
         return response.data;
     } catch (error) {
-        console.log("Error fetching cart items:", error);
+        console.error("Error adding review:", error);
         return [];
     }
-}
-
-
-export const addToCart = async (productId: number, userId: number, quantity: number) => {
-    try {
-        await api.post(
-            '/api/product/cart/add',
-            { productId, userId, quantity }
-        );
-    } catch (error) {
-        console.log("Error adding to cart:", error);
-    }
-}
+};
 
 
 // Update a product

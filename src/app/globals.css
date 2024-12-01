@@ -16,6 +16,28 @@ body {
     @apply text-gray-400 h-0 pointer-events-none float-left;
     content: attr(data-placeholder);
 }
+
+
+.discount-badge {
+    background-color: #2AD03E;
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(270deg, #2AD03E 0%, #9CFFA8 50%, #2AD03E 100%);
+    clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
+    animation: leaner_glow 3s ease-in-out infinite;
+}
+
+@keyframes leaner_glow {
+    0% {
+        background-position: 150% 50%;
+    }
+    50% {
+        background-position: -50% 50%;
+    }
+    100% {
+        background-position: -50% 50%;
+    }
+}
   
 
 @layer base {

@@ -1,30 +1,18 @@
 "use client";
-
-import React, { useEffect, useState } from 'react';
-import RatingStar from '@/components/Product/RatingStar';
+import React, { use, useEffect, useState } from 'react';
 import Button from '@/components/Button/CustomButton';
-import { Progress } from "@/components/ui/progress"
-import { FaUser } from "react-icons/fa6";
+import RatingStar from '@/components/Product/RatingStar';
 import Pagination from '@/components/Table/Pagination';
-import { getReviews } from '@/apis/productApi/productApi';
+import RatingForm from './RatingForm';
+import { getReviews, addReview } from '@/apis/productApi/productApi';
+import ReviewCard, { ReviewType } from './ReviewCard';
+import RatingStats, { RatingStatsType } from './RatingStats';
 
-
-interface RatingStatsType {
-    ratingCount: number,
-    ratingStats: {
-        [key in `rating${1 | 2 | 3 | 4 | 5}`]: number;
-    }
-}
-
-interface ReviewType {
-    user: string,
-    rating: number,
-    comment: string,
-    ratedDate: string
-}
 
 interface RatingAndReviewsType extends RatingStatsType {
     productId: number,
+    userId: number,
+    userName: string,
     avgRatings: number,
     reviewCount: number,
     isUserRated: boolean,
@@ -32,9 +20,12 @@ interface RatingAndReviewsType extends RatingStatsType {
 }
 
 
-const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] }) => {
+const RatingAndReviews: React.FC<RatingAndReviewsType> = (props) => {
+    const { productId, userName, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] } = props;
     const [currentPage, setCurrentPage] = useState(1);
     const [currentReviews, setCurrentReviews] = useState(reviews);
+    const [isRateFormVisible, setIsRateFormVisible] = useState(false);
+    const [isRated, setIsRated] = useState(isUserRated);
     const numberOfReviewsPerPage = 5;
     const totalPages = Math.ceil(reviewCount / numberOfReviewsPerPage);
 
@@ -42,10 +33,38 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRating
         setCurrentReviews(reviews);
     }, [reviews]);
 
+    useEffect(() => {
+        setIsRated(isUserRated);
+    }, [isUserRated]);
+
     const handlePagination = async (page: number) => {
         const newReviews = await getReviews(productId, page);
         setCurrentReviews(newReviews);
         setCurrentPage(page);
+        setTimeout(() => {
+            const pagination = document.getElementById('pagination');
+            if (pagination) {
+                console.log(pagination);
+                pagination.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            };
+        }, 100);
+    }
+
+    const handleReview = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const rating = ((e.target as HTMLFormElement).elements.namedItem("rating stars") as HTMLInputElement)?.value;
+        const comment = ((e.target as HTMLFormElement).elements.namedItem("comment") as HTMLInputElement)?.value;
+        const action = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
+
+        if (action === "cancel") {
+            setIsRateFormVisible(false)
+        } else if (action === "submit") {
+            const updatedReviews = await addReview(productId, userName, parseInt(rating), comment.trim());
+            setCurrentReviews(updatedReviews);
+            setCurrentPage(1);
+            setIsRated(true);
+            setIsRateFormVisible(false)
+        }
     }
 
     return (
@@ -63,12 +82,12 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRating
                             <span className="text-2xl font-light text-neutral-600">/5</span>
                         </div>
                         <RatingStar value={avgRatings} />
-                        <span className="text-neutral-600 w-full text-sm pl-1">{ ratingCount } ratings</span>
+                        <span className="text-neutral-600 w-full text-sm font-light pl-1">{`${ratingCount} ratings | ${reviewCount} Reviews`}</span>
                     </div>
 
                     <RatingStats ratingStats={ ratingStats } ratingCount={ ratingCount } />
 
-                    {!isUserRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" />}
+                    { !isRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" onClick={() => setIsRateFormVisible(true)}/> }
                 </div>
 
                 {/* Comments */}
@@ -83,60 +102,12 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = ({ productId, avgRating
                     <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePagination} />
                 }
             </div>
+
+            {/* Rating Form Modal */}
+            <RatingForm isRateFormVisible={isRateFormVisible} setIsRateFormVisible={setIsRateFormVisible} handleReview={handleReview} />
         </div>
     );
 }
 
-
-
-const RatingStats: React.FC<RatingStatsType> = ({ ratingStats, ratingCount : totalRatings }) => {
-
-    return (
-        <table className="table-auto w-full md:w-[35vw] lg:w-[25vw] mt-5 mb-10 md:my-0">
-            <tbody>
-                {[...Array(5)].map((_, index) => {
-                    const ratingValue = 5 - index;
-                    const ratingCount = ratingStats ? ratingStats[`rating${ratingValue}` as keyof typeof ratingStats] : 0;
-                    const progressValue = totalRatings ? (ratingCount / totalRatings) * 100 : 0;    
-
-                    return(
-                        <tr key={ratingValue}>
-                            <td className="whitespace-nowrap">
-                                <RatingStar value={ ratingValue } small />
-                            </td>
-                            <td className="w-full px-2">
-                                <Progress 
-                                    value={ progressValue } 
-                                    className="flex-1 bg-progress-background" 
-                                />
-                            </td>
-                            <td className="whitespace-nowrap text-sm text-neutral-500">
-                                <span>{ ratingCount }</span>
-                            </td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
-    );
-}
-
-
-
-const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, ratedDate }) => {
-    return (
-        <div className="flex flex-col space-y-2 bg-slate-50 shadow-md rounded p-3">
-            <div className='flex justify-between'>
-                <div className="flex items-center space-x-1">
-                    <span className='text-carnation-400'><FaUser/></span>
-                    <span className="text-neutral-600 text-lg font-semibold">{ user }</span>
-                </div>
-                <RatingStar value={rating} small />
-            </div>
-            <p className="text-sm text-neutral-700 text-justify">{ comment }</p>
-            <p className='text-xs text-neutral-600 text-right font-light'>{ ratedDate }</p>
-        </div>
-    );
-}
 
 export default RatingAndReviews;
