@@ -52,11 +52,19 @@ export default function page({ children }: { children: React.ReactNode }) {
 
     <div className="min-h-screen flex flex-col">
         <TopNavbar />
-       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Orders / Delivered</h2>
-         <DeliveredOrdersSection />
-         <aside className="w-64 h-[calc(100vh-4rem)] bg-gray-100 border-r border-gray-200">
+        
+        <header className="bg-white shadow px-6 py-4">
+      <h2 className="text-2xl font-semibold text-gray-800">Orders / Delivered</h2>
+    </header>
+    <main className="flex-1 bg-gray-50 px-30 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-100  pl-100">
+        <DeliveredOrdersSection />
+      </div>
+      <aside>
          <AppSidebar accountItems={acitems} orderItems={oritems} />
          </aside>
+    </main>
+         
      
          
         <Footer />
