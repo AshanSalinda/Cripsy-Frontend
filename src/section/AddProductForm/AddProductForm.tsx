@@ -7,6 +7,9 @@ import Dropdown from "@/components/Dropdown/Dropdown";
 import ProductImgUploader, { UploadedImage } from "@/components/Image/ProductImgUploader";
 import { addProduct, getCategories, addCategory } from "@/apis/productApi/productApi";
 import PopupContainer from "@/components/Popup/PopupContainer";
+import {productSchema} from "@/schema/productSchema/productSchema";
+import Toast, { showToast } from '@/components/Messages/showMessage';
+
 
 const AddProductForm = () => {
     const [images, setImages] = useState<UploadedImage[]>([]);
@@ -19,6 +22,7 @@ const AddProductForm = () => {
     const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<string>("");
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
@@ -59,7 +63,24 @@ const AddProductForm = () => {
         }
     };
 
+
+    const emptyFeilds = ()=>{
+        setName('');
+        setEditorContent('');
+        setStock(0);
+        setPrice(0);
+        setDiscount(0);
+        setCategory(0);
+        setImages([]);
+    }
+
+
     const handleSubmit = async () => {
+        showToast({
+            type: 'warning',
+            message: 'Product added successfully!',
+            description: 'Your product was added to the inventory.',
+        });
         const payload = {
             productId: 0,
             name,
@@ -73,11 +94,38 @@ const AddProductForm = () => {
             imageUrls: images.map((image) => image.url),
         };
 
+        const validation = productSchema.safeParse(payload);
+
+        console.log(validation)
+        console.log(payload.imageUrls)
+
+        if (!validation.success) {
+            console.log(validation.success)
+            const fieldErrors: Record<string, string> = {};
+            validation.error.errors.forEach((err) => {
+                fieldErrors[err.path[0]] = err.message;
+            });
+            setErrors(fieldErrors);
+            return;
+        }
+
+        setErrors({});
         try {
             await addProduct(payload);
+            emptyFeilds()
             console.log("Product added successfully!");
+            showToast({
+                type: 'success',
+                message: 'Product added successfully!',
+                description: 'Your product has been added to the database.',
+            })
         } catch (error) {
             console.error("Failed to add product:", error);
+            showToast({
+                type: 'error',
+                message: 'Product adding unsuccessful!',
+                description: 'Please Try again.',
+            })
         }
     };
 
@@ -94,8 +142,13 @@ const AddProductForm = () => {
                         labelName="Name"
                         onChange={(e) => setName(e.target.value)}
                     />
+                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                    <Toast />
+
+
                     <h2 className="text-2xl mt-2">Description</h2>
                     <TextEditor className="mb-4" onChange={handleEditorChange} />
+                    {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
 
                     <h2 className="text-2xl mt-5">Pricing and Stock</h2>
                     <div className="grid grid-cols-1 w-full md:grid-cols-10 gap-7 mt-3">
@@ -109,6 +162,8 @@ const AddProductForm = () => {
                                 className="mb-5"
                                 onChange={(e) => setPrice(Number(e.target.value))}
                             />
+                            {errors.price && <p className="text-red-500 text-sm">{errors.price}</p>}
+
                             <InputField
                                 id="discount"
                                 type="number"
@@ -117,6 +172,8 @@ const AddProductForm = () => {
                                 labelName="Discount"
                                 onChange={(e) => setDiscount(Number(e.target.value))}
                             />
+                            {errors.discount && <p className="text-red-500 text-sm">{errors.discount}</p>}
+
                         </div>
                         <div className="md:col-span-5">
                             <InputField
@@ -128,6 +185,7 @@ const AddProductForm = () => {
                                 className="mb-5"
                                 onChange={(e) => setStock(Number(e.target.value))}
                             />
+                            {errors.stock && <p className="text-red-500 text-sm">{errors.stock}</p>}
                         </div>
                     </div>
                     <h2 className="text-2xl mt-5">Category</h2>
@@ -138,11 +196,13 @@ const AddProductForm = () => {
                             onChange={(value) => setCategory(Number(value))}
                         />
                         <CustomButton buttonLabel="+" onClick={() => setShowPopup(true)} variant={"primary"}/>
+                        {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
                     </div>
                 </div>
 
                 <div className="md:col-span-4">
                     <ProductImgUploader images={images} setImages={setImages} />
+                    {errors.imageUrls && <p className="text-red-500 text-sm">{errors.imageUrls}</p>}
                 </div>
                 <div className="flex justify-between items-center pl-2">
                     <CustomButton buttonLabel="Add Product" onClick={handleSubmit} />
