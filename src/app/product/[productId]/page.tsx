@@ -41,6 +41,7 @@ const ProductItem: React.FC = () => {
     const {
         name = "",
         description = "",
+        discount = 0,
         price = 0,
         stock = 0,
         imageUrls = [],
@@ -53,7 +54,7 @@ const ProductItem: React.FC = () => {
     } = productItem || {};
 
     const productData = {
-        productId, userId, name, price, stock, imageUrls, avgRatings, ratingCount, reviewCount
+        productId, userId, name, price, discount, stock, imageUrls, avgRatings, ratingCount, reviewCount
     };
 
     const ratingAndReviewsData = {
