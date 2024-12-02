@@ -49,6 +49,15 @@ type Column<T> = {
     ) => React.ReactNode;
 };
 
+// Refund interface
+export interface Refund {
+    orderId: string;
+    customerName: string;
+    refundItemQty: number;
+    refundAmount: number;
+}
+
+
 // Branch Columns
 export const branchColumns: Column<Branch>[] = [
     { header: "Branch ID", accessor: "branchId" },
@@ -134,3 +143,23 @@ export const orderColumns: Column<Order>[] = [
     },
 ];
 
+//Refund Details Table
+export const refundColumns: Column<Refund>[] = [
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Customer Name", accessor: "customerName" },
+    { header: "Refund Item Qty", accessor: "refundItemQty" },
+    { header: "Refund Amount", accessor: "refundAmount" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Refund,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Action Refund"
+                />
+            </div>
+        ),
+    }
+];
