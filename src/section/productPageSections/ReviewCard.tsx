@@ -4,13 +4,13 @@ import { FaUser } from "react-icons/fa6";
 
 
 export interface ReviewType {
-    user: string,
+    userName: string,
     rating: number,
     comment: string,
     ratedDate: string
 }
 
-const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, ratedDate }) => {
+const ReviewCard: React.FC<ReviewType> = ({ userName, rating, comment, ratedDate }) => {
 
     const getLocalDate = (date: string) => {
         const offset = new Date().getTimezoneOffset() * 60 * 1000;
@@ -28,7 +28,7 @@ const ReviewCard: React.FC<ReviewType> = ({ user, rating, comment, ratedDate }) 
             <div className='flex justify-between'>
                 <div className="flex items-center space-x-2">
                     <span className='text-carnation-400'><FaUser/></span>
-                    <span className="text-neutral-600 text-lg font-semibold">{ user }</span>
+                    <span className="text-neutral-600 text-lg font-semibold">{ userName }</span>
                 </div>
                 <RatingStar value={rating} small />
             </div>

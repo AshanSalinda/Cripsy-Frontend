@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button/CustomButton';
 import RatingStar from '@/components/Product/RatingStar';
 import Pagination from '@/components/Table/Pagination';
@@ -21,7 +21,7 @@ interface RatingAndReviewsType extends RatingStatsType {
 
 
 const RatingAndReviews: React.FC<RatingAndReviewsType> = (props) => {
-    const { productId, userName, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] } = props;
+    const { productId, userId, userName, avgRatings, ratingCount, ratingStats, reviewCount, isUserRated, reviews = [] } = props;
     const [currentPage, setCurrentPage] = useState(1);
     const [currentReviews, setCurrentReviews] = useState(reviews);
     const [isRateFormVisible, setIsRateFormVisible] = useState(false);
@@ -59,7 +59,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = (props) => {
         if (action === "cancel") {
             setIsRateFormVisible(false)
         } else if (action === "submit") {
-            const updatedReviews = await addReview(productId, userName, parseInt(rating), comment.trim());
+            const updatedReviews = await addReview(productId, userId, userName, parseInt(rating), comment.trim());
             setCurrentReviews(updatedReviews);
             setCurrentPage(1);
             setIsRated(true);
@@ -93,7 +93,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = (props) => {
                 {/* Comments */}
                 <div className="my-10 space-y-4">
                     {currentReviews.map((review, index) => (
-                        <ReviewCard key={index + review.user} {...review} />
+                        <ReviewCard key={index + review.userName} {...review} />
                     ))}
                 </div>
                     

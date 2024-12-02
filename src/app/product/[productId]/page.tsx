@@ -36,7 +36,7 @@ const ProductItem: React.FC = () => {
     const [productItem, setProductItem] = React.useState<Partial<ProductItemType>>({});
 
     const productId = 1;
-    const userId = 1;
+    const userId = 7;
     const userName = "user1";
 
     const {
@@ -65,7 +65,7 @@ const ProductItem: React.FC = () => {
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const product = await getProductItemDetails( productId, userName );
+            const product = await getProductItemDetails( productId, userId );
             setProductItem(product);
         };
 
