@@ -36,7 +36,8 @@ const ProductItem: React.FC = () => {
     const [productItem, setProductItem] = React.useState<Partial<ProductItemType>>({});
 
     const productId = 1;
-    const userId = 1;
+    const userId = 7;
+    const userName = "user1";
 
     const {
         name = "",
@@ -58,13 +59,13 @@ const ProductItem: React.FC = () => {
     };
 
     const ratingAndReviewsData = {
-        productId, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
+        productId, userId, userName, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
     };
 
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const product = await getProductItemDetails( productId, "string" );
+            const product = await getProductItemDetails( productId, userId );
             setProductItem(product);
         };
 
