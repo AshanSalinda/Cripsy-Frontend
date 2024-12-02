@@ -20,7 +20,9 @@ const PopupContainer: React.FC<PopupContainerProps> = ({
     return (
         <Dialog open={isOpen} onOpenChange={onClose} modal={true}>
             <DialogContent
-                className={`w-50 p-0 overflow-hidden bg-white items-center rounded-lg shadow-lg ${className}`}
+                // className={`w-50 p-0 overflow-hidden bg-white items-center rounded-lg shadow-lg ${className}`}
+                className={`w-[800px] p-0 overflow-hidden bg-white items-center rounded-lg shadow-lg ${className}`}
+
                 onInteractOutside={(event) => event.preventDefault()}
             >
                 {children}
