@@ -1,5 +1,4 @@
 import axios from "axios";
-import {showMessage} from "@/components/Messages/showMessage";
 
 
 // Axios instance with base URL
@@ -44,9 +43,9 @@ export const getProducts = async () => {
 };
 
 // Get product by Item
-export const getProductItemDetails = async (productId: number, userName: string ) => {
+export const getProductItemDetails = async (productId: number, userId: number ) => {
     try {
-        const response = await api.get(`/api/product/${productId}/${userName}`);
+        const response = await api.get(`/api/product/${productId}/${userId}`);
         return response.data;
     } catch (error) {
         console.log("Error Getting product Details:", error);
@@ -66,11 +65,11 @@ export const getReviews = async (productId: number, pageNo: number) => {
 }
 
 // Add a review
-export const addReview = async (productId: number, user: string, rating: number, comment: string ) => {
+export const addReview = async (productId: number, userId: number, userName: string, rating: number, comment: string ) => {
     try {
         const response = await api.post(
             `/api/product/review/add`, 
-            { productId, user, rating, comment }
+            { productId, userId, userName, rating, comment }
         );
         return response.data;
     } catch (error) {
