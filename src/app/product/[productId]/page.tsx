@@ -36,7 +36,7 @@ const ProductItem: React.FC = () => {
     const [productItem, setProductItem] = React.useState<Partial<ProductItemType>>({});
 
     const productId = 1;
-    const userId = 7;
+    const userId = 1;
     const userName = "user1";
 
     const {
