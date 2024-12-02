@@ -47,7 +47,7 @@ export const DeliveredOrdersSection = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-gray-800">Orders / Delivered</h2>
+      <h2 className="text-1xl  text-gray-400">Orders / Delivered</h2>
 
       {deliveredOrders.map((order) => (
         <div className="px-10 py-5" key={order.productId}>
