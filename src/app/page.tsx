@@ -1,9 +1,16 @@
+"use client"
+import { useRouter } from 'next/navigation';
 import MainImageCarousel from "@/components/Carosel/MainImageCarousel";
 import ProductCard from "@/components/Product/ProductCard";
-import Link from "next/link";
 import productItemsData from '@/data/productIem.json';
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    router.push('/product/allProducts');
+  };
+
   return (
     <>
       <MainImageCarousel />
@@ -17,12 +24,12 @@ export default function Home() {
             </h2>
             <hr className="flex-grow border-t border-gray-300" />
           </div>
-          <Link
-            href="/product/allProducts"
+          <button
+            onClick={handleNavigation}
             className="text-carnation-500 text-sm font-medium ml-4 whitespace-nowrap"
           >
             View All
-          </Link>
+          </button>
         </div>
 
         {/* Products Grid */}
@@ -46,4 +53,3 @@ export default function Home() {
     </>
   );
 }
-
