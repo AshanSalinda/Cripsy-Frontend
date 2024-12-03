@@ -1,22 +1,37 @@
 import { AppSidebar } from "@/components/NavBar/AppSidebar";
-import { Clock9,Heart, Inbox, User,Gift,Truck,ShieldX } from "lucide-react";
+import { Clock9,Heart, Inbox, User,Gift,ShieldX,Archive, Calendar,Truck,MessagesSquare } from "lucide-react";
 import TopNavbar from "@/components/TopNavbar/TopNavbar";
 
 const acitems = [
     {
-        title: "My Profile",
+        title: "Dashboard",
         url: "#",
         icon: User,
     },
     {
-        title: "Address Book",
+        title: "Orders",
         url: "#",
         icon: Inbox,
     },
     {
-        title: "Watch List",
+        title: "Products",
         url: "#",
-        icon: Heart,
+        icon: Archive,
+    },
+    {
+        title: "Refunds",
+        url: "#",
+        icon: Calendar,
+    },
+    {
+        title: "Delivery",
+        url: "#",
+        icon: Truck,
+    },
+    {
+        title: "Messages",
+        url: "#",
+        icon: MessagesSquare,
     },
 ];
 
@@ -47,6 +62,7 @@ const oritems =[
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
     return (
         <div className="flex flex-col min-h-screen">
 
@@ -57,7 +73,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="flex flex-1 overflow-hidden">
 
                 <div className="flex-shrink-0">
-                    <AppSidebar accountItems={acitems} orderItems ={oritems} />
+                    <AppSidebar accountItems={acitems} orderItems ={oritems} showOrders={false}/>
                 </div>
 
                 <main className="flex-1 p-6 overflow-y-auto mt-20">
