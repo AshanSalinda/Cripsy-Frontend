@@ -1,5 +1,6 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { use, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import item from "@/data/productIem.json";
 import Overview from "@/section/productPageSections/Overview";
 import Description from "@/section/productPageSections/Description";
@@ -32,11 +33,14 @@ interface ProductItemType {
     relatedItems: []
 }
 
+interface ProductItemProps {
+    params: Promise<{ productId: number }>
+}
 
-const ProductItem: React.FC = () => {
+
+const ProductItem: React.FC<ProductItemProps> = ({params}) => {
     const [productItem, setProductItem] = React.useState<Partial<ProductItemType>>({});
-
-    const productId = 1;
+    const productId = Number(use(params).productId);
     const userId = 1;
     const userName = "user1";
 
@@ -57,11 +61,29 @@ const ProductItem: React.FC = () => {
     } = productItem || {};
 
     const productData = {
-        productId, userId, name, price, discount, stock, imageUrls, isWatchlistAdded, avgRatings, ratingCount, reviewCount
+        productId,
+        userId,
+        name,
+        price,
+        discount,
+        stock,
+        imageUrls, 
+        isWatchlistAdded, 
+        avgRatings, 
+        ratingCount, 
+        reviewCount
     };
 
     const ratingAndReviewsData = {
-        productId, userId, userName, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
+        productId, 
+        userId, 
+        userName, 
+        avgRatings, 
+        ratingCount, 
+        reviewCount, 
+        ratingStats, 
+        isUserRated, 
+        reviews: initialReviews
     };
 
 
@@ -71,8 +93,13 @@ const ProductItem: React.FC = () => {
             setProductItem(product);
         };
 
-        fetchProductDetails();
-    }, []);
+        if (isNaN(productId)) {
+            redirect("/product");
+        } else {
+            fetchProductDetails();
+        }
+
+    }, [productId, userId]);
 
 
     return (

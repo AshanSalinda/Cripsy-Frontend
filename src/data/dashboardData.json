@@ -1,0 +1,29 @@
+{
+    "dashboardCardData": [
+      {
+        "title": "Total Sales",
+        "value": "Rs 20,453.45",
+        "change": "12%",
+        "positive": true
+      },
+      {
+        "title": "Total Orders",
+        "value": "2,345",
+        "change": "5%",
+        "positive": false
+      },
+      {
+        "title": "Total Revenue",
+        "value": "Rs 20,453.45",
+        "change": "8%",
+        "positive": true
+      },
+      {
+        "title": "Total Customers",
+        "value": "6,478",
+        "change": "10%",
+        "positive": true
+      }
+    ]
+  }
+  
