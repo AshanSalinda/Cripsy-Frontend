@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
@@ -15,9 +15,16 @@ export interface UploadedImage {
 interface ProductImgUploaderProps {
     images: UploadedImage[];
     setImages: React.Dispatch<React.SetStateAction<UploadedImage[]>>;
+    resetImages: boolean; // New prop to listen to external reset state
+    setResetImages: React.Dispatch<React.SetStateAction<boolean>>; // To update the reset state externally
 }
 
-const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({ images, setImages }) => {
+const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({
+                                                                   images,
+                                                                   setImages,
+                                                                   resetImages,
+                                                                   setResetImages,
+                                                               }) => {
     const [uploading, setUploading] = useState(false);
     const [selectedImage, setSelectedImage] = useState<UploadedImage | null>(images[0] || null);
 
@@ -84,6 +91,15 @@ const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({ images, setImag
     const handleImageClick = (image: UploadedImage) => {
         setSelectedImage(image);
     };
+
+    // Listen for `resetImages` prop changes
+    useEffect(() => {
+        if (resetImages) {
+            setSelectedImage(null);
+            setImages([]);
+            setResetImages(false);
+        }
+    }, [resetImages, setImages, setResetImages]);
 
     return (
         <div className="p-1">

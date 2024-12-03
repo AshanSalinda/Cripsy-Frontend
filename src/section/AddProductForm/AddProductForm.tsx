@@ -23,6 +23,8 @@ const AddProductForm = () => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<string>("");
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [resetImages, setResetImages] = useState(false);
+    const [resetEditor, setRestEditor] = useState(false);
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
@@ -63,8 +65,7 @@ const AddProductForm = () => {
         }
     };
 
-
-    const emptyFeilds = ()=>{
+    const clearAll = ()=>{
         setName('');
         setEditorContent('');
         setStock(0);
@@ -72,15 +73,14 @@ const AddProductForm = () => {
         setDiscount(0);
         setCategory(0);
         setImages([]);
+        setErrors({});
+        handleEditorChange("")
+        setResetImages(true)
+        setRestEditor(true)
     }
 
 
     const handleSubmit = async () => {
-        showToast({
-            type: 'warning',
-            message: 'Product added successfully!',
-            description: 'Your product was added to the inventory.',
-        });
         const payload = {
             productId: 0,
             name,
@@ -102,7 +102,7 @@ const AddProductForm = () => {
         if (!validation.success) {
             console.log(validation.success)
             const fieldErrors: Record<string, string> = {};
-            validation.error.errors.forEach((err) => {
+            validation.error.errors.forEach((err: { path: (string | number)[]; message: string; }) => {
                 fieldErrors[err.path[0]] = err.message;
             });
             setErrors(fieldErrors);
@@ -112,13 +112,14 @@ const AddProductForm = () => {
         setErrors({});
         try {
             await addProduct(payload);
-            emptyFeilds()
             console.log("Product added successfully!");
             showToast({
                 type: 'success',
                 message: 'Product added successfully!',
                 description: 'Your product has been added to the database.',
             })
+            clearAll()
+
         } catch (error) {
             console.error("Failed to add product:", error);
             showToast({
@@ -140,6 +141,7 @@ const AddProductForm = () => {
                         placeholder="Name"
                         label={true}
                         labelName="Name"
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
@@ -147,19 +149,20 @@ const AddProductForm = () => {
 
 
                     <h2 className="text-2xl mt-2">Description</h2>
-                    <TextEditor className="mb-4" onChange={handleEditorChange} />
+                    <TextEditor className="mb-4" onChange={handleEditorChange} resetEditor={resetEditor} setRestEditor={setRestEditor}/>
                     {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
 
                     <h2 className="text-2xl mt-5">Pricing and Stock</h2>
                     <div className="grid grid-cols-1 w-full md:grid-cols-10 gap-7 mt-3">
                         <div className="md:col-span-5">
                             <InputField
-                                id="basePrice"
+                                id="price"
                                 type="number"
                                 placeholder="Base Pricing"
                                 label={true}
                                 labelName="Base Pricing"
                                 className="mb-5"
+                                value={price}
                                 onChange={(e) => setPrice(Number(e.target.value))}
                             />
                             {errors.price && <p className="text-red-500 text-sm">{errors.price}</p>}
@@ -170,6 +173,7 @@ const AddProductForm = () => {
                                 placeholder="Discount"
                                 label={true}
                                 labelName="Discount"
+                                value={discount}
                                 onChange={(e) => setDiscount(Number(e.target.value))}
                             />
                             {errors.discount && <p className="text-red-500 text-sm">{errors.discount}</p>}
@@ -183,6 +187,7 @@ const AddProductForm = () => {
                                 label={true}
                                 labelName="Stock"
                                 className="mb-5"
+                                value={stock}
                                 onChange={(e) => setStock(Number(e.target.value))}
                             />
                             {errors.stock && <p className="text-red-500 text-sm">{errors.stock}</p>}
@@ -194,6 +199,7 @@ const AddProductForm = () => {
                             options={options}
                             placeholder="Select Category"
                             onChange={(value) => setCategory(Number(value))}
+                            value={category}
                         />
                         <CustomButton buttonLabel="+" onClick={() => setShowPopup(true)} variant={"primary"}/>
                         {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
@@ -201,7 +207,7 @@ const AddProductForm = () => {
                 </div>
 
                 <div className="md:col-span-4">
-                    <ProductImgUploader images={images} setImages={setImages} />
+                    <ProductImgUploader images={images} setImages={setImages} resetImages={resetImages} setResetImages={setResetImages}/>
                     {errors.imageUrls && <p className="text-red-500 text-sm">{errors.imageUrls}</p>}
                 </div>
                 <div className="flex justify-between items-center pl-2">

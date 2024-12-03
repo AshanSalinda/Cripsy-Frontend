@@ -6,15 +6,18 @@ import Tooltip from '../Tooltip/Tooltip';
 import { FaBold, FaItalic, FaListOl, FaListUl } from "react-icons/fa";
 import { ImUndo2, ImRedo2 } from "react-icons/im";
 import { IoMdBackspace } from "react-icons/io";
+import React, {use, useEffect} from "react";
 
 
 interface EditorPropsType {
     className?: string;
     onChange?: (content: string) => void;
+    resetEditor:boolean;
+    setRestEditor: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
-const TextEditor: React.FC<EditorPropsType> = ({ className, onChange = () => {}}) => {
+const TextEditor: React.FC<EditorPropsType> = ({ className, onChange = () => {}, resetEditor, setRestEditor}) => {
 
     const editor = useEditor({
         immediatelyRender: false,
@@ -76,6 +79,11 @@ const TextEditor: React.FC<EditorPropsType> = ({ className, onChange = () => {}}
         return editor?.isActive(type) ? ' bg-carnation-200 text-white' : ' bg-white';
     }
 
+
+    useEffect(() => {
+        handleClear()
+        setRestEditor(false)
+    }, [resetEditor]);
 
     return (
         <div className={'border border-gray-400 rounded-md focus-within:border-carnation-300 ' + className} >
