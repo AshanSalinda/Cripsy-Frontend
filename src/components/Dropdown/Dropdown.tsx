@@ -11,21 +11,20 @@ import {
 interface DropdownProps {
     options: { label: string; value: string }[];
     placeholder?: string;
-    onChange?: (value: string) => void; // Add the onChange prop
+    value?: string; // Add value prop
+    onChange?: (value: string) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, placeholder = "Select an option", onChange }) => {
-
-
-    const handleSelectChange = (value: string) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, placeholder = "Select an option", value, onChange }) => {
+    const handleSelectChange = (selectedValue: string) => {
         if (onChange) {
-            onChange(value);
+            onChange(selectedValue);
         }
     };
 
     return (
         <div>
-            <Select onValueChange={handleSelectChange}>
+            <Select onValueChange={handleSelectChange} value={value}> {/* Bind the value */}
                 <SelectTrigger className="w-72 mt-2 mb-1">
                     <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
