@@ -1,5 +1,8 @@
 "use client";
 import { FaTrash } from 'react-icons/fa';
+import { FaRegEdit } from "react-icons/fa";
+
+
 
 // Interfaces
 export interface Branch {
@@ -25,6 +28,16 @@ export interface Admin {
     contactNo: string;
 }
 
+// order interface
+export interface Order {
+    orderId:string;
+    fullName: string;
+    district: string;
+    address: string;
+    postalCode: string;
+    contactNo: string;
+}
+
 // Column Type Definition
 type Column<T> = {
     header: string;
@@ -35,6 +48,15 @@ type Column<T> = {
         handlers?: Record<string, (row: T) => void>
     ) => React.ReactNode;
 };
+
+// Refund interface
+export interface Refund {
+    orderId: string;
+    customerName: string;
+    refundItemQty: number;
+    refundAmount: number;
+}
+
 
 // Branch Columns
 export const branchColumns: Column<Branch>[] = [
@@ -97,4 +119,47 @@ export const adminColumns: Column<Admin>[] = [
             </div>
         ),
     },
+];
+
+
+//order details table
+export const orderColumns: Column<Order>[] = [
+    { header: "Full Name", accessor: "fullName" },
+    { header: "District", accessor: "district" },
+    { header: "Postal Code", accessor: "postalCode" },
+    { header: "Contact No", accessor: "contactNo" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Order,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Edit Order"
+                />
+            </div>
+        ),
+    },
+];
+
+//Refund Details Table
+export const refundColumns: Column<Refund>[] = [
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Customer Name", accessor: "customerName" },
+    { header: "Refund Item Qty", accessor: "refundItemQty" },
+    { header: "Refund Amount", accessor: "refundAmount" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Refund,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Action Refund"
+                />
+            </div>
+        ),
+    }
 ];

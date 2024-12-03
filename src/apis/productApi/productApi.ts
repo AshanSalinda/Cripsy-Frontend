@@ -1,8 +1,9 @@
 import axios from "axios";
 
+
 // Axios instance with base URL
 const api = axios.create({
-    baseURL: "http://localhost:8082"
+    baseURL: "http://localhost:8080"
 });
 
 // Add a product
@@ -15,6 +16,7 @@ export const addProduct = async (productData: {
     discount: number;
     rating: number;
     ratingCount: number;
+    category: number;
     imageUrls: string[];
 }) => {
     try {
@@ -40,49 +42,42 @@ export const getProducts = async () => {
     }
 };
 
-// Get product by ID
-export const getProductById = async (id: number) => {
+// Get product by Item
+export const getProductItemDetails = async (productId: number, userId: number ) => {
     try {
-        const response = await api.get(`/api/product/${id}`);
+        const response = await api.get(`/api/product/${productId}/${userId}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching product:", error);
-        throw error;
+        console.log("Error Getting product Details:", error);
+        return {};
     }
 };
 
-export const getProductItemDetails = async (productId: number, userName: string ) => {
+// Get Product Reviews
+export const getReviews = async (productId: number, pageNo: number) => {
     try {
-        const response = await api.get(`/api/product/${productId}/${userName}`);
-        const product = response.data;
-        console.log("product:", product);
-        return product;
+        const response = await api.get(`/api/product/reviews/${productId}/${pageNo}`);
+        return response.data;
     } catch (error) {
-        console.log("Error Getting product Details:", error);
-        return {
-            productId: 0,
-            name: "Product Item",
-            description: "",
-            discount: 0,
-            price: 0,
-            stock: 0,
-            imageUrls: [],
-            avgRatings: 0,
-            ratingCount: 0,
-            reviewCount: 0,
-            isUserRated: false,
-            ratingStats: {
-                rating5: 0,
-                rating4: 0,
-                rating3: 0,
-                rating2: 0,
-                rating1: 0,
-            },
-            initialReviews: [],
-            relatedItems: []
-        };
+        console.log("Error fetching reviews:", error);
+        return [];
+    }
+}
+
+// Add a review
+export const addReview = async (productId: number, userId: number, userName: string, rating: number, comment: string ) => {
+    try {
+        const response = await api.post(
+            `/api/product/review`, 
+            { productId, userId, userName, rating, comment }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error adding review:", error);
+        return [];
     }
 };
+
 
 // Update a product
 export const updateProduct = async (
@@ -118,6 +113,26 @@ export const deleteProduct = async (id: number) => {
         }
     } catch (error) {
         console.error("Error deleting product:", error);
+        throw error;
+    }
+};
+
+export const getCategories = async () => {
+    try {
+        const response = await api.get("/api/product/category/getAll"); // Use the api instance for consistency
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+        throw error;
+    }
+};
+
+export const addCategory = async (categoryData: { categoryName: string }) => {
+    try {
+        const response = await api.post("/api/product/category/add", categoryData); // Adjust the endpoint to match your API
+        return response.data;
+    } catch (error) {
+        console.error("Error adding category:", error);
         throw error;
     }
 };

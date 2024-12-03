@@ -127,39 +127,93 @@
         "Ball",
         "Samsung Phone"
     ],
-    "productData":[
-        
-            {
-              "productId": 1,
-              "imageSrc": "/path/to/image1.jpg",
-              "title": "POLO Shirt - Original",
-              "description": "High-quality polo shirt made from premium materials.",
-              "rating": 4.5,
-                "availableItems": 10,
-              "reviews": 120,
-              "price": 64099
-            },
-            {
-              "productId": 2,
-              "imageSrc": "/path/to/image2.jpg",
-              "title": "Casual Shirt",
-              "description": "Lightweight and comfortable for everyday wear.",
-              "rating": 4.3,
-              "availableItems": 5,
-              "reviews": 85,
-              "price": 45999
-            },
-            {
-              "productId": 3,
-              "imageSrc": "/path/to/image3.jpg",
-              "title": "Formal Shirt",
-              "description": "Perfect for office or formal occasions.",
-              "rating": 4.7,
-                "availableItems": 7,
-              "reviews": 150,
-              "price": 55999
-            }
-          
-          
+    "order": [
+        {
+            "orderId": "1",
+            "fullName": "Saci",
+            "district": "Colombo",
+            "postalCode": "90000",
+            "contactNo": "0342222231"
+        },
+        {
+            "orderId": "2",
+            "fullName": "John Doe",
+            "district": "Galle",
+            "postalCode": "80000",
+            "contactNo": "0712345678"
+        },
+        {
+            "orderId": "3",
+            "fullName": "Jane Smith",
+            "district": "Kandy",
+            "postalCode": "20000",
+            "contactNo": "0776543210"
+        },
+        {
+            "orderId": "4",
+            "fullName": "Amara Silva",
+            "district": "Matara",
+            "postalCode": "81000",
+            "contactNo": "0709876543"
+        },
+        {
+            "orderId": "5",
+            "fullName": "Lahiru Perera",
+            "district": "Jaffna",
+            "postalCode": "40000",
+            "contactNo": "0781234567"
+        }
+    ],
+    "refund":[
+        {
+            "orderId": "ORD123456",
+            "customerName": "John Doe",
+            "refundItemQty": 3,
+            "refundAmount": 150.00
+        },
+        {
+            "orderId": "ORD123457",
+            "customerName": "Jane Smith",
+            "refundItemQty": 2,
+            "refundAmount": 100.00
+        },
+        {
+            "orderId": "ORD123458",
+            "customerName": "Alice Johnson",
+            "refundItemQty": 1,
+            "refundAmount": 50.00
+        },
+        {
+            "orderId": "ORD123459",
+            "customerName": "Bob Brown",
+            "refundItemQty": 5,
+            "refundAmount": 250.00
+        },
+        {
+            "orderId": "ORD123460",
+            "customerName": "Charlie Davis",
+            "refundItemQty": 4,
+            "refundAmount": 200.00
+        },
+        {
+            "orderId": "ORD123461",
+            "customerName": "Emily Clark",
+            "refundItemQty": 6,
+            "refundAmount": 300.00
+        },
+        {
+            "orderId": "ORD123462",
+            "customerName": "David Lee",
+            "refundItemQty": 7,
+            "refundAmount": 350.00
+        },
+        {
+            "orderId": "ORD123463",
+            "customerName": "Sophia Walker",
+            "refundItemQty": 2,
+            "refundAmount": 100.00
+        }
     ]
+
+   
 }

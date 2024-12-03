@@ -41,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1)
 
     return (
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-end mt-4" id="pagination">
             <div className="flex items-center space-x-2 overflow-x-auto">
                 <Button
                     variant="outline"

@@ -26,7 +26,7 @@ const RatingStar: React.FC<RatingProps> = ({
             name="rating stars"
             value={rating}
             readOnly={readOnly}
-            precision={0.5}
+            precision={readOnly ? 0.5 : 1}
             size={small ? 'medium' : 'large'}
             onChange={(e, newValue) => { setRating(newValue)}}
             sx={{
