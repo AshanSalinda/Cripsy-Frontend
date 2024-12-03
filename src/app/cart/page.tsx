@@ -30,6 +30,10 @@ const Cart: React.FC = () => {
     const ShippingCharge = 200;
     const userId = 1;
 
+    const toCurrency = (value: number = 0) => (
+        "Rs " + value?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+    );
+
     const getCartItemProps = (item: CartItemType) => {
         return {
             productId: item?.productId,
@@ -110,18 +114,17 @@ const Cart: React.FC = () => {
                         <div className='pt-4'>
                             <div className='flex justify-between w-full mt-2'>
                                 <p className='font-light'>Subtotal</p>
-                                <p className='font-light'>{`Rs ${totalAmount - ShippingCharge}`}</p>
+                                <p className='font-light'>{toCurrency(totalAmount - ShippingCharge)}</p>
                             </div>
                             <div className='flex justify-between w-full mt-2'>
                                 <p className='font-light'>Shipping</p>
-                                <p className='font-light'>{`Rs ${ShippingCharge}`}</p>
+                                <p className='font-light'>{toCurrency(ShippingCharge)}</p>
                             </div>
                             <div className='flex justify-between w-full mt-2'>
                                 <p className='text-xl font-semibold text-carnation-500'>Total Amount</p>
-                                <p className='text-xl font-semibold text-carnation-500'>
-                                    {`Rs ${totalAmount?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
-                                </p>
+                                <p className='text-xl font-semibold text-carnation-500'>{toCurrency(totalAmount)}</p>
                             </div>
+                            
                             <Button buttonClassName='w-full mt-4 mx-auto' buttonLabel='Checkout' onClick={handleCheckout} />
                         </div>
                     </div>                    

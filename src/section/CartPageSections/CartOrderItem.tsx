@@ -28,14 +28,14 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
                 </div>
 
                 <p className={`font-light transition-all duration-300 ease-in-out ${isExpanded ? 'opacity-0 translate-y-28' : 'opacity-100 translate-y-0' }`}>
-                    {`Rs ${total?.toLocaleString()}`}
+                    {`Rs ${total?.toLocaleString('en-US', {maximumFractionDigits: 2})}`}
                 </p>
             </button>
 
             <div className={`overflow-hidden transition-max-height duration-300 ease-in-out ${isExpanded ? 'max-h-40' : 'max-h-0'}`} >
                 <div className="flex justify-between pl-8 mt-2">
                     <p className="font-light">Price</p>
-                    <p className="font-light">{price}</p>
+                    <p className="font-light">{price?.toLocaleString('en-US', {maximumFractionDigits: 2})}</p>
                 </div> 
                 <div className="flex justify-between pl-8">
                     <p className="font-light">
@@ -49,7 +49,7 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
                 </div>
                 <div className="flex justify-between pl-8">
                     <p className="font-medium">Subtotal</p>
-                    <p className="font-medium">{`Rs ${total?.toLocaleString()}`}</p>
+                    <p className="font-medium">{`Rs ${total?.toLocaleString('en-US', {maximumFractionDigits: 2})}`}</p>
                 </div>
             </div>
         </div>
