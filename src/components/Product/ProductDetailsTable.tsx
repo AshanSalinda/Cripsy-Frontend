@@ -8,12 +8,14 @@ import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 // import AddNewProduct from "@/components/Product/AddNewProduct"; // Component to add a new product
 import { Product } from "@/components/Table/Columns";
 import { Separator } from "@radix-ui/react-separator";
+import {useRouter} from "next/navigation";
 
 const ProductDetailsTable = () => {
     const [isNewProductPopupOpen, setIsNewProductPopupOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [filteredData, setFilteredData] = useState<Product[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         setFilteredData(jsonData?.productData || []);
@@ -26,12 +28,20 @@ const ProductDetailsTable = () => {
         }
     };
 
+    const handleNewProduct = () => {
+        // Navigate to the new product page
+        router.push("/admin/addProduct"); // Replace '/new-product' with the actual route
+    };
+
+
+
+
     return (
         <>
             <div className="flex justify-between mb-3 mt-6">
                 <h5 className="flex items-center text-lg font-semibold font-inter">Product Details</h5>
                 <CustomButton
-                    onClick={() =>setIsNewProductPopupOpen(true)}
+                    onClick={handleNewProduct}
                     buttonLabel="New Product"
                     buttonClassName="text"
                 />
