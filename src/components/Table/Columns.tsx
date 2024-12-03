@@ -22,12 +22,15 @@ export interface Product {
 
 // Admin Interface
 export interface Admin {
-    adminId: string;
+    adminId: string; // Or number, depending on your DB schema
     adminName: string;
     email: string;
     contactNo: string;
-}
-
+    firstName: string;
+    lastName: string;
+    gender: "Male" | "Female"; // Define gender
+    birthday: string; // Format it accordingly, e.g., YYYY-MM-DD
+  }
 // order interface
 export interface Order {
     orderId:string;
