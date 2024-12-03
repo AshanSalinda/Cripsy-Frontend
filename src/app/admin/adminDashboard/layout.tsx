@@ -10,17 +10,17 @@ export default function AllProductsLayout({
     return (
         <div className="flex min-h-screen">
             {/* Sidebar */}
-            <div className="w-60 fixed top-0 left-0 h-full bg-gray-50 shadow-md">
+            <div className="w-52 fixed top-0 left-0 h-ful shadow-md mt-16">
                 <AdminSidebar />
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 ml-60 flex flex-col">
+            <div className="flex-1 ml-52 flex flex-col">
                 {/* Top Navbar */}
                 <AdminTopNavbar />
 
                 {/* Page Content */}
-                <main className="flex-1 p-6 bg-gray-100 overflow-y-auto mt-10">
+                <main className="flex-1 p-4 overflow-y-auto mt-12 bg-gray-50">
                     {children}
                 </main>
             </div>
