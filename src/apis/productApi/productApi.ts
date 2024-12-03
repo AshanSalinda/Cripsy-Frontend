@@ -56,7 +56,7 @@ export const getProductItemDetails = async (productId: number, userId: number ) 
 // Get Product Reviews
 export const getReviews = async (productId: number, pageNo: number) => {
     try {
-        const response = await api.get(`/api/product/${productId}/reviews/${pageNo}`);
+        const response = await api.get(`/api/product/reviews/${productId}/${pageNo}`);
         return response.data;
     } catch (error) {
         console.log("Error fetching reviews:", error);
@@ -68,7 +68,7 @@ export const getReviews = async (productId: number, pageNo: number) => {
 export const addReview = async (productId: number, userId: number, userName: string, rating: number, comment: string ) => {
     try {
         const response = await api.post(
-            `/api/product/review/add`, 
+            `/api/product/review`, 
             { productId, userId, userName, rating, comment }
         );
         return response.data;

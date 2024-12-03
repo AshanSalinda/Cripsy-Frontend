@@ -20,6 +20,7 @@ interface ProductItemType {
     ratingCount: number,
     reviewCount: number,
     isUserRated: boolean,
+    isWatchlistAdded: boolean,
     ratingStats: {
         rating5: number,
         rating4: number,
@@ -51,11 +52,12 @@ const ProductItem: React.FC = () => {
         reviewCount = 0,
         ratingStats = { rating5: 0, rating4: 0, rating3: 0, rating2: 0, rating1: 0 },
         isUserRated = true,
+        isWatchlistAdded = false,
         initialReviews = []
     } = productItem || {};
 
     const productData = {
-        productId, userId, name, price, discount, stock, imageUrls, avgRatings, ratingCount, reviewCount
+        productId, userId, name, price, discount, stock, imageUrls, isWatchlistAdded, avgRatings, ratingCount, reviewCount
     };
 
     const ratingAndReviewsData = {
