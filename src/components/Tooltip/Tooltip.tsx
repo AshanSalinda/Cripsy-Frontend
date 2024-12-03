@@ -25,7 +25,7 @@ const Tooltip: React.FC<TooltipPropsType> = ({
                     { children }
                 </TooltipTrigger>
                 <TooltipContent side={side}>
-                    <p>{ label }</p>
+                    <p className='text-sm'>{ label }</p>
                 </TooltipContent>
             </ShadCnTooltip>
         </TooltipProvider>
