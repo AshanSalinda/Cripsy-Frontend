@@ -8,10 +8,10 @@ const AdminSidebar: FC = () => {
     const pathname = usePathname();
 
     return (
-        <div className="bg-gray-50 w-54 h-screen p-4 space-y-6 mt-20">
+        <div className="bg-white  h-screen p-4">
             <h2 className="text-lg font-bold font-inter">Admin</h2>
             <nav>
-                <ul className="space-y-2 list-none text-sm">
+                <ul className="space-y-2 list-none text-sm mt-2">
                     {AdminSidebarData.map((item, index) => {
                         const isActive = pathname === item.path;
                         return (
