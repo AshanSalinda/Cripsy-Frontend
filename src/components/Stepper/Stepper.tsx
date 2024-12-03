@@ -80,9 +80,11 @@ function Stepper() {
                 "& .MuiStepLabel-label": {
                   fontSize: "1.2rem",
                   fontFamily: "Inter, sans-serif",
+                  
                 },
                 "& .MuiStepLabel-iconContainer": {
                   fontSize: "2rem",
+                  color: "#1ECF41",
                 },
               }}
             >
