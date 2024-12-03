@@ -1,6 +1,6 @@
 import React from "react";
-import AdminTopNavbar from "@/components/Admin/AdminTopNavbar";
-import AdminSidebar from "@/components/Admin/AdminSidebar";
+import AdminTopNavbar from "@/components/Admin/SideBars/AdminTopNavbar";
+import AdminSidebar from "@/components/Admin/SideBars/AdminSidebar";
 
 export default function AllProductsLayout({
     children,
@@ -9,14 +9,14 @@ export default function AllProductsLayout({
 }) {
     return (
         <div className="flex min-h-screen">
-            {/* Sidebar */}
-            <div className="w-52 fixed top-0 left-0 h-ful shadow-md mt-16">
+            {/* Admin Sidebar */}
+            <div className="w-52 fixed top-0 left-0 h-ful shadow-md">
                 <AdminSidebar />
             </div>
 
             {/* Main Content Area */}
             <div className="flex-1 ml-52 flex flex-col">
-                {/* Top Navbar */}
+                {/* Admin Top Navbar */}
                 <AdminTopNavbar />
 
                 {/* Page Content */}
