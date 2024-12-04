@@ -47,8 +47,6 @@ export default function RootLayout({
 import type { Metadata } from "next";
 import "./globals.css";
 
-
-
 export const metadata: Metadata = {
     title: "Cripsy - Your E-commerce Site",
     description: "Discover amazing products at Cripsy.",
