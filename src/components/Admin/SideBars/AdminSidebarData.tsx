@@ -23,7 +23,7 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Products',
         icon: HiOutlineClipboardList,
-        path: '/admin/products',
+        path: '/admin/addProduct',
     },
     {
         title: 'Refund',
