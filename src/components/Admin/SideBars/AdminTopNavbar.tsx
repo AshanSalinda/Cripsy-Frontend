@@ -2,7 +2,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiMessageSquare } from 'react-icons/fi';
+import { HiOutlineLogout } from 'react-icons/hi';
+import Tooltip from '@/components/Tooltip/Tooltip';
 
 const AdminTopNavbar: React.FC = () => {
     return (
@@ -34,11 +35,6 @@ const LogoSection: React.FC = () => (
 
 const IconsSection: React.FC = () => (
     <div className="flex items-center space-x-6">
-        {/* Chat Icon */}
-        <Link href="/admin/chat" className="group">
-            <FiMessageSquare className="text-xl text-black group-hover:text-carnation-400 transition duration-200" />
-        </Link>
-
         {/* Profile Image */}
         <Link href="/admin/profile" className="group">
             <div className="w-10 h-10 overflow-hidden bg-gray-200 rounded-full cursor-pointer hover:ring-2 hover:ring-carnation-400 transition duration-200">
@@ -51,6 +47,13 @@ const IconsSection: React.FC = () => (
                 />
             </div>
         </Link>
+
+        {/* Logout Icon with Tooltip */}
+        <Tooltip label="Logout" side="bottom">
+            <Link href="/" className="group">
+                <HiOutlineLogout className="text-2xl text-red-500 group-hover:text-carnation-400 transition duration-200" />
+            </Link>
+        </Tooltip>
     </div>
 );
 

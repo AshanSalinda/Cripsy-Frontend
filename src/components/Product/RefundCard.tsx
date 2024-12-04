@@ -11,10 +11,8 @@ export interface RefundCardProps {
     productName: string;
     orderId: string;
     price: number;
-    imageSrc: string;
     reason: string;
     orderDate: string;
-    title: string;
     deliveredDate: string;
     customerName: string;
 }
@@ -23,10 +21,8 @@ const RefundCard: React.FC<RefundCardProps> = ({
     orderId,
     price,
     reason,
-    imageSrc,
     orderDate,
     deliveredDate,
-    title,
     customerName,
 }) => {
     function acsseptClick(): void {
@@ -36,17 +32,7 @@ const RefundCard: React.FC<RefundCardProps> = ({
     return (
 
         <div className='p-8 rounded-lg mx-auto w-5/6 shadow-custom-dark transition-transform  transform hover:scale-105 hover:shadow-lg '>
-            {/* Image */}
-            {/* <div className='flex  bg-slate-300   w-fit  h-auto '>
-                <Image
-                    className="w-full h-fit object-cover"
-                    src={imageSrc}
-                    width={300}
-                    height={200}
-                    priority
-                    alt={title}
-                />
-            </div> */}
+           
 
             <div className='flex justify-between w-full'>
                 <h2 className='text-2xl font-bold '>{productName}</h2>

@@ -1,6 +1,6 @@
 "use client";
 import { IconType } from 'react-icons';
-import { HiOutlineShoppingBag, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineChat, HiOutlineLogout } from 'react-icons/hi';
+import { HiOutlineShoppingBag, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineChat } from 'react-icons/hi';
 import { RxDashboard } from "react-icons/rx";
 
 export interface AdminSidebarDataProps {
@@ -23,7 +23,7 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Products',
         icon: HiOutlineClipboardList,
-        path: '/admin/products',
+        path: '/admin/addProduct',
     },
     {
         title: 'Refund',
@@ -34,10 +34,5 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
         title: 'Messages',
         icon: HiOutlineChat,
         path: '/admin/message',
-    },
-    {
-        title: 'Logout',
-        icon: HiOutlineLogout,
-        path: '/',
-    },
+    }
 ];
