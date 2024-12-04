@@ -1,86 +1,29 @@
-import { AppSidebar } from "@/components/NavBar/AppSidebar";
-import { Clock9,Heart, Inbox, User,Gift,ShieldX,Archive, Calendar,Truck,MessagesSquare } from "lucide-react";
-import TopNavbar from "@/components/TopNavbar/TopNavbar";
+import React from "react";
+import AdminTopNavbar from "@/components/Admin/SideBars/AdminTopNavbar";
+import AdminSidebar from "@/components/Admin/SideBars/AdminSidebar";
 
-const acitems = [
-    {
-        title: "Dashboard",
-        url: "#",
-        icon: User,
-    },
-    {
-        title: "Orders",
-        url: "#",
-        icon: Inbox,
-    },
-    {
-        title: "Products",
-        url: "#",
-        icon: Archive,
-    },
-    {
-        title: "Refunds",
-        url: "#",
-        icon: Calendar,
-    },
-    {
-        title: "Delivery",
-        url: "#",
-        icon: Truck,
-    },
-    {
-        title: "Messages",
-        url: "#",
-        icon: MessagesSquare,
-    },
-];
-
-const oritems =[
-    {
-        title: "Awaiting",
-        url: "#",
-       icon: Clock9,
-    },
-    {
-        title: "Delivered",
-        url: "#",
-       icon: Gift,
-    },
-    {
-        title: "Return",
-        url: "#",
-        icon: Truck,
-    },
-
-    {
-        title: "Cancellation",
-        url: "#",
-        icon: ShieldX,
-    },
-];
-
-
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-
+export default function AllProductsLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     return (
-        <div className="flex flex-col min-h-screen">
-
-            <div className="flex-shrink-0 z-50">
-                <TopNavbar />
+        <div className="flex min-h-screen">
+            {/* Admin Sidebar */}
+            <div className="w-52 fixed top-0 left-0 h-ful shadow-md">
+                <AdminSidebar />
             </div>
 
-            <div className="flex flex-1 overflow-hidden">
+            {/* Main Content Area */}
+            <div className="flex-1 ml-52 flex flex-col">
+                {/* Admin Top Navbar */}
+                <AdminTopNavbar />
 
-                <div className="flex-shrink-0">
-                    <AppSidebar accountItems={acitems} orderItems ={oritems} showOrders={false}/>
-                </div>
-
-                <main className="flex-1 p-6 overflow-y-auto mt-20">
+                {/* Page Content */}
+                <main className="flex-1 p-4 overflow-y-auto mt-12 bg-gray-50">
                     {children}
                 </main>
             </div>
-
         </div>
     );
 }
