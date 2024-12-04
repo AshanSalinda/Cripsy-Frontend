@@ -1,6 +1,10 @@
 import React from 'react';
 import { Stepper as MuiStepper, Step, StepLabel } from '@mui/material';
 
+export interface StepperProps {
+  status: number;
+}
+
 const steps = [
   'Order Placed',
   'Processing',
@@ -8,11 +12,13 @@ const steps = [
   'Delivered'
 ];
 
-function Stepper() {
+const Stepper: React.FC<StepperProps>=(
+  {status}
+) =>{
   return (
     <div>
       <MuiStepper
-        activeStep={2}
+        activeStep={status}
         alternativeLabel
         sx={{
           "& .MuiStepConnector-line": {
@@ -55,9 +61,11 @@ function Stepper() {
           },
           "& .MuiStepLabel-label": {
             fontSize: "1.2rem",
+           
           },
           "& .MuiStepLabel-iconContainer": {
             fontSize: "2rem",
+            color : "#1ECF41",
           },
         }}
       >
@@ -80,10 +88,16 @@ function Stepper() {
                 "& .MuiStepLabel-label": {
                   fontSize: "1.2rem",
                   fontFamily: "Inter, sans-serif",
+                  
+                  
                 },
                 "& .MuiStepLabel-iconContainer": {
                   fontSize: "2rem",
-                },
+                  color: "#1ECF41",
+                },  
+                "& ..Mui-completed":{
+                  color: "#1ECF41",
+                }
               }}
             >
               {label}
