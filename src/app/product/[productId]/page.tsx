@@ -1,5 +1,6 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { use, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import item from "@/data/productIem.json";
 import Overview from "@/section/productPageSections/Overview";
 import Description from "@/section/productPageSections/Description";
@@ -20,6 +21,7 @@ interface ProductItemType {
     ratingCount: number,
     reviewCount: number,
     isUserRated: boolean,
+    isWatchlistAdded: boolean,
     ratingStats: {
         rating5: number,
         rating4: number,
@@ -31,12 +33,16 @@ interface ProductItemType {
     relatedItems: []
 }
 
+interface ProductItemProps {
+    params: Promise<{ productId: number }>
+}
 
-const ProductItem: React.FC = () => {
+
+const ProductItem: React.FC<ProductItemProps> = ({params}) => {
     const [productItem, setProductItem] = React.useState<Partial<ProductItemType>>({});
-
-    const productId = 1;
+    const productId = Number(use(params).productId);
     const userId = 1;
+    const userName = "user1";
 
     const {
         name = "",
@@ -50,26 +56,50 @@ const ProductItem: React.FC = () => {
         reviewCount = 0,
         ratingStats = { rating5: 0, rating4: 0, rating3: 0, rating2: 0, rating1: 0 },
         isUserRated = true,
+        isWatchlistAdded = false,
         initialReviews = []
     } = productItem || {};
 
     const productData = {
-        productId, userId, name, price, discount, stock, imageUrls, avgRatings, ratingCount, reviewCount
+        productId,
+        userId,
+        name,
+        price,
+        discount,
+        stock,
+        imageUrls, 
+        isWatchlistAdded, 
+        avgRatings, 
+        ratingCount, 
+        reviewCount
     };
 
     const ratingAndReviewsData = {
-        productId, avgRatings, ratingCount, reviewCount, ratingStats, isUserRated, reviews: initialReviews
+        productId, 
+        userId, 
+        userName, 
+        avgRatings, 
+        ratingCount, 
+        reviewCount, 
+        ratingStats, 
+        isUserRated, 
+        reviews: initialReviews
     };
 
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const product = await getProductItemDetails( productId, "string" );
+            const product = await getProductItemDetails( productId, userId );
             setProductItem(product);
         };
 
-        fetchProductDetails();
-    }, []);
+        if (isNaN(productId)) {
+            redirect("/product");
+        } else {
+            fetchProductDetails();
+        }
+
+    }, [productId, userId]);
 
 
     return (

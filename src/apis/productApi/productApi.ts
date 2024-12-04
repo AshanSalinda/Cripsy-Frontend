@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // Axios instance with base URL
 const api = axios.create({
     baseURL: "http://localhost:8080"
@@ -42,9 +43,9 @@ export const getProducts = async () => {
 };
 
 // Get product by Item
-export const getProductItemDetails = async (productId: number, userName: string ) => {
+export const getProductItemDetails = async (productId: number, userId: number ) => {
     try {
-        const response = await api.get(`/api/product/${productId}/${userName}`);
+        const response = await api.get(`/api/product/${productId}/${userId}`);
         return response.data;
     } catch (error) {
         console.log("Error Getting product Details:", error);
@@ -55,13 +56,27 @@ export const getProductItemDetails = async (productId: number, userName: string 
 // Get Product Reviews
 export const getReviews = async (productId: number, pageNo: number) => {
     try {
-        const response = await api.get(`/api/product/${productId}/reviews/${pageNo}`);
+        const response = await api.get(`/api/product/reviews/${productId}/${pageNo}`);
         return response.data;
     } catch (error) {
         console.log("Error fetching reviews:", error);
         return [];
     }
 }
+
+// Add a review
+export const addReview = async (productId: number, userId: number, userName: string, rating: number, comment: string ) => {
+    try {
+        const response = await api.post(
+            `/api/product/review`, 
+            { productId, userId, userName, rating, comment }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error adding review:", error);
+        return [];
+    }
+};
 
 
 // Update a product

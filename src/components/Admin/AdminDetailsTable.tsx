@@ -1,20 +1,24 @@
+
 "use client";
+
 import { useState, useEffect } from "react";
-import ProductTableWithPagi from "@/components/Table/ProductTableWithPagi"; 
+import TableWithPagi from "@/components/Table/TableWithPagi";
 import { adminColumns } from "@/components/Table/Columns"; 
-import adminData from "@/data/adminData.json"; 
+import jsonData from "@/data/adminData.json";
 import CustomButton from "@/components/Button/CustomButton";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
-import { Admin } from "@/components/Table/Columns";
+import AddNewAdmin from "@/components/Admin/AddNewAdmin"; 
+import { Admin } from "@/components/Table/Columns"; 
+import { Separator } from "@radix-ui/react-separator";
 
-const AdminDetailsTable = () => {
+const AdminTable = () => {
     const [isNewAdminPopupOpen, setIsNewAdminPopupOpen] = useState(false);
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [selectedAdmin, setSelectedAdmin] = useState<Admin | null>(null);
     const [filteredData, setFilteredData] = useState<Admin[]>([]);
 
     useEffect(() => {
-        setFilteredData(adminData?.adminData || []); 
+        setFilteredData(jsonData?.adminData as Admin[] || []);
     }, []);
 
     const handleDelete = (admin: Admin) => {
@@ -26,32 +30,33 @@ const AdminDetailsTable = () => {
 
     return (
         <>
-            <div className="flex justify-between mb-3 mt-6">
-                <h5 className="flex items-center font-semibold font-inter ml-[120px]">Admin Details</h5> 
-                <CustomButton onClick={() => setIsNewAdminPopupOpen(true)} buttonLabel="New Admin" buttonClassName="text" />
+            <div className="flex justify-between mb-2">
+                <h5 className="flex items-center font-semibold font-inter"> Admin Details</h5>
+                <CustomButton onClick={() => setIsNewAdminPopupOpen(true)} buttonLabel="New Admin" buttonClassName="text-white"/>
             </div>
 
-            <ProductTableWithPagi<Admin>
-                columns={adminColumns}
+            <TableWithPagi<Admin>
+                columns={adminColumns} // Define these columns for the admin table
                 data={filteredData}
                 itemsPerPage={15}
                 className="custom-table-class"
                 handleDelete={handleDelete}
-                getRowId={(row) => row.adminId} // Use adminId as the unique identifier
-                handleEdit={() => { }}
+                getRowId={(row) => row.adminId}
+                handleEdit={() => {}}
             />
 
-            {/* If you have a component to add new admins, include it here */}
-            {/* {isNewAdminPopupOpen && (
+            <Separator orientation="vertical" className="mt-4 mb-4 border-2 bg-black " />
+
+            {isNewAdminPopupOpen && (
                 <AddNewAdmin
                     isDialogOpen={isNewAdminPopupOpen}
                     setIsDialogOpen={setIsNewAdminPopupOpen}
                 />
-            )} */}
+            )}
 
             {isDeleteConfirmPopupOpen && selectedAdmin && (
                 <DeleteConfirm
-                    element={selectedAdmin?.adminName} 
+                    element={selectedAdmin?.adminName}
                     onDelete={() => {
                         setFilteredData((prevData) =>
                             prevData.filter((admin) => admin.adminId !== selectedAdmin.adminId)
@@ -66,4 +71,4 @@ const AdminDetailsTable = () => {
     );
 };
 
-export default AdminDetailsTable;
+export default AdminTable;

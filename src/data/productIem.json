@@ -4,7 +4,6 @@
     "name": "AirPods Max",
     "price": 64099.00,
     "description": "<p>Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.</p><p></p><ul><li><p>Bluetooth version: V3.0+EDR Bluetooth.</p></li><li><p>Transmission distance: 10 meters.</p></li><li><p>Use time: 4 hours.</p></li><li><p>Standby time: 120 hours.</p></li><li><p>Battery: 250mAh rechargeable lithium battery.</p></li><li><p>Weight: 330g.</p></li></ul>",
-    "description1": "Brand New 100% Original. The sound quality is exceptional, offering a rich and detailed audio profile across a wide range of genres. Active noise cancellation.",
     "rating": 3.5,
     "ratingCount": 6483,
     "totalReviewsCount": 100,
@@ -81,7 +80,8 @@
         "description": "Classic design for everyday comfort",
         "rating": 4.5,
         "reviews": 234,
-        "price": 2340
+        "price": 2340,
+        "availableItems": 10
       },
       {
         "productId": "2",
@@ -90,7 +90,8 @@
         "description": "Crystal-clear sound and effective noise cancellation",
         "rating": 4.2,
         "reviews": 320,
-        "price": 5200
+        "price": 5200,
+        "availableItems": 5
       },
       {
         "productId": "3",
@@ -99,7 +100,8 @@
         "description": "Top-tier camera and performance",
         "rating": 4.6,
         "reviews": 845,
-        "price": 120000
+        "price": 120000,
+        "availableItems": 3
       },
       {
         "productId": "4",
@@ -108,7 +110,8 @@
         "description": "Precision and comfort for gamers",
         "rating": 4.8,
         "reviews": 560,
-        "price": 4999
+        "price": 4999,
+        "availableItems": 7
       },
       {
         "productId": "5",
@@ -117,7 +120,8 @@
         "description": "Sleek design and powerful features",
         "rating": 4.9,
         "reviews": 1090,
-        "price": 150000
+        "price": 150000,
+        "availableItems": 2
       },
       {
         "productId": "6",
@@ -126,7 +130,8 @@
         "description": "High-performance laptop with stunning display",
         "rating": 4.7,
         "reviews": 672,
-        "price": 180000
+        "price": 180000,
+        "availableItems": 4
       },
       {
         "productId": "7",
@@ -135,7 +140,8 @@
         "description": "Vibrant visuals for work and play",
         "rating": 4.3,
         "reviews": 432,
-        "price": 45000
+        "price": 45000,
+        "availableItems": 6
       },
       {
         "productId": "8",
@@ -144,7 +150,8 @@
         "description": "Professional-grade tablet with incredible features",
         "rating": 4.8,
         "reviews": 890,
-        "price": 110000
+        "price": 110000,
+        "availableItems": 1
       }
     ]
   }

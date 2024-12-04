@@ -30,6 +30,7 @@ interface TableWithPagiProps<T> extends React.HTMLAttributes<HTMLTableElement> {
   pagination?: boolean;
   handleEdit?: (row: T) => void;
   handleDelete?: (row: T) => void;
+  handleView?: (row: T) => void;
   getRowId: (row: T) => string | number;
 }
 
@@ -42,19 +43,56 @@ function TableWithPagi<T>({
   className,
   handleEdit,
   handleDelete,
+  handleView,
   getRowId,
   ...props
 }: TableWithPagiProps<T>) {
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [sortConfig, setSortConfig] = React.useState<{
+    key: keyof T | null;
+    direction: "ascending" | "descending";
+  }>({
+    key: null,
+    direction: "ascending",
+  });
+
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  // Only paginate data, without sorting
+  const sortedData = React.useMemo(() => {
+    if (sortConfig.key === null) return data;
+    return [...data].sort((a, b) => {
+      const key = sortConfig.key as keyof T;
+      if (a[key] < b[key]) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [data, sortConfig]);
+
   const paginatedData = React.useMemo(() => {
-    if (!pagination) return data;
+    if (!pagination) return sortedData;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return data.slice(startIndex, endIndex);
-  }, [data, currentPage, itemsPerPage, pagination]);
+    return sortedData.slice(startIndex, endIndex);
+  }, [sortedData, currentPage, itemsPerPage, pagination]);
+
+  const getSortIndicator = (key: keyof T) => {
+    if (sortConfig.key !== key) {
+      return null;
+    }
+    return sortConfig.direction === "ascending" ? " 🔼" : " 🔽";
+  };
+
+  const handleSort = (key: keyof T) => {
+    let direction: "ascending" | "descending" = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
 
   return (
     <div className="w-full">
@@ -68,8 +106,12 @@ function TableWithPagi<T>({
                   key={String(column.accessor)}
                   role="columnheader"
                   className="text-black font-medium"
+                  onClick={() => handleSort(column.accessor)}
                 >
-                  <span className="flex items-center">{column.header}</span>
+                  <span className="flex items-center">
+                    {column.header}
+                    {getSortIndicator(column.accessor)}
+                  </span>
                 </TableHead>
               ))}
             </TableRow>
@@ -86,6 +128,7 @@ function TableWithPagi<T>({
                           ? column.render(row[column.accessor], row, {
                             edit: handleEdit ?? (() => { }),
                             delete: handleDelete ?? (() => { }),
+                            view: handleView ?? (() => { }),
                           })
                           : String(row[column.accessor])}
                       </TableCell>

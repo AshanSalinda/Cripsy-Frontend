@@ -1,9 +1,10 @@
+"use client";
 import React from 'react'
 import Image from 'next/image'
-import CustomButton from '../Button/CustomButton'
 import { Separator } from '@radix-ui/react-separator'
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
+import { Icon } from 'lucide-react';
 
 
 export interface RefundCardProps {
@@ -24,62 +25,57 @@ const RefundCard: React.FC<RefundCardProps> = ({
     deliveredDate,
     customerName,
 }) => {
-  return (
-    
-    <div className='flex items-start gap-3'>
-        {/* Image */}
-        <div>
-            <Image src="/images/Refund.png" alt="Refund" width={100} height={100} />
-        </div>
+    function acsseptClick(): void {
+        throw new Error('Function not implemented.');
+    }
 
-        
-        {/* Action */}
-        <div >
-            <CustomButton 
-            buttonLabel=""
-            variant='outline'
-            icon={<FaRegCircleCheck className='text-green-800'/>}
-            />
-            
-            <Separator orientation="vertical" className='w-1 h-5 bg-opacity-15 bg-slate-700'/>
+    return (
 
-            <CustomButton 
-            buttonLabel=''
-            variant='outline'
-            icon={<RxCrossCircled className='text-red-800'/>}
-            />
+        <div className='p-8 rounded-lg mx-auto w-5/6 shadow-custom-dark transition-transform  transform hover:scale-105 hover:shadow-lg '>
+           
 
-        </div>
+            <div className='flex justify-between w-full'>
+                <h2 className='text-2xl font-bold '>{productName}</h2>
 
-        {/* Product Details */}
-        <div>
-            <div>
-                <h2 className='text-3xl font-bold'>{productName}</h2>
-                <div>
-                <p>Order ID : </p> <span className='text-carnation-400'>{orderId}</span>
-                <p className='text-xl'>Price : </p> <span className='text-carnation-400 text-xl'>{price}</span>
+                 {/* Action */}
+                 <div className='flex'>
+                    <div className=' flex gap-3'>
+                        <div className='flex w-fit  '>
+                            <FaRegCircleCheck onClick={acsseptClick} className='text-green-600 shadow-xl shadow-gray-500 rounded-full hover:text-green-500 text-3xl' />
+                        </div>
+
+                        <Separator orientation="vertical" className='w-1 h-7 bg-opacity-15 bg-slate-700 rounded-full flex' />
+
+                        <div className='w-fit flex '>
+                            <RxCrossCircled className='text-carnation-550 shadow-xl shadow-gray-500 rounded-full hover:text-carnation-600 text-3xl ' />
+                        </div>
+                    </div>
                 </div>
+            </div>
 
+            <div className='flex justify-between pt-5'>
+                <div className=''>
+                <p>Order ID : <span className='text-carnation-400'>{orderId}</span> </p>
+                </div>
                 <div>
+                <p className='text-2xl'>Price : <span className='text-carnation-400 font-bold text-2xl'>{price}</span></p> 
+                </div>
+            </div>
+
+            <div className='pb-4 '>
                 <p>Reason: </p>
-                <p>{reason}</p>
-                </div>
+                <p className='break-words'>{reason}</p>
+            </div>
 
-                <div>
-                <p>Order Date : </p> <span className='text-carnation-400'>{orderDate}</span>
-                <p>Delivered Date: </p> <span className='text-carnation-400'>{deliveredDate}</span>
-                <p>Customer Name : </p> <span className='text-carnation-400'>{customerName}</span>
+            <div className='flex '>
+                <div className='flex  gap-10'>
+                <p>Order Date :  <span className='text-carnation-400'>{orderDate}</span> </p>
+                <p>Delivered Date:  <span className='text-carnation-400'>{deliveredDate}</span> </p>
+                <p>Customer Name :  <span className='text-carnation-400'>{customerName}</span> </p>
                 </div>
-
             </div>
         </div>
-
-
-
-
-
-    </div>
-  )
+    )
 }
 
 export default RefundCard;

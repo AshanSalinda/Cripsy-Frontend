@@ -1,0 +1,107 @@
+{
+    "dashboardCardData": [
+        {
+            "title": "Total Sales",
+            "value": "Rs 20,453.45",
+            "change": "12%",
+            "positive": true
+        },
+        {
+            "title": "Total Orders",
+            "value": "2,345",
+            "change": "5%",
+            "positive": false
+        },
+        {
+            "title": "Total Revenue",
+            "value": "Rs 20,453.45",
+            "change": "8%",
+            "positive": true
+        },
+        {
+            "title": "Total Customers",
+            "value": "6,478",
+            "change": "10%",
+            "positive": true
+        }
+    ],
+    "revenueChartData": {
+        "labels": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun"
+        ],
+        "datasets": [
+            {
+                "label": "Revenue",
+                "data": [
+                    2500000,
+                    7500000,
+                    9000000,
+                    5608000,
+                    2900000,
+                    4600000
+                ],
+                "borderColor": "#f43f5e",
+                "backgroundColor": "#f43f5e",
+                "fill": false
+            }
+        ]
+    },
+    "salePieChartData": {
+        "labels": [
+            "Galle",
+            "Hambantota",
+            "Matara",
+            "Colombo",
+            "Kandy",
+            "Gampaha"
+        ],
+        "datasets": [
+            {
+                "data": [
+                    20,
+                    25,
+                    15,
+                    10,
+                    20,
+                    10
+                ],
+                "backgroundColor": [
+                    "#3b82f6",
+                    "#f43f5e",
+                    "#f59e0b",
+                    "#34d399",
+                    "#8b5cf6",
+                    "#e11d48"
+                ]
+            }
+        ]
+    },
+    "topSellingItemsTableData": [
+        {
+            "itemName": "Bluetooth Headphones",
+            "description": "Top-performing item",
+            "qty": 223,
+            "rate": "4200.00",
+            "value": "936600.00"
+        },
+        {
+            "itemName": "Iphone 16 Pro Max",
+            "description": "Fast-moving stock",
+            "qty": 28,
+            "rate": "420000.00",
+            "value": "11760000.00"
+        },
+        {
+            "itemName": "NVIDIA RTX 480",
+            "description": "High-value product",
+            "qty": 20,
+            "rate": "12000.00",
+            "value": "240000.00"
+        }
+    ]
+}

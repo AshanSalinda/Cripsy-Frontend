@@ -22,15 +22,18 @@ export interface Product {
 
 // Admin Interface
 export interface Admin {
-    adminId: string;
+    adminId: string; // Or number, depending on your DB schema
     adminName: string;
     email: string;
     contactNo: string;
-}
-
+    firstName: string;
+    lastName: string;
+    gender: "Male" | "Female"; // Define gender
+    birthday: string; // Format it accordingly, e.g., YYYY-MM-DD
+  }
 // order interface
 export interface Order {
-    orderId:string;
+    orderId: string;
     fullName: string;
     district: string;
     address: string;
@@ -48,6 +51,15 @@ type Column<T> = {
         handlers?: Record<string, (row: T) => void>
     ) => React.ReactNode;
 };
+
+// Refund interface
+export interface Refund {
+    orderId: string;
+    customerName: string;
+    refundItemQty: number;
+    refundAmount: number;
+}
+
 
 // Branch Columns
 export const branchColumns: Column<Branch>[] = [
@@ -134,3 +146,42 @@ export const orderColumns: Column<Order>[] = [
     },
 ];
 
+//Refund Details Table
+export const refundColumns: Column<Refund>[] = [
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Customer Name", accessor: "customerName" },
+    { header: "Refund Item Qty", accessor: "refundItemQty" },
+    { header: "Refund Amount", accessor: "refundAmount" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Refund,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Action Refund"
+                />
+            </div>
+        ),
+    }
+];
+
+
+//Admin Dashboard TopSelling Table
+export interface TopSellingTableProps {
+    id: number;
+    itemName: string;
+    description: string;
+    qty: number;
+    rate: string;
+    value: string;
+}
+export const TopSellingTableColumns: Column<TopSellingTableProps>[] = [
+    { header: "#", accessor: "id" },
+    { header: "ITEM NAME", accessor: "itemName" },
+    { header: "DESCRIPTION", accessor: "description" },
+    { header: "QTY", accessor: "qty" },
+    { header: "RATE (RS)", accessor: "rate" },
+    { header: "VALUE (RS)", accessor: "value" },
+];
