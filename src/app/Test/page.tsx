@@ -4,6 +4,7 @@ import BranchTable from '@/components/TestBranch/BranchTable';
 import WatchListProducts from '@/section/WatchListPageSection/WatchListProducts';
 import { RefundRequestSection } from '@/section/RefundRequestSection/RefundRequestSection';
 import Stepper from '@/components/Stepper/Stepper';
+import OrderStatesCard from '@/components/Orders/OrderStatesCard';
 
 const Page = () => {
 
@@ -18,7 +19,13 @@ const Page = () => {
       {/* <WatchListProducts/> */}
       {/* <RefundRequestSection/> */}
 
-        <Stepper/>
+      
+      
+      <OrderStatesCard
+        payment="Cash on Delivery"
+        orderStatus="Delivered"
+        subTotal={500}
+        netTotal={500}/>
 
         
 
