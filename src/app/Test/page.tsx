@@ -24,6 +24,7 @@ const Page = () => {
       <OrderStatesCard
         payment="Cash on Delivery"
         orderStatus="Delivered"
+        
         subTotal={500}
         netTotal={500}/>
 
