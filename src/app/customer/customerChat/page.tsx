@@ -7,9 +7,6 @@ const Page = () => {
             <div className='h-full overflow-y-hidden'>
                 <ChatList></ChatList>
             </div>
-            {/*<div className='h-full overflow-y-hidden'>
-                <ChatBox></ChatBox>
-            </div>*/}
         </div>
     )
 }
