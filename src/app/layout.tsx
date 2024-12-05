@@ -48,8 +48,6 @@ import type { Metadata } from "next";
 import Toast from "@/components/Messages/showMessage";
 import "./globals.css";
 
-
-
 export const metadata: Metadata = {
   title: "Cripsy - Your E-commerce Site",
   description: "Discover amazing products at Cripsy.",
