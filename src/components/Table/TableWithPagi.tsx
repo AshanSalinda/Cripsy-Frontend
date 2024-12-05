@@ -95,7 +95,7 @@ function TableWithPagi<T>({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full z-2">
       <div className="overflow-hidden border border-carnation-450 rounded-lg">
         <Table className={cn("your-default-table-styles", className)} {...props}>
           {caption && <TableCaption>{caption}</TableCaption>}
