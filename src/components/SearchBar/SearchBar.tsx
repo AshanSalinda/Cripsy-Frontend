@@ -130,7 +130,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
             {showSuggestions && value && (
                 <ul
-                    className={`absolute z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${width} scrollbar-thin scrollbar-thumb-carnation-300 scrollbar-track-transparent`}
+                    className={`absolute z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${width} scrollbar-thin scrollbar-thumb-carnation-300 scrollbar-track-transparent list-none`}
                 >
                     {filteredSuggestions.length > 0 ? (
                         filteredSuggestions.map((suggestion, index) => (

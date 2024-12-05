@@ -1,6 +1,6 @@
 import axios from "axios";
 import { showToast } from "@/components/Messages/showMessage";
-import { stat } from "fs";
+
 
 
 // Axios instance with base URL
@@ -76,6 +76,7 @@ export const addReview = async (productId: number, userId: number, userName: str
             { productId, userId, userName, rating, comment }
         );
         return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         console.error("Error adding review:", error);
 
