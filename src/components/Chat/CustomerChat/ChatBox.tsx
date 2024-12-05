@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {createMessage } from '@/apis/chatApi/chatApi';
 import axios from 'axios';
 
-const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
+const ChatBox = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
@@ -32,8 +32,6 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
         if (!newMessage.trim()) return;
 
         const messageData = {
-            conversationId,
-            sender: currentUser,
             message: newMessage,
         };
 
