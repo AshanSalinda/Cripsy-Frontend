@@ -12,7 +12,7 @@ export default function Home() {
     router.push('/product/allProducts');
   };
 
-  // Define the Product type
+
   type Product = {
     productId: number;
     name: string;
@@ -25,7 +25,6 @@ export default function Home() {
 
   const [products, setProducts] = useState<Product[]>([]);
 
-  // Fetch products on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -64,7 +63,7 @@ export default function Home() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {/* Display products fetched from the API */}
+     
           {products.slice(0, 8).map((product) => (
             <div key={product.productId} className="w-full flex justify-center">
               <div className="w-full max-w-[300px]">
