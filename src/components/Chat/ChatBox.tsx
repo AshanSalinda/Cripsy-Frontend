@@ -46,13 +46,23 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
         }
     };
 
+    const formatDateTime = (dateTime) => {
+        const date = new Date(dateTime);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}.${minutes}`;
+    };
+
     return (
         <div className="flex flex-col w-full h-full bg-white rounded-lg shadow-lg">
-
-            <div className="bg-black text-white p-4 rounded-t-lg">
-                <h3 className="text-lg font-semibold pl-4">{customerName || 'Select a conversation'}</h3>
+            <div className="bg-black text-white p-4 rounded-t-lg mb-4">
+                <h3 className="text-lg font-semibold pl-4">
+                    {customerName || 'Select a conversation'}
+                </h3>
             </div>
-
 
             <div className="flex-1 p-4 overflow-y-auto">
                 {messages.map((msg) => (
@@ -63,25 +73,25 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                         }`}
                     >
                         <div
-                            className={`p-3 rounded-lg max-w-xs ${
+                            className={`p-3 rounded-lg max-w-[25em] break-words ${
                                 msg.sender === 'Admin'
-                                    ? 'bg-blue-200 text-right'
-                                    : 'bg-gray-200 text-left'
+                                    ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white text-right'
+                                    : 'bg-gradient-to-r from-[#FD5E5D] to-[#fa9f8c] text-black text-left'
                             }`}
                         >
                             <p className="text-sm">{msg.message}</p>
-                            <span className="text-xs text-gray-500">
-                {new Date(msg.createdAt).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                })}
-              </span>
+                            <span
+                                className={`text-[0.625em] mt-1 block ${
+                                    msg.sender === 'Admin' ? 'text-gray-200' : 'text-gray-700'
+                                }`}
+                            >
+                                {formatDateTime(msg.dateTime)}
+                            </span>
                         </div>
                     </div>
                 ))}
             </div>
-
-            {/* Input Section */}
+            
             <div className="p-4 border-t border-gray-200 flex items-center">
                 <InputEmoji
                     value={newMessage}
