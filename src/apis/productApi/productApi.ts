@@ -35,7 +35,7 @@ export const addProduct = async (productData: {
 // Get all products
 export const getProducts = async () => {
     try {
-        const response = await api.get("/api/product");
+        const response = await api.get("/api/product/getAll");
         return response.data;
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -75,6 +75,7 @@ export const addReview = async (productId: number, userId: number, userName: str
             { productId, userId, userName, rating, comment }
         );
         return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         console.error("Error adding review:", error);
 

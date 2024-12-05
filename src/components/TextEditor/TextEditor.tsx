@@ -6,7 +6,7 @@ import Tooltip from '../Tooltip/Tooltip';
 import { FaBold, FaItalic, FaListOl, FaListUl } from "react-icons/fa";
 import { ImUndo2, ImRedo2 } from "react-icons/im";
 import { IoMdBackspace } from "react-icons/io";
-import React, {use, useEffect} from "react";
+import React, {useEffect} from "react";
 
 
 interface EditorPropsType {

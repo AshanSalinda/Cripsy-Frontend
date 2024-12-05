@@ -22,7 +22,6 @@ export const userLogin = async (formData: {
             const token = response.data;
             localStorage.setItem('accessToken', token);
 
-            console.log("Access Token:", token);
 
             router.push("/");
         }

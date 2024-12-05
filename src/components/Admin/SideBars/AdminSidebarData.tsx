@@ -29,7 +29,7 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Products',
         icon: HiOutlineClipboardList,
-        path: '/admin/Product',
+        path: '/admin/product',
     },
     {
         title: 'Refunds',
@@ -39,11 +39,11 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Messages',
         icon: HiOutlineChat,
-        path: '/admin/message',
+        path: '/admin/adminChat',
     },
     {
         title: 'Delivery',
         icon: TbTruckDelivery,
-        path: '/admin/Delivery',
+        path: '/admin/delivery',
     }
 ];
