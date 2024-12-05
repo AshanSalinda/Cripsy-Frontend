@@ -2,7 +2,7 @@ import React from 'react';
 import { Stepper as MuiStepper, Step, StepLabel } from '@mui/material';
 
 export interface StepperProps {
-  status: number;
+  status: string;
 }
 
 const steps = [
@@ -15,10 +15,11 @@ const steps = [
 const Stepper: React.FC<StepperProps>=(
   {status}
 ) =>{
+  const activeStep = steps.indexOf(status)+1;
   return (
     <div>
       <MuiStepper
-        activeStep={status}
+        activeStep={activeStep}
         alternativeLabel
         sx={{
           "& .MuiStepConnector-line": {
@@ -95,7 +96,7 @@ const Stepper: React.FC<StepperProps>=(
                   fontSize: "2rem",
                   color: "#1ECF41",
                 },  
-                "& ..Mui-completed":{
+                "& .Mui-completed":{
                   color: "#1ECF41",
                 }
               }}
