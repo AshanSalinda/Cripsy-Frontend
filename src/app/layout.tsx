@@ -44,6 +44,7 @@ export default function RootLayout({
 }
 */
 
+
 import type {Metadata} from "next";
 import "./globals.css";
 import Toast from "@/components/Messages/showMessage";
@@ -63,12 +64,15 @@ export default function RootLayout({
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+
     return (
         <html lang="en">
-        <body>
-        <Toast/>
-        {children}
-        </body>
+            <body>
+                {children}
+                <Toast/>
+            </body>
+
         </html>
     );
 }

@@ -2,7 +2,8 @@
 import { IconType } from 'react-icons';
 import { HiOutlineShoppingBag, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineChat } from 'react-icons/hi';
 import { RxDashboard } from "react-icons/rx";
-
+import { GrUserAdmin } from "react-icons/gr";
+import { TbTruckDelivery } from "react-icons/tb";
 export interface AdminSidebarDataProps {
     title: string;
     icon?: IconType;
@@ -16,6 +17,11 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
         path: '/admin/adminDashboard',
     },
     {
+        title: 'Admin Details',
+        icon: GrUserAdmin,
+        path: '/admin/adminDetails',
+    },
+    {
         title: 'Orders',
         icon: HiOutlineShoppingBag,
         path: '/admin/orders',
@@ -23,16 +29,21 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Products',
         icon: HiOutlineClipboardList,
-        path: '/admin/products',
+        path: '/admin/product',
     },
     {
-        title: 'Refund',
+        title: 'Refunds',
         icon: HiOutlineCurrencyDollar,
         path: '/admin/refund',
     },
     {
         title: 'Messages',
         icon: HiOutlineChat,
-        path: '/admin/message',
+        path: '/admin/adminChat',
+    },
+    {
+        title: 'Delivery',
+        icon: TbTruckDelivery,
+        path: '/admin/delivery',
     }
 ];
