@@ -100,7 +100,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                 />
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d]"
+                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d] text-sm"
                 >
                     Send
                 </button>
