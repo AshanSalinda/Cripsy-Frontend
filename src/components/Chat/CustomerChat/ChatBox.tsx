@@ -69,14 +69,14 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                     <div
                         key={msg.id}
                         className={`flex mb-2 ${
-                            msg.sender === 'Admin' ? 'justify-end' : 'justify-start'
+                            msg.sender === 'Customer' ? 'justify-end' : 'justify-start'
                         }`}
                     >
                         <div
                             className={`p-3 rounded-lg max-w-[25em] break-words ${
-                                msg.sender === 'Admin'
-                                    ? 'bg-gradient-to-r from-[#fa8d48] to-[#faa46e] text-white text-right mr-1'
-                                    : 'bg-gradient-to-r from-[#ff9291] to-[#ed6f6d] text-white text-left ml-1'
+                                msg.sender === 'Customer'
+                                    ? 'bg-gradient-to-r from-[#ff9291] to-[#ed6f6d] text-white text-right mr-1'
+                                    : 'bg-gradient-to-r from-[#fa8d48] to-[#faa46e] text-white text-left ml-1'
                             }`}
                         >
                             <p className="text-sm">{msg.message}</p>
