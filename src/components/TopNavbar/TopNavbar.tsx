@@ -120,10 +120,10 @@ const IconsSection: React.FC = () => (
         <Link href="/cart">
             <FiShoppingCart className="text-xl text-black hover:text-carnation-400" />
         </Link>
-        <Link href="/profile">
+        <Link href="/auth/login">
             <FiUser className="text-xl text-black hover:text-carnation-400" />
         </Link>
-        <Link href="/chat">
+        <Link href="/chat/customerChat">
             <FiMessageSquare className="text-xl text-black hover:text-carnation-400" />
         </Link>
     </div>

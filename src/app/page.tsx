@@ -20,7 +20,7 @@ export default function Home() {
           <div className="flex items-center w-full">
             <hr className="flex-grow border-t border-gray-300" />
             <h2 className="text-2xl font-bold text-gray-700 mx-4 whitespace-nowrap">
-              Super Deals
+              Best Choice
             </h2>
             <hr className="flex-grow border-t border-gray-300" />
           </div>
