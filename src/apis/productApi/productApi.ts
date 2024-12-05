@@ -34,7 +34,17 @@ export const addProduct = async (productData: {
 // Get all products
 export const getProducts = async () => {
     try {
-        const response = await api.get("/api/product");
+        const response = await api.get("/api/product/getAll");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error;
+    }
+};
+
+export const getProductsDetails = async () => {
+    try {
+        const response = await api.get("/api/product/getAllProductsDetails");
         return response.data;
     } catch (error) {
         console.error("Error fetching products:", error);

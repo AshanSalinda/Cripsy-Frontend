@@ -5,10 +5,11 @@ import CustomButton from "@/components/Button/CustomButton";
 import TextEditor from "@/components/TextEditor/TextEditor";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import ProductImgUploader, { UploadedImage } from "@/components/Image/ProductImgUploader";
-import { addProduct, getCategories, addCategory } from "@/apis/productApi/productApi";
+import {addProduct, getCategories, addCategory, getProductItemDetails} from "@/apis/productApi/productApi";
 import PopupContainer from "@/components/Popup/PopupContainer";
 import {productSchema} from "@/schema/productSchema/productSchema";
-import Toast, { showToast } from '@/components/Messages/showMessage';
+import { showToast } from '@/components/Messages/showMessage';
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 const AddProductForm = () => {
@@ -25,10 +26,34 @@ const AddProductForm = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [resetImages, setResetImages] = useState(false);
     const [resetEditor, setRestEditor] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    let id: string | null=null;
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
     };
+
+    useEffect(() => {
+        id = searchParams.get("productId");
+        const getProductList = async () => {
+            if (id) {
+                const product = await getProductItemDetails(parseInt(id), 1);
+                setName(product.name);
+                setStock(product.stock)
+                setPrice(product.price)
+                setDiscount(product.discount)
+                setCategory(product.category)
+                const uploadedImages = product.imageUrls.map((url: string) => ({ url }));
+                setImages(uploadedImages);
+                setEditorContent(product.description)
+
+            }
+        }
+        getProductList()
+
+
+    }, [searchParams]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -111,6 +136,11 @@ const AddProductForm = () => {
 
         setErrors({});
         try {
+            if (id) {
+                //await updateProduct(payload);
+            } else {
+                await addProduct(payload);
+            }
             await addProduct(payload);
             console.log("Product added successfully!");
             showToast({
@@ -145,11 +175,17 @@ const AddProductForm = () => {
                         onChange={(e) => setName(e.target.value)}
                     />
                     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-                    <Toast />
 
 
                     <h2 className="text-2xl mt-2">Description</h2>
-                    <TextEditor className="mb-4" onChange={handleEditorChange} resetEditor={resetEditor} setRestEditor={setRestEditor}/>
+                    <TextEditor
+                        className="your-class"
+                        initialContent={editorContent}
+                        onChange={handleEditorChange}
+                        resetEditor={false}
+                        setRestEditor={setRestEditor}
+                    />
+
                     {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
 
                     <h2 className="text-2xl mt-5">Pricing and Stock</h2>
