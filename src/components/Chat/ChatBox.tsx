@@ -58,7 +58,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
 
     return (
         <div className="flex flex-col w-full h-full bg-white rounded-lg shadow-lg">
-            <div className="bg-black text-white p-4 rounded-t-lg mb-4">
+            <div className="bg-[#FD5E5D] text-white p-4 rounded-t-lg mb-5">
                 <h3 className="text-lg font-semibold pl-4">
                     {customerName || 'Select a conversation'}
                 </h3>
@@ -75,14 +75,14 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                         <div
                             className={`p-3 rounded-lg max-w-[25em] break-words ${
                                 msg.sender === 'Admin'
-                                    ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white text-right'
-                                    : 'bg-gradient-to-r from-[#FD5E5D] to-[#fa9f8c] text-black text-left'
+                                    ? 'bg-gradient-to-r from-[#ff9291] to-[#ed6f6d] text-white text-right mr-1'
+                                    : 'bg-gradient-to-r from-[#fa8d48] to-[#faa46e] text-white text-left ml-1'
                             }`}
                         >
                             <p className="text-sm">{msg.message}</p>
                             <span
                                 className={`text-[0.625em] mt-1 block ${
-                                    msg.sender === 'Admin' ? 'text-gray-200' : 'text-gray-700'
+                                    msg.sender === 'Admin' ? 'text-gray-200' : 'text-gray-200'
                                 }`}
                             >
                                 {formatDateTime(msg.dateTime)}
@@ -100,7 +100,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                 />
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-6 py-2 bg-black text-white rounded-lg shadow hover:bg-gray-900"
+                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d]"
                 >
                     Send
                 </button>
