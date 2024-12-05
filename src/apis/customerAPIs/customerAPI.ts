@@ -9,10 +9,10 @@ const api = axios.create({
 // Get customer details
 export const getCustomerDetails = async (userId: number) => {
     try{
-        const response = await api.get(`/api/customer/${userId}`);
+        const response = await api.get(`/api/customers/${userId}`);
         return response.data;
     } catch (error) {
-        console.log("Error fetching cart items:", error);
+        console.log("Error fetching customer Details:", error);
         return [];
     }
 }

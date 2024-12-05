@@ -50,7 +50,7 @@ const paymentDetails = {
 
 const Cart: React.FC = () => {
     const [cartItems, setCartItems] = React.useState<CartItemType[]>([]);
-    const [customerDetails, setCustomerDetails] = React.useState<CustomerDetailsType | null>();
+    const [customerDetails, setCustomerDetails] = React.useState<CustomerDetailsType | null>(null);
     const [totalAmount, setTotalAmount] = React.useState(0);
     const [isPayhereLoaded, setIsPayhereLoaded] = useState(false);
     const ShippingCharge = 200;
@@ -131,7 +131,6 @@ const Cart: React.FC = () => {
             alert("Payment system not ready.");
             return;
         }
-
 
         try {
             // Call backend to get merchant_id and hash
