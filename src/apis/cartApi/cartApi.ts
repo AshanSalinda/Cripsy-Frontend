@@ -1,4 +1,5 @@
 import axios from "axios";
+import {showToast} from "@/components/Messages/showMessage";
 
 // Axios instance with base URL
 const api = axios.create({
@@ -54,5 +55,17 @@ export const removeFromCart = async (productId: number, userId: number) => {
     } catch (error) {
         console.log("Error removing from cart:", error);
         return [];
+    }
+}
+
+// Configure Payhere
+export const configurePayhere = async (paymentDetails: any) => {
+    try {
+        const response = await axios.post(`http://localhost:8083/payment/start`, paymentDetails);
+        return response.data;
+    } catch (error) {
+        console.log("Failed to fetch payment configuration:", error);
+        showToast({type: "error", message: "Failed to fetch payment configuration!"});
+        return { merchant_id: null, hash: null };
     }
 }
