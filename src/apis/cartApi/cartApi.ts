@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {showToast} from "@/components/Messages/showMessage";
 
 // Axios instance with base URL
@@ -14,6 +15,7 @@ export const getCartItems = async (userId: number) => {
         return response.data;
     } catch (error) {
         console.log("Error fetching cart items:", error);
+        showToast({type: "error", message: "Fetching cart items failed!"});
         return [];
     }
 }
@@ -23,11 +25,13 @@ export const getCartItems = async (userId: number) => {
 export const addToCart = async (productId: number, userId: number, quantity: number) => {
     try {
         await api.post(
-            '/api/product/cart/add',
+            '/api/product/cart',
             { productId, userId, quantity }
         );
+        showToast({type: "success", message: "Added to cart!"});
     } catch (error) {
         console.log("Error adding to cart:", error);
+        showToast({type: "error", message: "Adding to cart failed!"});
     }
 }
 
@@ -42,7 +46,8 @@ export const updateCartQuantity = async (productId: number, userId: number, quan
         return response.data;
     } catch (error) {
         console.log("Error updating cart quantity:", error);
-        return [];
+        showToast({type: "error", message: "Updating quantity failed!"});
+        throw error;
     }
 }
 
@@ -54,7 +59,56 @@ export const removeFromCart = async (productId: number, userId: number) => {
         return response.data;
     } catch (error) {
         console.log("Error removing from cart:", error);
-        return [];
+        showToast({type: "error", message: "Removing from cart failed!"});
+        throw error;
+    }
+}
+
+
+// Initiate a Order
+export const initiateOrder = async (orderItems: {productId: number, quantity: number}[]) => {
+    try {
+        const response = await api.post('/api/product/reserve/initiate', orderItems);
+        return response.data;
+    } catch (error) {
+        console.log("Error when initiating order:", error);
+        showToast({type: "error", message: "There was an error initiating order!"});
+        throw error;
+    }
+}
+
+
+// Confirm Order
+export const confirmOrder = async (transactionId: number) => {
+    try {
+        const response = await api.post(`/api/product/reserve/confirm/${transactionId}`);
+        return response.data;
+    } catch (error) {
+        console.log("Failed to place order:", error);
+        showToast({type: "error", message: "Failed to place order!"});
+    }
+}
+
+
+// Cancel Order
+export const cancelOrder = async (transactionId: number) => {
+    try {
+        await api.post(`/api/product/reserve/cancel/${transactionId}`);
+    } catch (error) {
+        console.log("Failed to cancel order:", error);
+    }
+}
+
+
+// Configure Payhere
+export const configurePayhere = async (customerDetails: any) => {
+    try {
+        const response = await axios.post("http://localhost:8083/payment/start", customerDetails);
+        return response.data;
+    } catch (error) {
+        console.log("Failed to fetch payment configuration:", error);
+        showToast({type: "error", message: "Failed to fetch payment configuration!"});
+        return { merchant_id: null, hash: null };
     }
 }
 

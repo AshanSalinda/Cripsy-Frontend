@@ -28,26 +28,26 @@ const ChatList = () => {
     };
 
     return (
-        <div className="flex h-full">
-            <div className="w-96 p-4 pt-8 bg-gray-100 rounded-2xl">
-                <div className="text-center mb-4">
-                    <h5 className="text-xl font-semibold">Customer Chat</h5>
-                </div>
+        <div className="flex h-full pt-8 pb-4">
+            <div className="w-72 rounded-2xl bg-gray-100 pt-4 pr-2 pl-2">
+                {/*<div className="text-center mb-4">
+                    <h5 className="text-l font-semibold">Customer Chat</h5>
+                </div>*/}
                 <div className="h-full rounded-lg">
-                    <div className="h-full overflow-y-auto p-2 space-y-4">
+                    <div className="h-full overflow-y-auto p-2 pt-0 space-y-4">
                         {conversations.map((conversation) => (
                             <div
                                 key={conversation.conversationId}
-                                className="bg-white p-4 border-b-2 border-b-gray-300 rounded-2xl shadow-lg cursor-pointer transform transition-all duration-200 hover:scale-105"
+                                className="bg-white p-4 border-b-1 border-b-gray-100 rounded-2xl shadow-lg cursor-pointer transform transition-all duration-200 hover:scale-105"
                                 onClick={() =>
                                     handleClick(conversation.conversationId, conversation.customerName)
                                 }
                             >
-                                <div className="text-sm text-gray-500">
+                                <div className="text-[0.65em] text-gray-500">
                                     Customer ID: {conversation.customerId}
                                 </div>
                                 <div
-                                    className="text-lg font-semibold"
+                                    className="text-sm font-semibold"
                                     style={{ color: '#FD5E5D' }}
                                 >
                                     {conversation.customerName || 'Unknown Customer'}
@@ -59,7 +59,7 @@ const ChatList = () => {
             </div>
 
 
-            <div className="flex-1 h-full min-w-[68.75em] ml-6">
+            <div className="flex-1 h-full min-w-[60.75em] ml-6">
                 <ChatBox
                     conversationId={selectedConversationId}
                     customerName={selectedCustomerName}

@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import InputEmoji from 'react-input-emoji';
 import PropTypes from 'prop-types';
-import { getMessages, createMessage } from '@/apis/chatApi/chatApi';
+import {createMessage } from '@/apis/chatApi/chatApi';
 import axios from 'axios';
 
-const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
+const ChatBox = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
@@ -14,31 +14,39 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
         const fetchMessages = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8085/api/messages/getAllMessages/${conversationId}`
+                    `http://localhost:8085/api/messages/getAllMessages/1`
                 );
                 setMessages(response.data);
                 console.log(response.data);
+
+                const fetchedConversationId = response.data[0]?.conversationId;
+                localStorage.setItem('conversationId', fetchedConversationId);
+                console.log(localStorage.getItem('conversationId'));
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
         };
 
-        if (conversationId) fetchMessages();
-    }, [conversationId]);
+        fetchMessages();
+    }, []);
 
     const handleChange = (value) => setNewMessage(value);
 
     const handleSend = async () => {
         if (!newMessage.trim()) return;
 
+        const conversationId = parseInt(localStorage.getItem('conversationId'),10);
+
         const messageData = {
-            conversationId,
-            sender: currentUser,
+            conversationId: conversationId,
+            sender: "Customer",
             message: newMessage,
         };
 
+        console.log(messageData);
+
         try {
-            const newMsg = await createMessage(messageData);
+            const newMsg = await axios.post('http://localhost:8085/api/messages/create', messageData);
             setMessages((prev) => [...prev, newMsg]);
             setNewMessage('');
         } catch (error) {
@@ -60,7 +68,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
         <div className="flex flex-col w-full h-full bg-white rounded-lg shadow-lg">
             <div className="bg-[#FD5E5D] text-white p-4 rounded-t-lg mb-5">
                 <h3 className="text-lg font-semibold pl-4">
-                    {customerName || 'Select a conversation'}
+                    {'Crispy Admin'}
                 </h3>
             </div>
 
@@ -69,12 +77,12 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                     <div
                         key={msg.id}
                         className={`flex mb-2 ${
-                            msg.sender === 'Admin' ? 'justify-end' : 'justify-start'
+                            msg.sender === 'Customer' ? 'justify-end' : 'justify-start'
                         }`}
                     >
                         <div
                             className={`p-3 rounded-lg max-w-[25em] break-words ${
-                                msg.sender === 'Admin'
+                                msg.sender === 'Customer'
                                     ? 'bg-gradient-to-r from-[#ff9291] to-[#ed6f6d] text-white text-right mr-1'
                                     : 'bg-gradient-to-r from-[#fa8d48] to-[#faa46e] text-white text-left ml-1'
                             }`}
@@ -91,7 +99,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                     </div>
                 ))}
             </div>
-            
+
             <div className="p-4 border-t border-gray-200 flex items-center">
                 <InputEmoji
                     value={newMessage}
@@ -100,7 +108,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                 />
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d]"
+                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d] text-sm"
                 >
                     Send
                 </button>

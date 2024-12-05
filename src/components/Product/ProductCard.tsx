@@ -71,7 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     <CustomButton
                         buttonLabel="Add to Cart"
                         variant="outline"
-                        buttonClassName="w-full rounded-full px-6 py-3 text-sm border-carnation-400 text-carnation-400 hover:bg-carnation-500"
+                        buttonClassName="w-full rounded-full px-6 py-3 text-sm border-carnation-400 text-carnation-400 hover:bg-carnation-500 min-h-10"
                         icon={<FaOpencart />}
                     />
                 </div>
