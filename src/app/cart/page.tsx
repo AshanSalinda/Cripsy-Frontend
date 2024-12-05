@@ -1,13 +1,13 @@
 "use client";
-
 import React, {useEffect, useState} from 'react';
 import TopNavbar from '@/components/TopNavbar/TopNavbar';
 import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
 import CartProductCard from '@/section/CartPageSections/CartItemCard';
-import { getCartItems } from '@/apis/cartApi/cartApi';
 import Script from "next/script";
 import {getCustomerDetails} from "@/apis/customerAPIs/customerAPI";
+import { getCartItems, initiateOrder, confirmOrder, cancelOrder, configurePayhere } from '@/apis/cartApi/cartApi';
+
 
 export interface CartItemType {
     productId: number;
@@ -48,13 +48,19 @@ const paymentDetails = {
     country: "Sri Lanka"
 };
 
+declare global {
+    interface Window {
+        payhere: any;
+    }
+}
+
 const Cart: React.FC = () => {
-    const [cartItems, setCartItems] = React.useState<CartItemType[]>([]);
-    const [customerDetails, setCustomerDetails] = React.useState<CustomerDetailsType | null>(null);
-    const [totalAmount, setTotalAmount] = React.useState(0);
-    const [isPayhereLoaded, setIsPayhereLoaded] = useState(false);
-    const ShippingCharge = 200;
     const userId = 1;
+    const shippingCharge = 200;
+    const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+    const [customerDetails, setCustomerDetails] = useState<Partial<CustomerDetailsType>>({});
+    const [totalAmount, setTotalAmount] = useState(shippingCharge);
+ 
 
     const toCurrency = (value: number = 0) => (
         "Rs " + value?.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
@@ -88,6 +94,64 @@ const Cart: React.FC = () => {
             isError: item?.stock < item?.quantity
         }
     }
+
+
+    const handleCheckout = async () => {
+        if (typeof window === "undefined" || !window.payhere) {
+            alert("Payment system not ready.");
+            return;
+        }
+
+        const { merchant_id, hash } = await configurePayhere(customerDetails);
+
+        if(!merchant_id || !hash){
+            alert("Failed to fetch payment configuration");
+            return;
+        }
+
+        const payment = {
+            sandbox: true,
+            merchant_id: merchant_id,
+            return_url: "http://localhost:3000/payment/success",
+            cancel_url: "http://localhost:3000/payment/cancel",
+            notify_url: "https://b0e4-2407-c00-e004-ad2e-6415-20fb-c56a-4e74.ngrok-free.app/payment/notify",
+            order_id: paymentDetails?.order_id,
+            items: "Sample Item",
+            amount: 100.00,
+            currency: "LKR",
+            first_name: customerDetails?.first_name,
+            last_name: customerDetails?.last_name,
+            email: customerDetails?.email,
+            phone: customerDetails?.phone,
+            address: customerDetails?.address,
+            city: customerDetails?.city,
+            country: customerDetails?.country,
+            hash: hash
+        };
+
+        window.payhere.startPayment(payment);
+
+        const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
+
+        try{
+            const transactionId = await initiateOrder(orderItems);
+            // Make the payment here
+
+            if(transactionId){ // if Payment success
+                const orderDetails = await confirmOrder(transactionId);
+                // send request to order Service to place the order
+                console.log("Order placed successfully", orderDetails);
+            } else { // Else Cancel the order
+                await cancelOrder(transactionId);
+            }
+
+        } catch (error) {
+            const cartItems = await getCartItems(userId);
+            setCartItems(cartItems);
+        }
+        
+    }
+
     
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -95,85 +159,26 @@ const Cart: React.FC = () => {
             setCartItems(cartItems);
         };
 
-        fetchCartItems();
-    }, []);
-
-
-    useEffect(() => {
-        const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
-        setTotalAmount(total + ShippingCharge);
-    }, [cartItems]);
-
-
-    useEffect(() => {
         const fetchCustomerDetails = async () => {
             const customerDetails = await getCustomerDetails(userId);
             setCustomerDetails(customerDetails);
             console.log(customerDetails);
         };
 
+        fetchCartItems();
         fetchCustomerDetails();
     }, []);
 
+
     useEffect(() => {
-        const checkPayhere = () => {
-            if (typeof window !== "undefined" && window.payhere) {
-                setIsPayhereLoaded(true);
-            } else {
-                setTimeout(checkPayhere, 1000);
-            }
-        };
-        checkPayhere();
+        const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
+        setTotalAmount(total + shippingCharge);
+    }, [cartItems]);
+
+
+    useEffect(() => {
+
     }, []);
-
-    const handleCheckout = async () => {
-        if (!isPayhereLoaded) {
-            alert("Payment system not ready.");
-            return;
-        }
-
-        try {
-            // Call backend to get merchant_id and hash
-            const response = await fetch("http://localhost:8083/payment/start", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(customerDetails),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch payment configuration");
-            }
-
-            const { merchant_id, hash } = await response.json();
-
-            // Add dynamic merchant_id and hash to payment details
-            const payment = {
-                sandbox: true,
-                merchant_id: merchant_id,
-                return_url: "http://localhost:3000/payment/success",
-                cancel_url: "http://localhost:3000/payment/cancel",
-                notify_url: "https://b0e4-2407-c00-e004-ad2e-6415-20fb-c56a-4e74.ngrok-free.app/payment/notify",
-                order_id: paymentDetails.order_id,
-                items: "Sample Item",
-                amount: 100.00,
-                currency: "LKR",
-                first_name: customerDetails.first_name,
-                last_name: customerDetails.last_name,
-                email: customerDetails.email,
-                phone: customerDetails.phone,
-                address: customerDetails.address,
-                city: customerDetails.city,
-                country: customerDetails.country,
-                hash: hash
-            };
-
-            window.payhere.startPayment(payment);
-        } catch (error) {
-            alert("Error initiating payment: " + error.message);
-        }
-    };
 
 
     return (
@@ -210,11 +215,11 @@ const Cart: React.FC = () => {
                         <div className='pt-4'>
                             <div className='flex justify-between w-full mt-2'>
                                 <p className='font-light'>Subtotal</p>
-                                <p className='font-light'>{toCurrency(totalAmount - ShippingCharge)}</p>
+                                <p className='font-light'>{toCurrency(totalAmount - shippingCharge)}</p>
                             </div>
                             <div className='flex justify-between w-full mt-2'>
                                 <p className='font-light'>Shipping</p>
-                                <p className='font-light'>{toCurrency(ShippingCharge)}</p>
+                                <p className='font-light'>{toCurrency(shippingCharge)}</p>
                             </div>
                             <div className='flex justify-between w-full mt-2'>
                                 <p className='text-xl font-semibold text-carnation-500'>Total Amount</p>
