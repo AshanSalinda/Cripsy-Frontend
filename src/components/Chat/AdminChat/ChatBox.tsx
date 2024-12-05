@@ -33,12 +33,12 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
 
         const messageData = {
             conversationId,
-            sender: currentUser,
+            sender: "Admin",
             message: newMessage,
         };
 
         try {
-            const newMsg = await createMessage(messageData);
+            const newMsg = await axios.post('http://localhost:8085/api/messages/create', messageData);
             setMessages((prev) => [...prev, newMsg]);
             setNewMessage('');
         } catch (error) {
