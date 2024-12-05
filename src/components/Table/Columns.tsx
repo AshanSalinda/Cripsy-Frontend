@@ -22,15 +22,18 @@ export interface Product {
 
 // Admin Interface
 export interface Admin {
-    adminId: string;
+    adminId: string; // Or number, depending on your DB schema
     adminName: string;
     email: string;
     contactNo: string;
-}
-
+    firstName: string;
+    lastName: string;
+    gender: "Male" | "Female"; // Define gender
+    birthday: string; // Format it accordingly, e.g., YYYY-MM-DD
+  }
 // order interface
 export interface Order {
-    orderId:string;
+    orderId: string;
     fullName: string;
     district: string;
     address: string;
@@ -162,4 +165,23 @@ export const refundColumns: Column<Refund>[] = [
             </div>
         ),
     }
+];
+
+
+//Admin Dashboard TopSelling Table
+export interface TopSellingTableProps {
+    id: number;
+    itemName: string;
+    description: string;
+    qty: number;
+    rate: string;
+    value: string;
+}
+export const TopSellingTableColumns: Column<TopSellingTableProps>[] = [
+    { header: "#", accessor: "id" },
+    { header: "ITEM NAME", accessor: "itemName" },
+    { header: "DESCRIPTION", accessor: "description" },
+    { header: "QTY", accessor: "qty" },
+    { header: "RATE (RS)", accessor: "rate" },
+    { header: "VALUE (RS)", accessor: "value" },
 ];

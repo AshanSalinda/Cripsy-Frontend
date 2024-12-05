@@ -1,8 +1,9 @@
 "use client";
 import { IconType } from 'react-icons';
-import { HiOutlineShoppingBag, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineChat, HiOutlineLogout } from 'react-icons/hi';
+import { HiOutlineShoppingBag, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineChat } from 'react-icons/hi';
 import { RxDashboard } from "react-icons/rx";
-
+import { GrUserAdmin } from "react-icons/gr";
+import { TbTruckDelivery } from "react-icons/tb";
 export interface AdminSidebarDataProps {
     title: string;
     icon?: IconType;
@@ -16,6 +17,11 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
         path: '/admin/adminDashboard',
     },
     {
+        title: 'Admin Details',
+        icon: GrUserAdmin,
+        path: '/admin/adminDetails',
+    },
+    {
         title: 'Orders',
         icon: HiOutlineShoppingBag,
         path: '/admin/orders',
@@ -23,10 +29,10 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Products',
         icon: HiOutlineClipboardList,
-        path: '/admin/products',
+        path: '/admin/Product',
     },
     {
-        title: 'Refund',
+        title: 'Refunds',
         icon: HiOutlineCurrencyDollar,
         path: '/admin/refund',
     },
@@ -36,8 +42,8 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
         path: '/admin/message',
     },
     {
-        title: 'Logout',
-        icon: HiOutlineLogout,
-        path: '/',
-    },
+        title: 'Delivery',
+        icon: TbTruckDelivery,
+        path: '/admin/Delivery',
+    }
 ];
