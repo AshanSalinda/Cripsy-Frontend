@@ -45,6 +45,7 @@ export default function RootLayout({
 */
 
 import type { Metadata } from "next";
+import Toast from "@/components/Messages/showMessage";
 import "./globals.css";
 
 
@@ -64,9 +65,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <body>
-        {children}
-        </body>
+            <body>
+                {children}
+                <Toast/>
+            </body>
         </html>
     );
 }
