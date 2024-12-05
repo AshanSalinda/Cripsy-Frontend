@@ -1,6 +1,5 @@
 import axios from "axios";
 import { showToast } from "@/components/Messages/showMessage";
-import { stat } from "fs";
 
 
 // Axios instance with base URL
@@ -44,7 +43,7 @@ export const getProducts = async () => {
     }
 };
 
-// Get product by Item
+// Get product Item
 export const getProductItemDetails = async (productId: number, userId: number ) => {
     try {
         const response = await api.get(`/api/product/${productId}/${userId}`);
