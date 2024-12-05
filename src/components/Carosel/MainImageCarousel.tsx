@@ -57,14 +57,17 @@ const MainImageCarousel: React.FC = () => {
 
                         {/* Image section */}
                         <div className="flex items-center justify-center w-full md:w-1/2 mt-4 md:mt-0 bg-cover">
-                            <Image
-                                src={item.image}
-                                alt={item.title}
-                                width={400}
-                                height={400}
-                                className="max-w-full h-auto object-contain"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
-                            />
+                            {/* Fixed height for container */}
+                            <div className="relative w-full h-[300px] md:h-[400px]">
+                                {/* Image inside the container */}
+                                <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="object-contain"
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -74,3 +77,4 @@ const MainImageCarousel: React.FC = () => {
 };
 
 export default MainImageCarousel;
+
