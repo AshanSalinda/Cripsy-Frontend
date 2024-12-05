@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import TopNavbar from '@/components/TopNavbar/TopNavbar';
 import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
 import CartProductCard from '@/section/CartPageSections/CartItemCard';
 import { getCartItems } from '@/apis/cartApi/cartApi';
-
+import Script from "next/script";
+import {getCustomerDetails} from "@/apis/customerAPIs/customerAPI";
 
 export interface CartItemType {
     productId: number;
@@ -23,10 +24,35 @@ export interface CartItemType {
     stock: number;
 }
 
+export interface CustomerDetailsType {
+    first_name: string,
+    last_name: string,
+    email: string,
+    phone: string,
+    address: string,
+    city: string,
+    country: string
+}
+
+const paymentDetails = {
+    order_id: "12345",
+    items: "Sample Item",
+    amount: "100.00",
+    currency: "LKR",
+    first_name: "John",
+    last_name: "Doe",
+    email: "john.doe@example.com",
+    phone: "0771234567",
+    address: "123 Main Street",
+    city: "Colombo",
+    country: "Sri Lanka"
+};
 
 const Cart: React.FC = () => {
     const [cartItems, setCartItems] = React.useState<CartItemType[]>([]);
+    const [customerDetails, setCustomerDetails] = React.useState<CustomerDetailsType | null>();
     const [totalAmount, setTotalAmount] = React.useState(0);
+    const [isPayhereLoaded, setIsPayhereLoaded] = useState(false);
     const ShippingCharge = 200;
     const userId = 1;
 
@@ -62,12 +88,6 @@ const Cart: React.FC = () => {
             isError: item?.stock < item?.quantity
         }
     }
-
-
-    const handleCheckout = () => {
-        console.log("Checkout button clicked");
-    }
-
     
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -85,8 +105,85 @@ const Cart: React.FC = () => {
     }, [cartItems]);
 
 
+    useEffect(() => {
+        const fetchCustomerDetails = async () => {
+            const customerDetails = await getCustomerDetails(userId);
+            setCustomerDetails(customerDetails);
+            console.log(customerDetails);
+        };
+
+        fetchCustomerDetails();
+    }, []);
+
+    useEffect(() => {
+        const checkPayhere = () => {
+            if (typeof window !== "undefined" && window.payhere) {
+                setIsPayhereLoaded(true);
+            } else {
+                setTimeout(checkPayhere, 1000);
+            }
+        };
+        checkPayhere();
+    }, []);
+
+    const handleCheckout = async () => {
+        if (!isPayhereLoaded) {
+            alert("Payment system not ready.");
+            return;
+        }
+
+
+        try {
+            // Call backend to get merchant_id and hash
+            const response = await fetch("http://localhost:8083/payment/start", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(customerDetails),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch payment configuration");
+            }
+
+            const { merchant_id, hash } = await response.json();
+
+            // Add dynamic merchant_id and hash to payment details
+            const payment = {
+                sandbox: true,
+                merchant_id: merchant_id,
+                return_url: "http://localhost:3000/payment/success",
+                cancel_url: "http://localhost:3000/payment/cancel",
+                notify_url: "https://b0e4-2407-c00-e004-ad2e-6415-20fb-c56a-4e74.ngrok-free.app/payment/notify",
+                order_id: paymentDetails.order_id,
+                items: "Sample Item",
+                amount: 100.00,
+                currency: "LKR",
+                first_name: customerDetails.first_name,
+                last_name: customerDetails.last_name,
+                email: customerDetails.email,
+                phone: customerDetails.phone,
+                address: customerDetails.address,
+                city: customerDetails.city,
+                country: customerDetails.country,
+                hash: hash
+            };
+
+            window.payhere.startPayment(payment);
+        } catch (error) {
+            alert("Error initiating payment: " + error.message);
+        }
+    };
+
+
     return (
         <div className='h-[calc(100vh-8rem)] md:h-[calc(100vh-5rem)]'>
+            <Script
+                src="https://www.payhere.lk/lib/payhere.js"
+                strategy="afterInteractive"
+            />
+
             <TopNavbar />
 
             <div className="flex flex-wrap h-full md:space-x-2 overflow-y-auto mt-32 md:mt-20 p-2">
