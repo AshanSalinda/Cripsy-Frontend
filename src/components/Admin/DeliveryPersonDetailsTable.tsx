@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import ProductTableWithPagi from "@/components/Table/ProductTableWithPagi";
+import ProductTableWithPagi from "@/components/Table/TableWithPagi";
 import { deliveryPersonColumns } from "@/components/Table/Columns";
 import delieveryPersonData from "@/data/delieveryPersonData.json";
 import CustomButton from "@/components/Button/CustomButton";
@@ -43,11 +43,11 @@ const DeliveryPersonDetailsTable = () => {
         <>
             <div className="flex justify-between mb-3 mt-6">
                 <h5 className="flex items-center font-semibold font-inter ml-[120px]">
-                    Admin Details
+                    Delivery Person Details
                 </h5>
                 <CustomButton
                     onClick={() => setIsNewAdminPopupOpen(true)}
-                    buttonLabel="New Admin"
+                    buttonLabel="New Delivery Person"
                     buttonClassName="text"
                 />
             </div>

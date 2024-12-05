@@ -176,7 +176,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProductTableWithPagi from "@/components/Table/ProductTableWithPagi";
+import ProductTableWithPagi from "@/components/Table/TableWithPagi";
 import { orderColumns } from "@/components/Table/Columns";
 import ordersData from "@/data/orders.json"; // Import JSON data
 import CustomButton from "@/components/Button/CustomButton";
