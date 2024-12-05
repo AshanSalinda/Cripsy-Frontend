@@ -1,4 +1,6 @@
 import axios from "axios";
+import { showToast } from "@/components/Messages/showMessage";
+import { stat } from "fs";
 
 
 // Axios instance with base URL
@@ -49,6 +51,7 @@ export const getProductItemDetails = async (productId: number, userId: number ) 
         return response.data;
     } catch (error) {
         console.log("Error Getting product Details:", error);
+        showToast({type: "error", message: "Product not found!"});
         return {};
     }
 };
@@ -60,6 +63,7 @@ export const getReviews = async (productId: number, pageNo: number) => {
         return response.data;
     } catch (error) {
         console.log("Error fetching reviews:", error);
+        showToast({type: "error", message: "Failed to fetch reviews!"});
         return [];
     }
 }
@@ -72,9 +76,16 @@ export const addReview = async (productId: number, userId: number, userName: str
             { productId, userId, userName, rating, comment }
         );
         return response.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error adding review:", error);
-        return [];
+
+        if(error?.status === 409) {
+            showToast({type: "warning", message: "You have already reviewed this product!"});
+            return error?.response?.data || [];
+        } else {
+            showToast({type: "error", message: "Failed to add review!"});
+            return [];
+        }
     }
 };
 

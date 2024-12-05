@@ -45,6 +45,7 @@ export default function RootLayout({
 */
 
 import type { Metadata } from "next";
+import Toast from "@/components/Messages/showMessage";
 import "./globals.css";
 
 
@@ -62,11 +63,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>
-        {children}
-      </body>
-    </html>
-  );
+
+    return (
+        <html lang="en">
+            <body>
+                {children}
+                <Toast/>
+            </body>
+        </html>
+    );
 }
