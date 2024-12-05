@@ -18,6 +18,10 @@ const ChatBox = () => {
                 );
                 setMessages(response.data);
                 console.log(response.data);
+
+                const fetchedConversationId = response.data[0]?.conversationId;
+                localStorage.setItem('conversationId', fetchedConversationId);
+                console.log(localStorage.getItem('conversationId'));
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
@@ -31,12 +35,18 @@ const ChatBox = () => {
     const handleSend = async () => {
         if (!newMessage.trim()) return;
 
+        const conversationId = parseInt(localStorage.getItem('conversationId'),10);
+
         const messageData = {
+            conversationId: conversationId,
+            sender: "Customer",
             message: newMessage,
         };
 
+        console.log(messageData);
+
         try {
-            const newMsg = await createMessage(messageData);
+            const newMsg = await axios.post('http://localhost:8085/api/messages/create', messageData);
             setMessages((prev) => [...prev, newMsg]);
             setNewMessage('');
         } catch (error) {
