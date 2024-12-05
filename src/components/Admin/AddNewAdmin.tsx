@@ -1,89 +1,69 @@
 "use client";
+
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import Popup from "../Popup/Popup";
+import AddAdminForm from "@/section/AddAdminForm/AddAdminForm";
+import { AddNewAdminFormValues, AdminSchema } from "@/schema/AdminSchema/AdminSchema";
 
 interface AddNewAdminProps {
     isDialogOpen: boolean;
     setIsDialogOpen: (open: boolean) => void;
-    onAddAdmin: (admin: { adminId: string; adminName: string; email: string; contactNo: string }) => void;
 }
 
-const AddNewAdmin: React.FC<AddNewAdminProps> = ({ isDialogOpen, setIsDialogOpen, onAddAdmin }) => {
-    const [adminDetails, setAdminDetails] = useState({
-        adminId: "",
-        adminName: "",
-        email: "",
-        contactNo: "",
+const AddNewAdmin: React.FC<AddNewAdminProps> = ({ isDialogOpen, setIsDialogOpen }) => {
+    // Initialize react-hook-form
+    const { register, handleSubmit, reset, formState: { errors: formErrors } } = useForm<AddNewAdminFormValues>({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            contactNo: '',
+            birthday: '',
+            gender: ''
+        },
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setAdminDetails((prev) => ({ ...prev, [name]: value }));
-    };
+    // State for handling custom validation errors
+    const [validationErrors, setValidationErrors] = useState<Partial<Record<keyof AddNewAdminFormValues, string>>>({});
 
-    const handleSubmit = () => {
-        onAddAdmin(adminDetails);
-        setIsDialogOpen(false);
-        setAdminDetails({ adminId: "", adminName: "", email: "", contactNo: "" });
+    // Function to handle form submission
+    const onSubmit = (data: AddNewAdminFormValues) => {
+        // Perform validation using Zod
+        const result = AdminSchema.safeParse(data);
+
+        if (result.success) {
+            console.log("Saving New Admin Data:", result.data);
+            // TODO: Implement actual save logic (e.g., API call)
+
+            // Reset form and errors
+            reset();
+            setValidationErrors({});
+        } else {
+            // Map Zod validation errors to the errors state
+            const fieldErrors: Partial<Record<keyof AddNewAdminFormValues, string>> = {};
+            result.error.errors.forEach(err => {
+                const field = err.path[0] as keyof AddNewAdminFormValues;
+                fieldErrors[field] = err.message;
+            });
+            setValidationErrors(fieldErrors); // Set errors in state
+        }
     };
 
     return (
-        isDialogOpen && (
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-                <div className="bg-white p-6 rounded-md w-96">
-                    <h3 className="text-lg font-bold mb-4">Add New Admin</h3>
-                    <form className="space-y-4">
-                        <input
-                            type="text"
-                            name="adminId"
-                            placeholder="Admin ID"
-                            value={adminDetails.adminId}
-                            onChange={handleChange}
-                            className="w-full p-2 border rounded"
-                        />
-                        <input
-                            type="text"
-                            name="adminName"
-                            placeholder="Admin Name"
-                            value={adminDetails.adminName}
-                            onChange={handleChange}
-                            className="w-full p-2 border rounded"
-                        />
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={adminDetails.email}
-                            onChange={handleChange}
-                            className="w-full p-2 border rounded"
-                        />
-                        <input
-                            type="text"
-                            name="contactNo"
-                            placeholder="Contact No"
-                            value={adminDetails.contactNo}
-                            onChange={handleChange}
-                            className="w-full p-2 border rounded"
-                        />
-                        <div className="flex justify-end space-x-4">
-                            <button
-                                type="button"
-                                className="bg-gray-300 px-4 py-2 rounded"
-                                onClick={() => setIsDialogOpen(false)}
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="button"
-                                className="bg-blue-500 text-white px-4 py-2 rounded"
-                                onClick={handleSubmit}
-                            >
-                                Add Admin
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
+        <Popup
+            isOpen={isDialogOpen}
+            onClose={() => setIsDialogOpen(false)}
+            title="New Admin"
+            description=" "
+            onSaveClick={handleSubmit(onSubmit)} // Wrap onSubmit with handleSubmit
+        >
+            {/* Pass validationErrors and register to AdminFormSection */}
+            <AddAdminForm<AddNewAdminFormValues>
+                errors={validationErrors}  // Use custom validation errors
+                register={register}  // Register input fields
+            />
+        </Popup>
     );
 };
 

@@ -1,124 +1,105 @@
 {
     "adminData": [
-        {
-            "adminId": "A001",
-            "adminName": "John Doe",
-            "email": "john.doe@example.com",
-            "contactNo": "+1234567890"
-        },
-        {
-            "adminId": "A002",
-            "adminName": "Jane Smith",
-            "email": "jane.smith@example.com",
-            "contactNo": "+0987654321"
-        },
-        {
-            "adminId": "A003",
-            "adminName": "Emily Johnson",
-            "email": "emily.johnson@example.com",
-            "contactNo": "+1122334455"
-        },
-        {
-            "adminId": "A004",
-            "adminName": "Michael Brown",
-            "email": "michael.brown@example.com",
-            "contactNo": "+6677889900"
-        },
-        {
-            "adminId": "A005",
-            "adminName": "Sarah Wilson",
-            "email": "sarah.wilson@example.com",
-            "contactNo": "+5544332211"
-        },
-        {
-            "adminId": "A006",
-            "adminName": "David Martinez",
-            "email": "david.martinez@example.com",
-            "contactNo": "+1223344556"
-        },
-        {
-            "adminId": "A007",
-            "adminName": "Olivia Davis",
-            "email": "olivia.davis@example.com",
-            "contactNo": "+9988776655"
-        },
-        {
-            "adminId": "A008",
-            "adminName": "Daniel Taylor",
-            "email": "daniel.taylor@example.com",
-            "contactNo": "+3344556677"
-        },
-        {
-            "adminId": "A009",
-            "adminName": "Sophia Moore",
-            "email": "sophia.moore@example.com",
-            "contactNo": "+2233445566"
-        },
-        {
-            "adminId": "A010",
-            "adminName": "James Anderson",
-            "email": "james.anderson@example.com",
-            "contactNo": "+4455667788"
-        },
-        {
-            "adminId": "A011",
-            "adminName": "Ava Thomas",
-            "email": "ava.thomas@example.com",
-            "contactNo": "+6677889901"
-        },
-        {
-            "adminId": "A012",
-            "adminName": "Lucas Jackson",
-            "email": "lucas.jackson@example.com",
-            "contactNo": "+5566778899"
-        },
-        {
-            "adminId": "A013",
-            "adminName": "Mia Lee",
-            "email": "mia.lee@example.com",
-            "contactNo": "+7788990011"
-        },
-        {
-            "adminId": "A014",
-            "adminName": "Benjamin Harris",
-            "email": "benjamin.harris@example.com",
-            "contactNo": "+6677883344"
-        },
-        {
-            "adminId": "A015",
-            "adminName": "Charlotte Clark",
-            "email": "charlotte.clark@example.com",
-            "contactNo": "+4455667789"
-        },
-        {
-            "adminId": "A016",
-            "adminName": "Ethan Lewis",
-            "email": "ethan.lewis@example.com",
-            "contactNo": "+8899001122"
-        },
-        {
-            "adminId": "A017",
-            "adminName": "Amelia Walker",
-            "email": "amelia.walker@example.com",
-            "contactNo": "+9988771122"
-        },
-        {
-            "adminId": "A018",
-            "adminName": "Mason Young",
-            "email": "mason.young@example.com",
-            "contactNo": "+7766554433"
-        },
-        {
-            "adminId": "A019",
-            "adminName": "Isabella King",
-            "email": "isabella.king@example.com",
-            "contactNo": "+3344556678"
-        },
-        {
-            "adminId": "A020",
-            "adminName": "Logan Scott",
-            "email": "logan.scott@example.com",
-            "contactNo": "+9988223355"
-        }
+      {
+        "adminId": "1",
+        "adminName": "John Doe",
+        "email": "john.doe@example.com",
+        "contactNo": "1234567890",
+        "firstName": "John",
+        "lastName": "Doe",
+        "gender": "Male",
+        "birthday": "1990-01-01"
+      },
+      {
+        "adminId": "2",
+        "adminName": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "contactNo": "0987654321",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "gender": "Female",
+        "birthday": "1992-02-02"
+      },
+      {
+        "adminId": "3",
+        "adminName": "Emily Johnson",
+        "email": "emily.johnson@example.com",
+        "contactNo": "1122334455",
+        "firstName": "Emily",
+        "lastName": "Johnson",
+        "gender": "Female",
+        "birthday": "1989-03-15"
+      },
+      {
+        "adminId": "4",
+        "adminName": "Michael Brown",
+        "email": "michael.brown@example.com",
+        "contactNo": "6677889900",
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "gender": "Male",
+        "birthday": "1985-04-20"
+      },
+      {
+        "adminId": "5",
+        "adminName": "Sarah Wilson",
+        "email": "sarah.wilson@example.com",
+        "contactNo": "5544332211",
+        "firstName": "Sarah",
+        "lastName": "Wilson",
+        "gender": "Female",
+        "birthday": "1994-05-30"
+      },
+      {
+        "adminId": "6",
+        "adminName": "David Martinez",
+        "email": "david.martinez@example.com",
+        "contactNo": "1223344556",
+        "firstName": "David",
+        "lastName": "Martinez",
+        "gender": "Male",
+        "birthday": "1991-06-10"
+      },
+      {
+        "adminId": "7",
+        "adminName": "Olivia Davis",
+        "email": "olivia.davis@example.com",
+        "contactNo": "9988776655",
+        "firstName": "Olivia",
+        "lastName": "Davis",
+        "gender": "Female",
+        "birthday": "1993-07-25"
+      },
+      {
+        "adminId": "8",
+        "adminName": "Daniel Taylor",
+        "email": "daniel.taylor@example.com",
+        "contactNo": "3344556677",
+        "firstName": "Daniel",
+        "lastName": "Taylor",
+        "gender": "Male",
+        "birthday": "1987-08-05"
+      },
+      {
+        "adminId": "9",
+        "adminName": "Sophia Moore",
+        "email": "sophia.moore@example.com",
+        "contactNo": "2233445566",
+        "firstName": "Sophia",
+        "lastName": "Moore",
+        "gender": "Female",
+        "birthday": "1995-09-10"
+      },
+      {
+        "adminId": "10",
+        "adminName": "James Anderson",
+        "email": "james.anderson@example.com",
+        "contactNo": "4455667788",
+        "firstName": "James",
+        "lastName": "Anderson",
+        "gender": "Male",
+        "birthday": "1988-10-17"
+      }
     ]
-}
+  }
+  
