@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "http://localhost:8085"
+    baseURL: `http://localhost:8085`
 });
 
 export const createConversation = async (conversationData: {
@@ -9,7 +9,7 @@ export const createConversation = async (conversationData: {
     customerId: number;
 })=> {
     try {
-        const response = await api.post("/api/conversations/create", conversationData);
+        const response = await api.post(`/api/conversations/create`, conversationData);
         if(response.status === 200) {
             console.log("Conversation created successfully: ", response.data);
             return response.data;
@@ -32,7 +32,7 @@ export const getConversationById = async (conversationId: number) => {
 
 export const getConversations = async () => {
     try {
-        const response = await axios.get("/api/conversations");
+        const response = await axios.get(`/api/conversations`);
         return response.data;
     }catch (error) {
         console.log("Error in getting the conversation: ", error);
@@ -59,7 +59,7 @@ export const createMessage = async (messageData: {
     message: string;
 })=> {
     try {
-        const response = await axios.post("/api/messages/create", messageData);
+        const response = await axios.post(`/api/messages/create`, messageData);
         if(response.status === 200) {
             console.log("Message created successfully: ", response.data);
             return response.data;
