@@ -6,28 +6,20 @@ const api = axios.create({
     baseURL: "http://localhost:8083",
 });
 
-// Add a new order
-export const addOrder = async (orderData: {
-    customerID: number;
-    purchasedDate: string; // Format: YYYY-MM-DD
-    deliveredDate?: string; // Optional field
-    orderStatus: string;
-    totalPrice: number;
-    items: { itemId: number; quantity: number; price: number }[]; // Include item details
-    deliveryPersonId?: number; // Optional field
-}) => {
+
+// Place order
+export const placeOrder = async (userId: number, oderDetails: []) => {
     try {
-        const response = await api.post("/api/order/add", orderData);
-        if (response.status === 200) {
-            console.log("Order placed successfully:", response.data);
-            return response.data;
-        }
+        await api.post(
+            '/api/orders/createOrder',
+            { customerID: userId, items: oderDetails }
+        );
     } catch (error) {
-        console.error("Error placing order:", error);
-        showToast({ type: "error", message: "Failed to place the order!" });
-        throw error;
+        console.log("Error placing order:", error);
+        showToast({type: "error", message: "Placing order failed!"});
     }
-};
+}
+
 
 // Get all orders
 export const getAllOrders = async () => {
@@ -52,6 +44,17 @@ export const getOrderById = async (orderId: number) => {
     }
 };
 
+
+export const getOrderByStatus = async (status: string) => {
+    try {
+        const response = await api.get(`/api/orders/status/${status}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching order details:", error);
+        showToast({ type: "error", message: "Order not found!" });
+        throw error;
+    }
+};
 // Get orders for a specific customer
 export const getCustomerOrders = async (customerId: number) => {
     try {

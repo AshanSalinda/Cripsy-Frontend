@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/CustomButton';
 import QuantityInput from '@/components/Product/QuantityInput';
 import RatingStar from '@/components/Product/RatingStar';
@@ -25,10 +25,10 @@ interface PropsType {
 const CartProductCard: React.FC<PropsType> = (props) => {
     const { productId, userId, imageUrl, name, price, description, avgRatings, ratingCount, reviewCount, stock, quantity, setCartItems } = props;
     const [isQuantityChanged, setIsQuantityChanged] = useState(false);
-
+    const router = useRouter();
 
     const navigateToProduct = () => {
-        redirect(`/product/${productId}`);
+        router.push(`/product/${productId}`);
     }
 
     const onQuantityChange = (value: number) => {
