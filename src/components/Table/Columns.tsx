@@ -54,7 +54,7 @@ type Column<T> = {
 
 // Refund interface
 export interface Refund {
-    orderId: string;
+    refoundId: string;
     customerName: string;
     refundItemQty: number;
     refundAmount: number;
@@ -148,7 +148,7 @@ export const orderColumns: Column<Order>[] = [
 
 //Refund Details Table
 export const refundColumns: Column<Refund>[] = [
-    { header: "Order ID", accessor: "orderId" },
+    { header: "Refound ID", accessor: "refoundId" },
     { header: "Customer Name", accessor: "customerName" },
     { header: "Refund Item Qty", accessor: "refundItemQty" },
     { header: "Refund Amount", accessor: "refundAmount" },

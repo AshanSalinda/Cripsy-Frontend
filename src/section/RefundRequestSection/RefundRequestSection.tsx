@@ -1,21 +1,22 @@
 import RefundCard from '@/components/Product/RefundCard'
 import React from 'react'
+import refund from 	 '@/data/data.json'
 
 export const RefundRequestSection = () => {
+
   return (
-    <div >
-      
+    <div className='p-7' >
+        
        <RefundCard
-       productName="Smartphone X"
-       orderId="12345"
-       price={999.99}
-       reason="Brand New 100% Original. The sound quality is exceptional, "
-       orderDate="2024-12-01"
-       deliveredDate="2024-12-02"
-        title="Smartphone X"
-        imageSrc=""
-       customerName="John Doe"
+       productName={"Polo T-Shirt"}
+       refoundId={"ORD123456"}
+       price={200000}
+       reason={"Not satisfied with the product"}
+       orderDate={"2021-09-01"}
+       deliveredDate={"2021-09-05"}
+       customerName={"John Doe"}
      />
+      
       
     </div>
   )
