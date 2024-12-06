@@ -77,8 +77,6 @@ export const getCustomerStatusedOrders = async (customerId: number, status: stri
     }
 };
 
-
-// Update order status
 export const updateOrderStatus = async (orderId: number, orderStatus: string) => {
     try {
         const response = await api.put(`/api/order/updateStatus`, { orderId, orderStatus });
