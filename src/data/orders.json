@@ -6,6 +6,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -20,6 +21,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -34,6 +36,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -48,6 +51,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -62,6 +66,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -76,6 +81,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -90,6 +96,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -104,6 +111,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -118,6 +126,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -132,6 +141,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -146,6 +156,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -160,6 +171,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -174,6 +186,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -188,6 +201,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -202,6 +216,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -216,6 +231,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -230,6 +246,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -244,6 +261,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -258,6 +276,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -272,6 +291,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -286,6 +306,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -300,6 +321,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",
@@ -314,6 +336,7 @@
             "quantity": 2,
             "price": "20.00",
             "date": "2024-11-01",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "John Doe",
                 "street": "123 Main Street",
@@ -328,6 +351,7 @@
             "quantity": 1,
             "price": "50.00",
             "date": "2024-11-03",
+            "orderStatus": "Confirmed",
             "receiver": {
                 "fullName": "Jane Smith",
                 "street": "456 Elm Street",

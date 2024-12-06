@@ -41,6 +41,7 @@ export interface Order {
     address: string;
     postalCode: string;
     contactNo: string;
+    orderStatus: string;
 }
 
 // Delivery Person Interface

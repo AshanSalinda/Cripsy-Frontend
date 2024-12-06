@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Popup from "../Popup/Popup";
 import AddAdminForm from "@/section/AddAdminForm/AddAdminForm";
-import { AddNewAdminFormValues, AdminSchema } from "@/schema/AdminSchema/AdminSchema";
+import { AddNewAdminFormValues, AdminSchema } from "@/schema/adminSchema/AdminSchema";
 
 interface AddNewAdminProps {
     isDialogOpen: boolean;
