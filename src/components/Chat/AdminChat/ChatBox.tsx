@@ -15,6 +15,7 @@ const ChatBox = ({ conversationId, customerName}) => {
             const response = await axios.get(
                 `http://localhost:8085/api/messages/getAllMessages/${conversationId}`
             );
+            /*const response = await getMessages(conversationId);*/
             setMessages(response.data);
         } catch (error) {
             console.error('Error fetching messages:', error);
@@ -41,6 +42,7 @@ const ChatBox = ({ conversationId, customerName}) => {
 
         try {
             const newMsg = await axios.post('http://localhost:8085/api/messages/create', messageData);
+            /*const newMsg = await createMessage(messageData);*/
             setMessages((prev) => [...prev, newMsg]);
             setNewMessage('');
         } catch (error) {
