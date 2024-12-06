@@ -404,10 +404,10 @@ const Cart: React.FC = () => {
             merchant_id: merchant_id,
             return_url: "http://localhost:3000/payment/success",
             cancel_url: "http://localhost:3000/payment/cancel",
-            notify_url: "https://3a91-2407-c00-6000-1bfc-4105-1ba3-36a6-eac.ngrok-free.app/payment/notify",
+            notify_url: "https://ae59-2407-c00-c001-be27-a981-b08c-25c4-f1c0.ngrok-free.app/payment/notify",
             order_id: paymentDetails.order_id,
             items: "Sample Item",
-            amount: 100.00,
+            amount: 1000.00,
             currency: "LKR",
             first_name: paymentDetails.first_name,
             last_name: paymentDetails.last_name,
@@ -419,13 +419,16 @@ const Cart: React.FC = () => {
             hash: hash
         };
 
-        window.payhere.startPayment(payment);
+        // window.payhere.startPayment(payment);
       
         const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
 
         try{
             const transactionId = await initiateOrder(orderItems);
             // Make the payment here
+            window.payhere.startPayment(payment);
+
+            //console.log(res);
             if(false){ // if Payment success
                 const orderDetails = await confirmOrder(transactionId);
                 placeOrder(userId, orderDetails);
@@ -443,7 +446,7 @@ const Cart: React.FC = () => {
     return (
         <div className='h-[calc(100vh-8rem)] md:h-[calc(100vh-5rem)]'>
 
-            <TopNavbar />
+            <TopNavbar/>
 
             <div className="flex flex-wrap h-full md:space-x-2 overflow-y-auto mt-32 md:mt-20 p-2">
                 <div className='order-2 lg:order-1 flex-1 space-y-2'>
