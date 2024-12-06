@@ -1,6 +1,12 @@
 "use client";
 import {FaEdit, FaTrash} from 'react-icons/fa';
+<<<<<<< HEAD
 import {FaRegEdit} from "react-icons/fa";
+=======
+import { FaRegEdit } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
+
+>>>>>>> e380e82240e9b4b79537a8d0def8d15869522dde
 
 
 // Interfaces
@@ -28,14 +34,18 @@ export interface Admin {
     adminName: string;
     email: string;
     contactNo: string;
+<<<<<<< HEAD
     firstName: string;
     lastName: string;
     gender: "Male" | "Female"; // Define gender
     birthday: string; // Format it accordingly, e.g., YYYY-MM-DD
+=======
+>>>>>>> e380e82240e9b4b79537a8d0def8d15869522dde
 }
 
 // order interface
 export interface Order {
+<<<<<<< HEAD
     orderId: number;
     customerID: number;
     deliveryPersonId: number;
@@ -43,6 +53,27 @@ export interface Order {
     orderStatus: string;
     purchasedDate: string;
     totalPrice: number;
+=======
+    orderId: string;
+    productName: string;
+    quantity: number;
+    price: string;
+    date: string;
+    fullName: string;
+    district: string;
+    address: string;
+    postalCode: string;
+    contactNo: string;
+    orderStatus: string;
+}
+
+// Delivery Person Interface
+export interface DeliveryPerson {
+    deliveryPersonId: string;
+    deliveryPersonName: string;
+    email: string;
+    contactNo: string;
+>>>>>>> e380e82240e9b4b79537a8d0def8d15869522dde
 }
 
 // Column Type Definition
@@ -138,20 +169,50 @@ export const adminColumns: Column<Admin>[] = [
 
 //order details table
 export const orderColumns: Column<Order>[] = [
+<<<<<<< HEAD
     {header: "OrderId", accessor: "orderId"},
     {header: "CustomerId", accessor: "customerID"},
     {header: "DeliveryPerson", accessor: "deliveryPersonId"},
     {header: "Order Status", accessor: "orderStatus"},
     {header: "Total", accessor: "totalPrice"},
+=======
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Product Name", accessor: "productName" },
+    { header: "Qty", accessor: "quantity" },
+    { header: "Price", accessor: "price" },
+    { header: "Date", accessor: "date" },
+>>>>>>> e380e82240e9b4b79537a8d0def8d15869522dde
     {
         header: "Action",
         accessor: "action" as keyof Order,
         render: (_value, row, handlers) => (
             <div className="flex space-x-4">
-                <FaRegEdit
+                <FaRegEye
                     className="text-gray-400 hover:text-black cursor-pointer"
-                    onClick={() => handlers?.edit(row)}
-                    aria-label="Edit Order"
+                    onClick={() => handlers?.edit(row)} // Call the view handler to open the popup
+                    aria-label="View Order"
+                />
+            </div>
+        ),
+    }
+
+];
+
+// Delivery Person Columns
+export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
+    { header: "Delivery Person ID", accessor: "deliveryPersonId" },
+    { header: "Delivery Person Name", accessor: "deliveryPersonName" },
+    { header: "Email", accessor: "email" },
+    { header: "Contact No", accessor: "contactNo" },
+    {
+        header: "Action",
+        accessor: "action" as keyof DeliveryPerson,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaTrash
+                    className="text-gray-400 hover:text-red-700 cursor-pointer"
+                    onClick={() => handlers?.delete(row)}
+                    aria-label="Delete Delivery Person"
                 />
             </div>
         ),

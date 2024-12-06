@@ -87,7 +87,7 @@ const RatingAndReviews: React.FC<RatingAndReviewsType> = (props) => {
 
                     <RatingStats ratingStats={ ratingStats } ratingCount={ ratingCount } />
 
-                    { isRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" onClick={() => setIsRateFormVisible(true)}/> }
+                    { !isRated && <Button buttonClassName="w-3/5 md:w-fit" buttonLabel="Rate Now" onClick={() => setIsRateFormVisible(true)}/> }
                 </div>
 
                 {/* Comments */}

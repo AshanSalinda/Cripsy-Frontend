@@ -1,18 +1,40 @@
-"use client";
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { FiShoppingCart, FiUser, FiMessageSquare, FiMenu } from 'react-icons/fi';
-import SearchBar from '@/components/SearchBar/SearchBar';
-import jsonData from '@/data/data.json';
+"use client"; // Ensure client-side rendering
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation"; // Use the correct import for router navigation
+import { FiShoppingCart, FiUser, FiMessageSquare, FiMenu } from "react-icons/fi";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import { getProducts } from "@/apis/productApi/productApi";
+
+interface Suggestion {
+    productId: number;
+    name: string;
+}
 
 const TopNavbar: React.FC = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+    const router = useRouter(); // Ensure this is used in the client context
+    const [searchQuery, setSearchQuery] = useState("");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
-    const handleSuggestionSelect = (suggestion: string) => {
-        setSearchQuery(suggestion);
+    const handleSuggestionSelect = (suggestion: Suggestion) => {
+        setSearchQuery(suggestion.name);
+        router.push(`/product/${suggestion.productId}`); 
     };
+
+    useEffect(() => {
+        const fetchSuggestions = async () => {
+            try {
+                const products = await getProducts();
+                setSuggestions(products); 
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+
+        fetchSuggestions();
+    }, []);
 
     return (
         <nav className="fixed top-0 left-0 w-full px-6 py-2 bg-white shadow-md z-50">
@@ -32,7 +54,9 @@ const TopNavbar: React.FC = () => {
                         searchQuery={searchQuery}
                         setSearchQuery={setSearchQuery}
                         handleSuggestionSelect={handleSuggestionSelect}
-                        suggestions={jsonData.searchBarSuggestions}
+                        suggestions={suggestions.filter((s) =>
+                            s.name.toLowerCase().includes(searchQuery.toLowerCase())
+                        )}
                     />
                 </div>
 
@@ -53,7 +77,9 @@ const TopNavbar: React.FC = () => {
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     handleSuggestionSelect={handleSuggestionSelect}
-                    suggestions={jsonData.searchBarSuggestions}
+                    suggestions={suggestions.filter((s) =>
+                        s.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    )}
                 />
             </div>
 
@@ -83,13 +109,13 @@ const LogoSection: React.FC = () => (
 
 const NavigationLinks: React.FC = () => (
     <div className="flex flex-row space-x-6 font-normal">
-        <Link href="/categories" className="text-black  hover:text-carnation-400 ">
+        <Link href="/categories" className="text-black hover:text-carnation-400">
             Categories
         </Link>
-        <Link href="/deals" className="text-black  hover:text-carnation-400 ">
+        <Link href="/deals" className="text-black hover:text-carnation-400">
             Deals
         </Link>
-        <Link href="/whats-new" className="text-black hover:text-carnation-400 ">
+        <Link href="/whats-new" className="text-black hover:text-carnation-400">
             {"What's New"}
         </Link>
     </div>
@@ -98,19 +124,29 @@ const NavigationLinks: React.FC = () => (
 interface SearchBarSectionProps {
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    handleSuggestionSelect: (suggestion: string) => void;
-    suggestions: string[];
+    handleSuggestionSelect: (suggestion: Suggestion) => void;
+    suggestions: Suggestion[];
 }
 
-const SearchBarSection: React.FC<SearchBarSectionProps> = ({ searchQuery, setSearchQuery, handleSuggestionSelect, suggestions }) => (
+const SearchBarSection: React.FC<SearchBarSectionProps> = ({
+    searchQuery,
+    setSearchQuery,
+    handleSuggestionSelect,
+    suggestions,
+}) => (
     <div className="w-full max-w-xs md:max-w-md">
         <SearchBar
             id="mainSearchBar"
             placeholder="Search in Cripsy"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            suggestions={suggestions}
-            onSuggestionSelect={handleSuggestionSelect}
+            suggestions={suggestions.map((s) => s.name)}
+            onSuggestionSelect={(name) => {
+                const selected = suggestions.find((s) => s.name === name);
+                if (selected) {
+                    handleSuggestionSelect(selected);
+                }
+            }}
         />
     </div>
 );

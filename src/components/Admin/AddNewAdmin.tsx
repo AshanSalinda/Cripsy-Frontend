@@ -30,21 +30,18 @@ const AddNewAdmin: React.FC<AddNewAdminProps> = ({ isDialogOpen, setIsDialogOpen
     const [validationErrors, setValidationErrors] = useState<Partial<Record<keyof AdminFormValues, string>>>({});
 
     // Function to handle form submission
-    const onSubmit = async(data: AdminFormValues) => {
+    const onSubmit = (data: AdminFormValues) => {
         // Perform validation using Zod
         const result = AdminSchema.safeParse(data);
 
         if (result.success) {
-            try {
-                await saveAdmin(result.data);  // Add this line
-                reset();
-                setValidationErrors({});
-                setIsDialogOpen(false);  // Optional: close dialog on successful save
-            } catch (error) {
-                // Handle API save error
-                console.error('Failed to save admin', error);
-            }
-        }  else {
+            console.log("Saving New Admin Data:", result.data);
+            // TODO: Implement actual save logic (e.g., API call)
+
+            // Reset form and errors
+            reset();
+            setValidationErrors({});
+        } else {
             // Map Zod validation errors to the errors state
             const fieldErrors: Partial<Record<keyof AdminFormValues, string>> = {};
             result.error.errors.forEach(err => {
