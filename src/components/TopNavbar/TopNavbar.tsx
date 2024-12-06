@@ -1,8 +1,8 @@
-"use client"; // Ensure client-side rendering
+"use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Use the correct import for router navigation
+import { useRouter } from "next/navigation";
 import { FiShoppingCart, FiUser, FiMessageSquare, FiMenu } from "react-icons/fi";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import { getProducts } from "@/apis/productApi/productApi";
@@ -13,21 +13,21 @@ interface Suggestion {
 }
 
 const TopNavbar: React.FC = () => {
-    const router = useRouter(); // Ensure this is used in the client context
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
     const handleSuggestionSelect = (suggestion: Suggestion) => {
         setSearchQuery(suggestion.name);
-        router.push(`/product/${suggestion.productId}`); 
+        router.push(`/product/${suggestion.productId}`);
     };
 
     useEffect(() => {
         const fetchSuggestions = async () => {
             try {
                 const products = await getProducts();
-                setSuggestions(products); 
+                setSuggestions(products);
             } catch (error) {
                 console.error("Error fetching products:", error);
             }

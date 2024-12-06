@@ -63,8 +63,6 @@ const ChatList = () => {
                 <ChatBox
                     conversationId={selectedConversationId}
                     customerName={selectedCustomerName}
-                    currentUser="admin"
-                    isAdmin={true}
                 />
             </div>
         </div>
