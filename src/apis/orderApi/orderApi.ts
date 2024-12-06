@@ -69,7 +69,6 @@ export const getCustomerOrders = async (customerId: number) => {
 export const getCustomerStatusedOrders = async (customerId: number, status: string) => {
     try {
         const response = await getCustomerOrders(customerId);
-
         return response.filter((order: { orderStatus: string; }) => order.orderStatus === status);
     } catch (error) {
         console.error("Error fetching customer orders:", error);
