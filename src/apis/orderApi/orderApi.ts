@@ -6,8 +6,6 @@ const api = axios.create({
     baseURL: "http://localhost:8083",
 });
 
-
-
 // Place order
 export const placeOrder = async (userId: number, oderDetails: []) => {
     try {
@@ -70,10 +68,8 @@ export const getCustomerOrders = async (customerId: number) => {
 
 export const getCustomerStatusedOrders = async (customerId: number, status: string) => {
     try {
-        // Fetch customer orders
         const response = await getCustomerOrders(customerId);
 
-        // Filter the orders that have the status 'Delivered'
         return response.filter((order: { orderStatus: string; }) => order.orderStatus === status);
     } catch (error) {
         console.error("Error fetching customer orders:", error);
