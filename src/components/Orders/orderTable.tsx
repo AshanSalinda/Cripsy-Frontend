@@ -12,7 +12,7 @@ const OrderTable = () => {
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     const [isChecked, setIsChecked] = useState(false);
-    
+
 
     const handleEdit = (order: Order) => {
         setSelectedOrder(order); // Store the selected order
@@ -20,7 +20,7 @@ const OrderTable = () => {
     };
 
     useEffect(() => {
-        setFilteredData(jsonData?.order || []);
+        // setFilteredData(jsonData?.order || []);
     }, []);
 
     return (
