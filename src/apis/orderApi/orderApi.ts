@@ -52,6 +52,17 @@ export const getOrderById = async (orderId: number) => {
     }
 };
 
+
+export const getOrderByStatus = async (status: string) => {
+    try {
+        const response = await api.get(`/api/orders/status/${status}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching order details:", error);
+        showToast({ type: "error", message: "Order not found!" });
+        throw error;
+    }
+};
 // Get orders for a specific customer
 export const getCustomerOrders = async (customerId: number) => {
     try {

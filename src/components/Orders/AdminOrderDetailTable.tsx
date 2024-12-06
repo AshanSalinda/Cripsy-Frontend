@@ -35,7 +35,7 @@ const AdminOrderDetailTable = () => {
             <TableWithPagi<Order>
                 columns={orderColumns}
                 data={filteredData}
-                itemsPerPage={15}
+                itemsPerPage={20}
                 className="custom-table-class"
                 getRowId={(row) => row.orderId}
                 handleEdit={handleEdit} // Pass the handleEdit method here
