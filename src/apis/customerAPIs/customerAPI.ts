@@ -17,3 +17,17 @@ export const getCustomerDetails = async (userId: number) => {
         return [];
     }
 }
+
+
+export const updateCustomer = async (customerID: number ,updatedData: { userName: string; email: string; contact: string; address: string; district: string; }) => {
+    try {
+        const response = await api.put(`/api/customers/${customerID}`, updatedData);
+        if (response.status === 200) {
+            console.log("Product updated successfully:", response.data);
+            return response.data;
+        }
+    } catch (error) {
+        console.error("Error updating product:", error);
+        throw error;
+    }
+};
