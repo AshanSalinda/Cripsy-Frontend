@@ -1,5 +1,5 @@
 import axios from "axios";
-import { showToast } from "@/components/Messages/showMessage";
+import {showToast} from "@/components/Messages/showMessage";
 
 // Axios instance with base URL
 const api = axios.create({
@@ -59,7 +59,7 @@ export const getOrderByStatus = async (status: string) => {
 // Get orders for a specific customer
 export const getCustomerOrders = async (customerId: number) => {
     try {
-        const response = await api.get(`/api/order/customer/${customerId}`);
+        const response = await api.get(`/api/orders/getAllByCustomer/${customerId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching customer orders:", error);
@@ -67,6 +67,21 @@ export const getCustomerOrders = async (customerId: number) => {
         throw error;
     }
 };
+
+export const getCustomerStatusedOrders = async (customerId: number, status: string) => {
+    try {
+        // Fetch customer orders
+        const response = await getCustomerOrders(customerId);
+
+        // Filter the orders that have the status 'Delivered'
+        return response.filter((order: { orderStatus: string; }) => order.orderStatus === status);
+    } catch (error) {
+        console.error("Error fetching customer orders:", error);
+        showToast({ type: "error", message: "Failed to fetch customer orders!" });
+        throw error;
+    }
+};
+
 
 // Update order status
 export const updateOrderStatus = async (orderId: number, orderStatus: string) => {

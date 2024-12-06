@@ -1,16 +1,16 @@
 import { AppSidebar } from "@/components/NavBar/AppSidebar";
-import { Clock9,Heart, Inbox, User,Gift,Truck,ShieldX } from "lucide-react";
+import { Clock9,Heart, User,Gift,Truck } from "lucide-react";
 import TopNavbar from "@/components/TopNavbar/TopNavbar";
 
 const acitems = [
     {
         title: "My Profile",
-        url: "/customer/1",
+        url: "/customer/profile/1",
         icon: User,
     },
     {
         title: "Watch List",
-        url: "#",
+        url: "/customer/wishlist",
         icon: Heart,
     },
 ];
@@ -18,17 +18,17 @@ const acitems = [
 const oritems =[
     {
         title: "Awaiting",
-        url: "#",
+        url: "/customer/awaiting",
        icon: Clock9,
     },
     {
         title: "Delivered",
-        url: "#",
+        url: "/customer/delivered",
        icon: Gift,
     },
     {
         title: "Return",
-        url: "#",
+        url: "/customer/refund",
         icon: Truck,
     },
 
