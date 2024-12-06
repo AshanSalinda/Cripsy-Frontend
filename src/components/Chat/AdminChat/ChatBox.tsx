@@ -3,28 +3,30 @@
 import React, { useEffect, useState } from 'react';
 import InputEmoji from 'react-input-emoji';
 import PropTypes from 'prop-types';
-import { getMessages, createMessage } from '@/apis/chatApi/chatApi';
 import axios from 'axios';
 
-const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
+const ChatBox = ({ conversationId, customerName}) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
-    useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:8085/api/messages/getAllMessages/${conversationId}`
-                );
-                setMessages(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error fetching messages:', error);
-            }
-        };
 
-        if (conversationId) fetchMessages();
+    const fetchMessages = async () => {
+        try {
+            const response = await axios.get(
+                `http://localhost:8085/api/messages/getAllMessages/${conversationId}`
+            );
+            setMessages(response.data);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+        }
+    };
+
+    useEffect(() => {
+        setMessages([]);
+        const intervalId = setInterval(fetchMessages, 5000);
+        return () => clearInterval(intervalId);
     }, [conversationId]);
+
 
     const handleChange = (value) => setNewMessage(value);
 
@@ -33,12 +35,12 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
 
         const messageData = {
             conversationId,
-            sender: currentUser,
+            sender: "Admin",
             message: newMessage,
         };
 
         try {
-            const newMsg = await createMessage(messageData);
+            const newMsg = await axios.post('http://localhost:8085/api/messages/create', messageData);
             setMessages((prev) => [...prev, newMsg]);
             setNewMessage('');
         } catch (error) {
@@ -64,7 +66,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                 </h3>
             </div>
 
-            <div className="flex-1 p-4 overflow-y-auto">
+            <div className="flex-1 p-4 overflow-y-auto max-h-[calc(85vh-200px)] scrollbar-thin scrollbar-thumb-[#FD5E5D] scrollbar-track-gray-200 hover:scrollbar-thumb-[#ff4e4d]">
                 {messages.map((msg) => (
                     <div
                         key={msg.id}
@@ -100,7 +102,7 @@ const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
                 />
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d]"
+                    className="ml-2 px-6 py-2 bg-[#FD5E5D] text-white rounded-lg shadow hover:bg-[#ff4e4d] text-sm"
                 >
                     Send
                 </button>

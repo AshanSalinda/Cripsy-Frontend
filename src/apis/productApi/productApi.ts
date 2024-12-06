@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showToast } from "@/components/Messages/showMessage";
 
 
 // Axios instance with base URL
@@ -34,7 +35,7 @@ export const addProduct = async (productData: {
 // Get all products
 export const getProducts = async () => {
     try {
-        const response = await api.get("/api/product");
+        const response = await api.get("/api/product/getAll");
         return response.data;
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -42,13 +43,25 @@ export const getProducts = async () => {
     }
 };
 
-// Get product by Item
+// Get product Item List
+export const getProductsDetails = async () => {
+    try {
+        const response = await api.get("/api/product/getAllProductsDetails");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error;
+    }
+};
+
+// Get product Item
 export const getProductItemDetails = async (productId: number, userId: number ) => {
     try {
         const response = await api.get(`/api/product/${productId}/${userId}`);
         return response.data;
     } catch (error) {
         console.log("Error Getting product Details:", error);
+        showToast({type: "error", message: "Product not found!"});
         return {};
     }
 };
@@ -60,6 +73,7 @@ export const getReviews = async (productId: number, pageNo: number) => {
         return response.data;
     } catch (error) {
         console.log("Error fetching reviews:", error);
+        showToast({type: "error", message: "Failed to fetch reviews!"});
         return [];
     }
 }
@@ -72,27 +86,25 @@ export const addReview = async (productId: number, userId: number, userName: str
             { productId, userId, userName, rating, comment }
         );
         return response.data;
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
         console.error("Error adding review:", error);
-        return [];
+
+        if(error?.status === 409) {
+            showToast({type: "warning", message: "You have already reviewed this product!"});
+            return error?.response?.data || [];
+        } else {
+            showToast({type: "error", message: "Failed to add review!"});
+            return [];
+        }
     }
 };
 
 
 // Update a product
-export const updateProduct = async (
-    id: number,
-    updatedData: {
-        name?: string;
-        description?: string;
-        stock?: number;
-        price?: number;
-        discount?: number;
-        imageUrls?: string[];
-    }
-) => {
+export const updateProduct = async (updatedData: { productId: number; name: string; description: string; stock: number; price: number; discount: number; rating: number; ratingCount: number; category: number; imageUrls: string[]; }) => {
     try {
-        const response = await api.put(`/api/product/${id}`, updatedData);
+        const response = await api.put(`/api/product/update`, updatedData);
         if (response.status === 200) {
             console.log("Product updated successfully:", response.data);
             return response.data;

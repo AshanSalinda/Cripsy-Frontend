@@ -1,32 +1,62 @@
-"use client"
-import { useRouter } from 'next/navigation';
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import MainImageCarousel from "@/components/Carosel/MainImageCarousel";
 import ProductCard from "@/components/Product/ProductCard";
-import productItemsData from '@/data/productIem.json';
+import { getProducts } from "@/apis/productApi/productApi";
+
+type Product = {
+  productId: number;
+  name: string;
+  price: number;
+  description: string;
+  ratingCount: number;
+  avgRatings: number;
+  imageUrl: string;
+};
 
 export default function Home() {
   const router = useRouter();
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const handleNavigation = () => {
-    router.push('/product/allProducts');
+  const fetchProducts = async () => {
+    try {
+      const data = await getProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+
+  const handleNavigation = () => router.push("/product/allProducts");
+
   return (
-    <>
-      <MainImageCarousel />
+    <div>
+      {/* Carousel Section */}
+      <div className="max-h-fit">
+        <MainImageCarousel />
+      </div>
+
+      {/* Products Section */}
       <div className="py-6 px-4 sm:px-6 lg:px-8">
-        {/* Super Deals Section */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center w-full">
             <hr className="flex-grow border-t border-gray-300" />
             <h2 className="text-2xl font-bold text-gray-700 mx-4 whitespace-nowrap">
-              Super Deals
+              Best Choice
             </h2>
             <hr className="flex-grow border-t border-gray-300" />
           </div>
           <button
             onClick={handleNavigation}
-            className="text-carnation-500 text-sm font-medium ml-4 whitespace-nowrap"
+            className="text-carnation-500 text-sm font-medium ml-4 whitespace-nowrap hover:font-bold"
           >
             View All
           </button>
@@ -34,22 +64,19 @@ export default function Home() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {productItemsData.SuperDeals.slice(0, 8).map((product, index) => (
-            <div key={index} className="w-full flex justify-center">
-              <div className="w-full max-w-[300px]">
-                <ProductCard
-                  imageSrc={product.imageSrc}
-                  title={product.title}
-                  description={product.description}
-                  rating={product.rating}
-                  reviews={product.reviews}
-                  price={product.price}
-                />
-              </div>
-            </div>
+          {products.slice(0, 8).map((product) => (
+            <ProductCard
+              key={product.productId}
+              imageSrc={product.imageUrl}
+              title={product.name}
+              description={product.description}
+              rating={product.avgRatings}
+              reviews={product.ratingCount}
+              price={product.price}
+            />
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

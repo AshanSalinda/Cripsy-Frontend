@@ -28,6 +28,11 @@ const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({
     const [uploading, setUploading] = useState(false);
     const [selectedImage, setSelectedImage] = useState<UploadedImage | null>(images[0] || null);
 
+
+    useEffect(() => {
+        console.log(images)
+    }, []);
+
     const handleAddImages = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             const files = Array.from(event.target.files);
@@ -108,7 +113,7 @@ const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({
             <div className="rounded-lg shadow-lg w-full h-[22rem] p-3 mb-4">
                 {selectedImage ? (
                     <Image
-                        src={selectedImage.preview}
+                        src={selectedImage.preview?selectedImage.preview:selectedImage.url}
                         alt="Selected Preview"
                         width={500}
                         height={320}
@@ -133,7 +138,7 @@ const ProductImgUploader: React.FC<ProductImgUploaderProps> = ({
                         onClick={() => handleImageClick(image)}
                     >
                         <Image
-                            src={image.preview}
+                            src={image.preview?image.preview:image.url}
                             alt={`Preview ${index}`}
                             layout="fill"
                             objectFit="cover"

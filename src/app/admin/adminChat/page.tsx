@@ -1,5 +1,5 @@
 import React from 'react'
-import ChatList from "@/components/Chat/chatList";
+import ChatList from "@/components/Chat/AdminChat/ChatList";
 
 const Page = () => {
     return(

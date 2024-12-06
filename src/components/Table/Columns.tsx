@@ -1,7 +1,5 @@
 "use client";
-import { FaTrash } from 'react-icons/fa';
-import { FaRegEdit } from "react-icons/fa";
-
+import {FaEdit, FaRegEye, FaTrash, FaRegEdit} from 'react-icons/fa';
 
 
 // Interfaces
@@ -14,10 +12,13 @@ export interface Branch {
 }
 
 export interface Product {
-    productId: string;
-    productName: string;
-    qty: number;
+    productId: number;
+    name: string;
+    description: string;
+    stock: number;
+    category: number;
     price: number;
+    discount: number;
 }
 
 // Admin Interface
@@ -26,18 +27,24 @@ export interface Admin {
     adminName: string;
     email: string;
     contactNo: string;
-    firstName: string;
-    lastName: string;
-    gender: "Male" | "Female"; // Define gender
-    birthday: string; // Format it accordingly, e.g., YYYY-MM-DD
-  }
+}
+
 // order interface
 export interface Order {
-    orderId: string;
-    fullName: string;
-    district: string;
-    address: string;
-    postalCode: string;
+    orderId: number;
+    customerID: number;
+    deliveryPersonId: number;
+    deliveredDate: string;
+    orderStatus: string;
+    purchasedDate: string;
+    totalPrice: number;
+}
+
+// Delivery Person Interface
+export interface DeliveryPerson {
+    deliveryPersonId: string;
+    deliveryPersonName: string;
+    email: string;
     contactNo: string;
 }
 
@@ -54,7 +61,7 @@ type Column<T> = {
 
 // Refund interface
 export interface Refund {
-    refoundId: string;
+    orderId: string;
     customerName: string;
     refundItemQty: number;
     refundAmount: number;
@@ -63,10 +70,10 @@ export interface Refund {
 
 // Branch Columns
 export const branchColumns: Column<Branch>[] = [
-    { header: "Branch ID", accessor: "branchId" },
-    { header: "Branch Name", accessor: "branchName" },
-    { header: "Email", accessor: "email" },
-    { header: "Contact No", accessor: "contactNo" },
+    {header: "Branch ID", accessor: "branchId"},
+    {header: "Branch Name", accessor: "branchName"},
+    {header: "Email", accessor: "email"},
+    {header: "Contact No", accessor: "contactNo"},
     {
         header: "Action",
         accessor: "action" as keyof Branch,
@@ -84,18 +91,25 @@ export const branchColumns: Column<Branch>[] = [
 
 // Product Columns
 export const productColumns: Column<Product>[] = [
-    { header: "Product ID", accessor: "productId" },
-    { header: "Product Name", accessor: "productName" },
-    { header: "Quantity", accessor: "qty" },
-    { header: "Price", accessor: "price" },
+    {header: "Product ID", accessor: "productId"},
+    {header: "Product Name", accessor: "name"},
+    {header: "Stock", accessor: "stock"},
+    {header: "Price", accessor: "price"},
+    {header: "CategoryId", accessor: "category"},
+    {header: "Discount", accessor: "discount"},
     {
         header: "Action",
         accessor: "action" as keyof Product,
         render: (_value, row, handlers) => (
             <div className="flex space-x-4">
+                <FaEdit
+                    className="text-gray-400 hover:text-blue-600 cursor-pointer"
+                    onClick={() => handlers?.edit(row)} // Pass the row data to the edit handler
+                    aria-label="Edit Product"
+                />
                 <FaTrash
                     className="text-gray-400 hover:text-red-700 cursor-pointer"
-                    onClick={() => handlers?.delete(row)}
+                    onClick={() => handlers?.delete(row)} // Pass the row data to the delete handler
                     aria-label="Delete Product"
                 />
             </div>
@@ -105,10 +119,10 @@ export const productColumns: Column<Product>[] = [
 
 // Admin Columns
 export const adminColumns: Column<Admin>[] = [
-    { header: "Admin ID", accessor: "adminId" },
-    { header: "Admin Name", accessor: "adminName" },
-    { header: "Email", accessor: "email" },
-    { header: "Contact No", accessor: "contactNo" },
+    {header: "Admin ID", accessor: "adminId"},
+    {header: "Admin Name", accessor: "adminName"},
+    {header: "Email", accessor: "email"},
+    {header: "Contact No", accessor: "contactNo"},
     {
         header: "Action",
         accessor: "action" as keyof Admin,
@@ -127,19 +141,44 @@ export const adminColumns: Column<Admin>[] = [
 
 //order details table
 export const orderColumns: Column<Order>[] = [
-    { header: "Full Name", accessor: "fullName" },
-    { header: "District", accessor: "district" },
-    { header: "Postal Code", accessor: "postalCode" },
-    { header: "Contact No", accessor: "contactNo" },
+
+    {header: "OrderId", accessor: "orderId"},
+    {header: "CustomerId", accessor: "customerID"},
+    {header: "DeliveryPerson", accessor: "deliveryPersonId"},
+    {header: "Order Status", accessor: "orderStatus"},
+    {header: "Total", accessor: "totalPrice"},
+
     {
         header: "Action",
         accessor: "action" as keyof Order,
         render: (_value, row, handlers) => (
             <div className="flex space-x-4">
-                <FaRegEdit
+                <FaRegEye
                     className="text-gray-400 hover:text-black cursor-pointer"
-                    onClick={() => handlers?.edit(row)}
-                    aria-label="Edit Order"
+                    onClick={() => handlers?.edit(row)} // Call the view handler to open the popup
+                    aria-label="View Order"
+                />
+            </div>
+        ),
+    }
+
+];
+
+// Delivery Person Columns
+export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
+    {header: "Delivery Person ID", accessor: "deliveryPersonId"},
+    {header: "Delivery Person Name", accessor: "deliveryPersonName"},
+    {header: "Email", accessor: "email"},
+    {header: "Contact No", accessor: "contactNo"},
+    {
+        header: "Action",
+        accessor: "action" as keyof DeliveryPerson,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaTrash
+                    className="text-gray-400 hover:text-red-700 cursor-pointer"
+                    onClick={() => handlers?.delete(row)}
+                    aria-label="Delete Delivery Person"
                 />
             </div>
         ),
@@ -147,11 +186,13 @@ export const orderColumns: Column<Order>[] = [
 ];
 
 //Refund Details Table
-export const refundColumns: Column<Refund>[] = [
-    { header: "Refound ID", accessor: "refoundId" },
-    { header: "Customer Name", accessor: "customerName" },
-    { header: "Refund Item Qty", accessor: "refundItemQty" },
-    { header: "Refund Amount", accessor: "refundAmount" },
+export const refundColumns: Column<Refund>[] = [ 
+
+    {header: "Order ID", accessor: "orderId"},
+    {header: "Customer Name", accessor: "customerName"},
+    {header: "Refund Item Qty", accessor: "refundItemQty"},
+    {header: "Refund Amount", accessor: "refundAmount"},
+
     {
         header: "Action",
         accessor: "action" as keyof Refund,
@@ -177,11 +218,12 @@ export interface TopSellingTableProps {
     rate: string;
     value: string;
 }
+
 export const TopSellingTableColumns: Column<TopSellingTableProps>[] = [
-    { header: "#", accessor: "id" },
-    { header: "ITEM NAME", accessor: "itemName" },
-    { header: "DESCRIPTION", accessor: "description" },
-    { header: "QTY", accessor: "qty" },
-    { header: "RATE (RS)", accessor: "rate" },
-    { header: "VALUE (RS)", accessor: "value" },
+    {header: "#", accessor: "id"},
+    {header: "ITEM NAME", accessor: "itemName"},
+    {header: "DESCRIPTION", accessor: "description"},
+    {header: "QTY", accessor: "qty"},
+    {header: "RATE (RS)", accessor: "rate"},
+    {header: "VALUE (RS)", accessor: "value"},
 ];

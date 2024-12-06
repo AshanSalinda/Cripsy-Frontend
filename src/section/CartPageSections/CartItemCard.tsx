@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import Image from 'next/image';
-import { useRouter } from "next/navigation";
+import { redirect } from 'next/navigation';
 import Button from '@/components/Button/CustomButton';
 import QuantityInput from '@/components/Product/QuantityInput';
 import RatingStar from '@/components/Product/RatingStar';
@@ -26,10 +26,9 @@ const CartProductCard: React.FC<PropsType> = (props) => {
     const { productId, userId, imageUrl, name, price, description, avgRatings, ratingCount, reviewCount, stock, quantity, setCartItems } = props;
     const [isQuantityChanged, setIsQuantityChanged] = useState(false);
 
-    const router = useRouter();
 
     const navigateToProduct = () => {
-        router.push(`/product/${productId}`);
+        redirect(`/product/${productId}`);
     }
 
     const onQuantityChange = (value: number) => {
@@ -44,12 +43,14 @@ const CartProductCard: React.FC<PropsType> = (props) => {
         const action = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)?.value;
 
         if (action === "removeFromCart") {
-            const updatedCartItems = await removeFromCart(productId, userId);
-            setCartItems(updatedCartItems);
+            removeFromCart(productId, userId)
+            .then(updatedCartItems => setCartItems(updatedCartItems));
         } else if (action === "updateQuantity") {
-            const updatedCartItems = await updateCartQuantity(productId, userId, parseInt(value));
-            setCartItems(updatedCartItems);
-            setIsQuantityChanged(false);
+            updateCartQuantity(productId, userId, parseInt(value))
+            .then(updatedCartItems => {
+                setCartItems(updatedCartItems);
+                setIsQuantityChanged(false);
+            });
         }
     };
     

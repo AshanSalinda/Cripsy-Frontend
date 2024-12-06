@@ -22,14 +22,16 @@ const Overview: React.FC<PropsType> = (props) => {
         setIsWatchlistAdded(initialValue);
     }, [initialValue]);
 
-    const handleFav = async () => {
+    const handleFav = () => {
         if(isWatchlistAdded) {
-            await removeFromWatchlist(productId, userId, false);
+            removeFromWatchlist(productId, userId, false)
+            .then(() => {setIsWatchlistAdded(prev => !prev);});
         } else {
-            await addToWatchlist(productId, userId);
+            addToWatchlist(productId, userId)
+            .then(() => {setIsWatchlistAdded(prev => !prev);});
         }
 
-        setIsWatchlistAdded(prev => !prev);
+        
     }
 
     const handleCopyUrl = () => {

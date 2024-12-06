@@ -9,7 +9,7 @@ export default function RootLayout({
     return (
         <>
             <TopNavbar />
-            <div className="mt-32 md:mt-20">{children}</div>
+            <div className="mt-32 md:mt-20 bg-gray-50">{children}</div>
             <Footer />
         </>
     );
