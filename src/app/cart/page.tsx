@@ -434,7 +434,7 @@ const Cart: React.FC = () => {
                 await cancelOrder(transactionId);
                 showToast({type: "error", message: "Payment failed. Order cancelled."});
             }
-        } catch (error) {
+        } catch {
             const cartItems = await getCartItems(userId);
             setCartItems(cartItems);
         }
