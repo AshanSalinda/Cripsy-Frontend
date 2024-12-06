@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import {showToast} from "@/components/Messages/showMessage";
 
 // Axios instance with base URL
@@ -99,18 +98,6 @@ export const cancelOrder = async (transactionId: number) => {
     }
 }
 
-
-// Configure Payhere
-export const configurePayhere = async (customerDetails: any) => {
-    try {
-        const response = await axios.post("http://localhost:8083/payment/start", customerDetails);
-        return response.data;
-    } catch (error) {
-        console.log("Failed to fetch payment configuration:", error);
-        showToast({type: "error", message: "Failed to fetch payment configuration!"});
-        return { merchant_id: null, hash: null };
-    }
-}
 
 // Configure Payhere
 export const configurePayhere = async (paymentDetails: any) => {
