@@ -4,7 +4,7 @@ import DeliveryPersonDetailsTable from '@/components/Admin/DeliveryPersonDetails
 
 const Page = () => {
     return (
-        <div>
+        <div className='p-4'>
             <DeliveryPersonDetailsTable />
         </div>
     )

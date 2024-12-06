@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+
 import {orderColumns, Order} from '@/components/Table/Columns';
 import TableWithPagi from '../Table/TableWithPagi';
 import {getOrderByStatus} from "@/apis/orderApi/orderApi";
@@ -8,7 +9,7 @@ export const RefundDetailsTable = () => {
     const [filteredData, setFilteredData] = useState<Order[]>([]);
 
     useEffect(() => {
-        const getData=async () => {
+        const getData = async () => {
             setFilteredData(await getOrderByStatus("Refund"));
         }
         getData()
@@ -18,6 +19,7 @@ export const RefundDetailsTable = () => {
     const handleEdit = (row: Order) => {
         console.log(row);
     }
+
 
   return (
     <>
@@ -42,4 +44,5 @@ export const RefundDetailsTable = () => {
     
     </>
   )
+
 }
