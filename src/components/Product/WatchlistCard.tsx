@@ -30,6 +30,7 @@ export interface WatchlistCardProps {
     onPreviewClick?: () => void;
     hideAddToCart?: boolean;
     hideHartIcon?: boolean;
+    handleFav?: () => void;
 }
 
 const WatchlistCard: React.FC<WatchlistCardProps> = ({
@@ -45,6 +46,7 @@ const WatchlistCard: React.FC<WatchlistCardProps> = ({
     onPreviewClick,
     hideAddToCart = false,
     hideHartIcon = false,
+    
 }) => {
     const router = useRouter();
 
