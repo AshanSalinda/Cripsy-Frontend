@@ -3,28 +3,29 @@
 import React, { useEffect, useState } from 'react';
 import InputEmoji from 'react-input-emoji';
 import PropTypes from 'prop-types';
-import { getMessages, createMessage } from '@/apis/chatApi/chatApi';
 import axios from 'axios';
 
-const ChatBox = ({ conversationId, customerName, currentUser, isAdmin }) => {
+const ChatBox = ({ conversationId, customerName}) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
-    useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:8085/api/messages/getAllMessages/${conversationId}`
-                );
-                setMessages(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error fetching messages:', error);
-            }
-        };
 
-        if (conversationId) fetchMessages();
+    const fetchMessages = async () => {
+        try {
+            const response = await axios.get(
+                `http://localhost:8085/api/messages/getAllMessages/${conversationId}`
+            );
+            setMessages(response.data);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+        }
+    };
+
+    useEffect(() => {
+        const intervalId = setInterval(fetchMessages, 5000);
+        return () => clearInterval(intervalId);
     }, [conversationId]);
+
 
     const handleChange = (value) => setNewMessage(value);
 
