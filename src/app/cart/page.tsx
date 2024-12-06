@@ -176,11 +176,6 @@ const Cart: React.FC = () => {
     }, [cartItems]);
 
 
-    useEffect(() => {
-
-    }, []);
-
-
     return (
         <div className='h-[calc(100vh-8rem)] md:h-[calc(100vh-5rem)]'>
             <Script
