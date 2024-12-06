@@ -8,7 +8,7 @@ import { FaOpencart } from "react-icons/fa";
 import RatingStar from "./RatingStar";
 
 export interface ProductCardProps {
-    productId?: string;
+    productId: number;
     imageSrc: string;
     title: string;
     description: string;
@@ -18,7 +18,7 @@ export interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-    productId = 1,
+    productId,
     imageSrc,
     title,
     description,
