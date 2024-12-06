@@ -14,6 +14,7 @@ const steps = [
   'Order Placed',
   'Processing',
   'Shipped',
+  'Delivering',
   'Delivered'
 ];
 
@@ -58,7 +59,7 @@ const OrderStatesCard: React.FC<OrderStatesCardProps> = ({
             {/* Order Status Stepper */}
             <div >
               <Stepper
-                status="Processing"
+                status="Delivered"
               />
             </div>
               

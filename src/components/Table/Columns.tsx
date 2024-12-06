@@ -186,11 +186,13 @@ export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
 ];
 
 //Refund Details Table
-export const refundColumns: Column<Refund>[] = [
+export const refundColumns: Column<Refund>[] = [ 
+
     {header: "Order ID", accessor: "orderId"},
     {header: "Customer Name", accessor: "customerName"},
     {header: "Refund Item Qty", accessor: "refundItemQty"},
     {header: "Refund Amount", accessor: "refundAmount"},
+
     {
         header: "Action",
         accessor: "action" as keyof Refund,
