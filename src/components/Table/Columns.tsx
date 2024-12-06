@@ -1,6 +1,7 @@
 "use client";
 import {FaEdit, FaTrash} from 'react-icons/fa';
 import { FaRegEdit } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
 
 
 
@@ -29,18 +30,28 @@ export interface Admin {
     adminName: string;
     email: string;
     contactNo: string;
-    firstName: string;
-    lastName: string;
-    gender: "Male" | "Female"; // Define gender
-    birthday: string; // Format it accordingly, e.g., YYYY-MM-DD
-  }
+}
+
 // order interface
 export interface Order {
     orderId: string;
+    productName: string;
+    quantity: number;
+    price: string;
+    date: string;
     fullName: string;
     district: string;
     address: string;
     postalCode: string;
+    contactNo: string;
+    orderStatus: string;
+}
+
+// Delivery Person Interface
+export interface DeliveryPerson {
+    deliveryPersonId: string;
+    deliveryPersonName: string;
+    email: string;
     contactNo: string;
 }
 
@@ -138,19 +149,42 @@ export const adminColumns: Column<Admin>[] = [
 
 //order details table
 export const orderColumns: Column<Order>[] = [
-    { header: "Full Name", accessor: "fullName" },
-    { header: "District", accessor: "district" },
-    { header: "Postal Code", accessor: "postalCode" },
-    { header: "Contact No", accessor: "contactNo" },
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Product Name", accessor: "productName" },
+    { header: "Qty", accessor: "quantity" },
+    { header: "Price", accessor: "price" },
+    { header: "Date", accessor: "date" },
     {
         header: "Action",
         accessor: "action" as keyof Order,
         render: (_value, row, handlers) => (
             <div className="flex space-x-4">
-                <FaRegEdit
+                <FaRegEye
                     className="text-gray-400 hover:text-black cursor-pointer"
-                    onClick={() => handlers?.edit(row)}
-                    aria-label="Edit Order"
+                    onClick={() => handlers?.edit(row)} // Call the view handler to open the popup
+                    aria-label="View Order"
+                />
+            </div>
+        ),
+    }
+
+];
+
+// Delivery Person Columns
+export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
+    { header: "Delivery Person ID", accessor: "deliveryPersonId" },
+    { header: "Delivery Person Name", accessor: "deliveryPersonName" },
+    { header: "Email", accessor: "email" },
+    { header: "Contact No", accessor: "contactNo" },
+    {
+        header: "Action",
+        accessor: "action" as keyof DeliveryPerson,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaTrash
+                    className="text-gray-400 hover:text-red-700 cursor-pointer"
+                    onClick={() => handlers?.delete(row)}
+                    aria-label="Delete Delivery Person"
                 />
             </div>
         ),
