@@ -252,7 +252,7 @@
 
 "use client";
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import TopNavbar from '@/components/TopNavbar/TopNavbar';
 import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
@@ -414,22 +414,22 @@ const Cart: React.FC = () => {
 
         window.payhere.startPayment(payment);
       
-        const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
-
-        try{
-            const transactionId = await initiateOrder(orderItems);
-            // Make the payment here
-            if(transactionId){ // if Payment success
-                const orderDetails = await confirmOrder(transactionId);
-                // send request to order Service to place the order
-                console.log("Order placed successfully", orderDetails);
-            } else { // Else Cancel the order
-                await cancelOrder(transactionId);
-            }
-        } catch (error) {
-            const cartItems = await getCartItems(userId);
-            setCartItems(cartItems);
-        }
+        // const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
+        //
+        // try{
+        //     const transactionId = await initiateOrder(orderItems);
+        //     // Make the payment here
+        //     if(transactionId){ // if Payment success
+        //         const orderDetails = await confirmOrder(transactionId);
+        //         // send request to order Service to place the order
+        //         console.log("Order placed successfully", orderDetails);
+        //     } else { // Else Cancel the order
+        //         await cancelOrder(transactionId);
+        //     }
+        // } catch (error) {
+        //     const cartItems = await getCartItems(userId);
+        //     setCartItems(cartItems);
+        // }
     };
    
     return (
