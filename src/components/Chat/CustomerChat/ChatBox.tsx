@@ -70,7 +70,7 @@ const ChatBox = () => {
                 </h3>
             </div>
 
-            <div className="flex-1 p-4 overflow-y-auto">
+            <div className="flex-1 p-4 overflow-y-auto max-h-[calc(81vh-200px)] scrollbar-thin scrollbar-thumb-[#FD5E5D] scrollbar-track-gray-200 hover:scrollbar-thumb-[#ff4e4d]">
                 {messages.map((msg) => (
                     <div
                         key={msg.id}
