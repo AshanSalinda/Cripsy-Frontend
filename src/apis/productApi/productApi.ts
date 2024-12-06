@@ -102,19 +102,9 @@ export const addReview = async (productId: number, userId: number, userName: str
 
 
 // Update a product
-export const updateProduct = async (
-    id: number,
-    updatedData: {
-        name?: string;
-        description?: string;
-        stock?: number;
-        price?: number;
-        discount?: number;
-        imageUrls?: string[];
-    }
-) => {
+export const updateProduct = async (updatedData: { productId: number; name: string; description: string; stock: number; price: number; discount: number; rating: number; ratingCount: number; category: number; imageUrls: string[]; }) => {
     try {
-        const response = await api.put(`/api/product/${id}`, updatedData);
+        const response = await api.put(`/api/product/update`, updatedData);
         if (response.status === 200) {
             console.log("Product updated successfully:", response.data);
             return response.data;
