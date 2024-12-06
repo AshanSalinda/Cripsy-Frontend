@@ -18,6 +18,7 @@ const WatchListProducts = () => {
             reviews={productData.reviews}
             price={productData.price}
             
+            
           />
            </div>
         ))}

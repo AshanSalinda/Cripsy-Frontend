@@ -8,6 +8,9 @@ import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import { DeliveryPerson } from "@/components/Table/Columns";
 import AddDeliveryPersonForm from "@/section/AddDeliveryPersonForm/AddDeliveryPersonForm";
 import AddDeliveryPerson from "@/components/Admin/AddNewDelieveryPerson";
+import {getDeliveryPersonDetails} from "@/apis/Delivery/DeliveryApi"
+import { log } from "console";
+
 
 const DeliveryPersonDetailsTable = () => {
     const [isNewAdminPopupOpen, setIsNewAdminPopupOpen] = useState(false);
@@ -16,9 +19,14 @@ const DeliveryPersonDetailsTable = () => {
     const [filteredData, setFilteredData] = useState<DeliveryPerson[]>([]);
 
     useEffect(() => {
-        setFilteredData(delieveryPersonData?.delieveryPersonData || []);
+        const getData = async () => {
+        setFilteredData(await getDeliveryPersonDetails());
+        } 
+        getData();
+        console.log("Data:",filteredData);
     }, []);
 
+    
     const handleDelete = (admin: DeliveryPerson) => {
         if (admin) {
             setSelectedDeliveryPerson(admin);
@@ -58,8 +66,9 @@ const DeliveryPersonDetailsTable = () => {
                 itemsPerPage={15}
                 className="custom-table-class"
                 handleDelete={handleDelete}
-                getRowId={(row) => row.deliveryPersonId}
+                getRowId={(row) => row.personId}
                 handleEdit={() => { }}
+                
             />
 
             {/* {isNewAdminPopupOpen && (
@@ -88,10 +97,10 @@ const DeliveryPersonDetailsTable = () => {
 
             {isDeleteConfirmPopupOpen && selectedDeliveryPerson && (
                 <DeleteConfirm
-                    element={selectedDeliveryPerson?.deliveryPersonName}
+                    element={selectedDeliveryPerson?.name}
                     onDelete={() => {
                         setFilteredData((prevData) =>
-                            prevData.filter((admin) => admin.deliveryPersonId !== selectedDeliveryPerson.deliveryPersonId)
+                            prevData.filter((admin) => admin.personId !== selectedDeliveryPerson.personId)
                         );
                         setIsDeleteConfirmPopupOpen(false);
                     }}
