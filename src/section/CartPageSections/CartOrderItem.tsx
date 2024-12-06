@@ -23,7 +23,7 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
     const toggleExpand = () => setIsExpanded(!isExpanded);
 
     return (
-        <div className={`w-full mt-2 pr-1 border-b rounded  ${isError && "bg-carnation-200"}`} >
+        <div className={`w-full mt-2 pr-1 border-b rounded  ${isError && "bg-carnation-100"}`} >
 
             <button className='w-full flex justify-between items-center' onClick={toggleExpand} >
                 <div className='flex flex-grow items-center overflow-hidden'>

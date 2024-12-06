@@ -1,14 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Refund, refundColumns } from '@/components/Table/Columns';
+import {orderColumns, Refund} from '@/components/Table/Columns';
 import TableWithPagi from '../Table/TableWithPagi';
-import jsonData from "@/data/data.json";
+import {getOrderByStatus} from "@/apis/orderApi/orderApi";
+import {Property} from "csstype";
+import Order = Property.Order;
 
 export const RefundDetailsTable = () => {
-    const [filteredData, setFilteredData] = useState<Refund[]>([]);
+    const [filteredData, setFilteredData] = useState<Order[]>([]);
 
     useEffect(() => {
-        setFilteredData(jsonData?.refund || []);
+        const getData=async () => {
+            setFilteredData(await getOrderByStatus("Refund"));
+        }
+        getData()
+
     }, []);
 
     const handleEdit = (row: Refund) => {
@@ -17,17 +23,16 @@ export const RefundDetailsTable = () => {
 
   return (
     <>
-    <div className='flex justify-between mb-2'>
-        <h3 className='flex items-center font-semibold font-inter'>Refund Details</h3>  
+        <div className="flex justify-between mb-3 mt-6">
+            <h5 className="flex items-center text-lg font-semibold font-inter">Refund Details</h5>
+        </div>
+        <div className="w-full">
 
-    </div>
-    <div className="w-2/3">
-
-    <TableWithPagi<Refund>
-        columns={refundColumns}
-        data={filteredData}
-        itemsPerPage={5}
-        className='custom-table-class '
+            <TableWithPagi<Ordeer>
+                columns={orderColumns}
+                data={filteredData}
+                itemsPerPage={15}
+                className='custom-table-class '
         getRowId={(row) => row.orderId}
         handleEdit={handleEdit}
         

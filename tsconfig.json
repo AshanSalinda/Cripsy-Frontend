@@ -17,6 +17,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": [
+      "node",
+      "parse-json"
+    ], // Add this to explicitly include required types
+    "typeRoots": [
+      "./node_modules/@types"
+    ], // Ensure TypeScript looks here for type definitions   
     "plugins": [
       {
         "name": "next"

@@ -4,7 +4,7 @@ import TableWithPagi from "@/components/Table/TableWithPagi";
 import {productColumns} from "@/components/Table/Columns";
 import CustomButton from "@/components/Button/CustomButton";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
-import {getProductsDetails} from "@/apis/productApi/productApi";
+import {deleteProduct, getProductsDetails} from "@/apis/productApi/productApi";
 import {Product} from "@/components/Table/Columns";
 import {Separator} from "@radix-ui/react-separator";
 import {useRouter} from "next/navigation";
@@ -83,10 +83,11 @@ const ProductDetailsTable = () => {
             {isDeleteConfirmPopupOpen && selectedProduct && (
                 <DeleteConfirm
                     element={selectedProduct?.name}
-                    onDelete={() => {
+                    onDelete={async () => {
                         setFilteredData((prevData) =>
                             prevData.filter((product) => product.productId !== selectedProduct.productId)
                         );
+                        await deleteProduct(selectedProduct.productId)
                         setIsDeleteConfirmPopupOpen(false);
                     }}
                     onCancel={() => setIsDeleteConfirmPopupOpen(false)}

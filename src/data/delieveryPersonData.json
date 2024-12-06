@@ -1,0 +1,124 @@
+{
+    "delieveryPersonData": [
+        {
+            "deliveryPersonId": "A001",
+            "deliveryPersonName": "John Doe",
+            "email": "john.doe@example.com",
+            "contactNo": "+1234567890"
+        },
+        {
+            "deliveryPersonId": "A002",
+            "deliveryPersonName": "Jane Smith",
+            "email": "jane.smith@example.com",
+            "contactNo": "+0987654321"
+        },
+        {
+            "deliveryPersonId": "A003",
+            "deliveryPersonName": "Emily Johnson",
+            "email": "emily.johnson@example.com",
+            "contactNo": "+1122334455"
+        },
+        {
+            "deliveryPersonId": "A004",
+            "deliveryPersonName": "Michael Brown",
+            "email": "michael.brown@example.com",
+            "contactNo": "+6677889900"
+        },
+        {
+            "deliveryPersonId": "A005",
+            "deliveryPersonName": "Sarah Wilson",
+            "email": "sarah.wilson@example.com",
+            "contactNo": "+5544332211"
+        },
+        {
+            "deliveryPersonId": "A006",
+            "deliveryPersonName": "David Martinez",
+            "email": "david.martinez@example.com",
+            "contactNo": "+1223344556"
+        },
+        {
+            "deliveryPersonId": "A007",
+            "deliveryPersonName": "Olivia Davis",
+            "email": "olivia.davis@example.com",
+            "contactNo": "+9988776655"
+        },
+        {
+            "deliveryPersonId": "A008",
+            "deliveryPersonName": "Daniel Taylor",
+            "email": "daniel.taylor@example.com",
+            "contactNo": "+3344556677"
+        },
+        {
+            "deliveryPersonId": "A009",
+            "deliveryPersonName": "Sophia Moore",
+            "email": "sophia.moore@example.com",
+            "contactNo": "+2233445566"
+        },
+        {
+            "deliveryPersonId": "A010",
+            "deliveryPersonName": "James Anderson",
+            "email": "james.anderson@example.com",
+            "contactNo": "+4455667788"
+        },
+        {
+            "deliveryPersonId": "A011",
+            "deliveryPersonName": "Ava Thomas",
+            "email": "ava.thomas@example.com",
+            "contactNo": "+6677889901"
+        },
+        {
+            "deliveryPersonId": "A012",
+            "deliveryPersonName": "Lucas Jackson",
+            "email": "lucas.jackson@example.com",
+            "contactNo": "+5566778899"
+        },
+        {
+            "deliveryPersonId": "A013",
+            "deliveryPersonName": "Mia Lee",
+            "email": "mia.lee@example.com",
+            "contactNo": "+7788990011"
+        },
+        {
+            "deliveryPersonId": "A014",
+            "deliveryPersonName": "Benjamin Harris",
+            "email": "benjamin.harris@example.com",
+            "contactNo": "+6677883344"
+        },
+        {
+            "deliveryPersonId": "A015",
+            "deliveryPersonName": "Charlotte Clark",
+            "email": "charlotte.clark@example.com",
+            "contactNo": "+4455667789"
+        },
+        {
+            "deliveryPersonId": "A016",
+            "deliveryPersonName": "Ethan Lewis",
+            "email": "ethan.lewis@example.com",
+            "contactNo": "+8899001122"
+        },
+        {
+            "deliveryPersonId": "A017",
+            "deliveryPersonName": "Amelia Walker",
+            "email": "amelia.walker@example.com",
+            "contactNo": "+9988771122"
+        },
+        {
+            "deliveryPersonId": "A018",
+            "deliveryPersonName": "Mason Young",
+            "email": "mason.young@example.com",
+            "contactNo": "+7766554433"
+        },
+        {
+            "deliveryPersonId": "A019",
+            "deliveryPersonName": "Isabella King",
+            "email": "isabella.king@example.com",
+            "contactNo": "+3344556678"
+        },
+        {
+            "deliveryPersonId": "A020",
+            "deliveryPersonName": "Logan Scott",
+            "email": "logan.scott@example.com",
+            "contactNo": "+9988223355"
+        }
+    ]
+}

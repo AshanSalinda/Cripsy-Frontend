@@ -252,14 +252,15 @@
 
 "use client";
 
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import TopNavbar from '@/components/TopNavbar/TopNavbar';
 import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
 import CartProductCard from '@/section/CartPageSections/CartItemCard';
-import {configurePayhere, getCartItems} from '@/apis/cartApi/cartApi';
 import {getCustomerDetails} from "@/apis/customerAPIs/customerAPI";
+import { placeOrder } from '@/apis/orderApi/orderApi';
 import { getCartItems, initiateOrder, confirmOrder, cancelOrder, configurePayhere } from '@/apis/cartApi/cartApi'
+import { showToast } from '@/components/Messages/showMessage';
 
 export interface CartItemType {
     productId: number;
@@ -364,13 +365,19 @@ const Cart: React.FC = () => {
     }, []);
       
       
-      useEffect(() => {
+    useEffect(() => {
         const total = cartItems.reduce((sum: number, item: CartItemType) => sum + item.total, 0);
         setTotalAmount(total + shippingCharge);
+
+        const hasOutOfStockItems = cartItems.some(item => item.quantity > item.stock);
+        if (hasOutOfStockItems) {
+            showToast({type: "warning", message: "Some items are out of stock.", description: "Please update your cart before proceeding."});
+            return;
+        }
     }, [cartItems]);
 
-    const loadPayhereScript = () => {
 
+    const loadPayhereScript = () => {
         const script = document.createElement("script");
         script.src = "https://www.payhere.lk/lib/payhere.js";
         script.async = true;
@@ -414,22 +421,23 @@ const Cart: React.FC = () => {
 
         window.payhere.startPayment(payment);
       
-        // const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
-        //
-        // try{
-        //     const transactionId = await initiateOrder(orderItems);
-        //     // Make the payment here
-        //     if(transactionId){ // if Payment success
-        //         const orderDetails = await confirmOrder(transactionId);
-        //         // send request to order Service to place the order
-        //         console.log("Order placed successfully", orderDetails);
-        //     } else { // Else Cancel the order
-        //         await cancelOrder(transactionId);
-        //     }
-        // } catch (error) {
-        //     const cartItems = await getCartItems(userId);
-        //     setCartItems(cartItems);
-        // }
+        const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
+
+        try{
+            const transactionId = await initiateOrder(orderItems);
+            // Make the payment here
+            if(false){ // if Payment success
+                const orderDetails = await confirmOrder(transactionId);
+                placeOrder(userId, orderDetails);
+                console.log("Order placed successfully", orderDetails);
+            } else { // Else Cancel the order
+                await cancelOrder(transactionId);
+                showToast({type: "error", message: "Payment failed. Order cancelled."});
+            }
+        } catch (error) {
+            const cartItems = await getCartItems(userId);
+            setCartItems(cartItems);
+        }
     };
    
     return (

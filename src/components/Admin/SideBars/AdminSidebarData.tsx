@@ -24,7 +24,7 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Orders',
         icon: HiOutlineShoppingBag,
-        path: '/admin/orders',
+        path: '/admin/adminOrder',
     },
     {
         title: 'Products',
