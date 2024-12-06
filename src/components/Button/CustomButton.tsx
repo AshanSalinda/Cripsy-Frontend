@@ -6,6 +6,7 @@ interface CustomButtonProps {
     variant?: "primary" | "outline" | "ghost";
     name?: string;
     value?: string;
+    disabled?: boolean;
     buttonLabel?: string;
     buttonClassName?: string;
     modalContent?: ReactNode;
@@ -19,6 +20,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     variant = "primary",
     name = "",
     value = "",
+    disabled = false,
     buttonLabel = "",
     buttonClassName = "",
     modalContent,
@@ -51,6 +53,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
                     ${theme[variant]} ${buttonClassName}`}
                 name={name}
                 value={value}
+                disabled={disabled}
                 onClick={handleButtonClick}
             >
                 <span>{buttonLabel}</span>

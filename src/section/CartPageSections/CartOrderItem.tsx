@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoCaretForwardSharp } from "react-icons/io5";
 
 
@@ -16,10 +16,14 @@ const CartOrderItem: React.FC<PropsType> = (props) => {
     const { name, price, quantity, discount, total, isError = false } = props;
     const [isExpanded, setIsExpanded] = useState(isError);
 
+    useEffect(() => {
+        setIsExpanded(isError);
+    }, [isError]);
+    
     const toggleExpand = () => setIsExpanded(!isExpanded);
 
     return (
-        <div className="w-full mt-2 border-b pb-2" >
+        <div className={`w-full mt-2 pr-1 border-b rounded  ${isError && "bg-carnation-100"}`} >
 
             <button className='w-full flex justify-between items-center' onClick={toggleExpand} >
                 <div className='flex flex-grow items-center overflow-hidden'>

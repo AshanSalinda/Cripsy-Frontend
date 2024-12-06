@@ -1,4 +1,6 @@
 import axios from "axios";
+import { showToast } from "@/components/Messages/showMessage";
+
 
 // Axios instance with base URL
 const api = axios.create({
@@ -13,6 +15,7 @@ export const getWatchlistItems = async (userId: number) => {
         return response.data;
     } catch (error) {
         console.log("Error fetching Watchlist items:", error);
+        showToast({type: "error", message: "Failed to find watchlist items!"});
         return [];
     }
 }
@@ -24,6 +27,8 @@ export const addToWatchlist = async (productId: number, userId: number) => {
         await api.post(`/api/product/watchlist/${productId}/${userId}`);
     } catch (error) {
         console.log("Error adding to watchlist:", error);
+        showToast({type: "error", message: "Failed adding to watchlist!"});
+        throw error;
     }
 }
 
@@ -35,6 +40,12 @@ export const removeFromWatchlist = async (productId: number, userId: number, res
         return response.data;
     } catch (error) {
         console.log("Error removing from watchlist:", error);
-        return [];
+        showToast({type: "error", message: "Failed to remove from watchlist!"});
+
+        if(responseExpected) {
+            return [];
+        } else {
+            throw error;
+        }
     }
 }

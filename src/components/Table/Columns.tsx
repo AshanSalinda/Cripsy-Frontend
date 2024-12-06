@@ -1,5 +1,5 @@
 "use client";
-import { FaTrash } from 'react-icons/fa';
+import {FaEdit, FaTrash} from 'react-icons/fa';
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 
@@ -15,10 +15,13 @@ export interface Branch {
 }
 
 export interface Product {
-    productId: string;
-    productName: string;
-    qty: number;
+    productId: number;
+    name: string;
+    description: string;
+    stock: number;
+    category:number;
     price: number;
+    discount: number;
 }
 
 // Admin Interface
@@ -96,17 +99,25 @@ export const branchColumns: Column<Branch>[] = [
 // Product Columns
 export const productColumns: Column<Product>[] = [
     { header: "Product ID", accessor: "productId" },
-    { header: "Product Name", accessor: "productName" },
-    { header: "Quantity", accessor: "qty" },
+    { header: "Product Name", accessor: "name" },
+    { header: "Description", accessor: "description" },
+    { header: "Stock", accessor: "stock" },
     { header: "Price", accessor: "price" },
+    { header: "CategoryId", accessor: "category" },
+    { header: "Discount", accessor: "discount" },
     {
         header: "Action",
         accessor: "action" as keyof Product,
         render: (_value, row, handlers) => (
             <div className="flex space-x-4">
+                <FaEdit
+                    className="text-gray-400 hover:text-blue-600 cursor-pointer"
+                    onClick={() => handlers?.edit(row)} // Pass the row data to the edit handler
+                    aria-label="Edit Product"
+                />
                 <FaTrash
                     className="text-gray-400 hover:text-red-700 cursor-pointer"
-                    onClick={() => handlers?.delete(row)}
+                    onClick={() => handlers?.delete(row)} // Pass the row data to the delete handler
                     aria-label="Delete Product"
                 />
             </div>
