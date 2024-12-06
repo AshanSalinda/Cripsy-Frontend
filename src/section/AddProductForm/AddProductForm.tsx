@@ -1,14 +1,21 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import TextEditor from "@/components/TextEditor/TextEditor";
 import Dropdown from "@/components/Dropdown/Dropdown";
-import ProductImgUploader, { UploadedImage } from "@/components/Image/ProductImgUploader";
-import { addProduct, getCategories, addCategory } from "@/apis/productApi/productApi";
+import ProductImgUploader, {UploadedImage} from "@/components/Image/ProductImgUploader";
+import {
+    addProduct,
+    getCategories,
+    addCategory,
+    getProductItemDetails,
+    updateProduct
+} from "@/apis/productApi/productApi";
 import PopupContainer from "@/components/Popup/PopupContainer";
 import {productSchema} from "@/schema/productSchema/productSchema";
-import Toast, { showToast } from '@/components/Messages/showMessage';
+import {showToast} from '@/components/Messages/showMessage';
+import {useRouter, useSearchParams} from "next/navigation";
 
 
 const AddProductForm = () => {
@@ -25,10 +32,35 @@ const AddProductForm = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [resetImages, setResetImages] = useState(false);
     const [resetEditor, setRestEditor] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    let [id, setId] = useState(0);
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
     };
+
+    useEffect(() => {
+        id = parseInt(searchParams.get("productId") as string);
+        const getProductList = async () => {
+            if (id) {
+                const product = await getProductItemDetails(id, 1);
+                setId(product.productId)
+                setName(product.name);
+                setStock(product.stock)
+                setPrice(product.price)
+                setDiscount(product.discount)
+                setCategory(product.category)
+                const uploadedImages = product.imageUrls.map((url: string) => ({url}));
+                setImages(uploadedImages);
+                setEditorContent(product.description)
+
+            }
+        }
+        getProductList()
+
+
+    }, [searchParams]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -52,10 +84,10 @@ const AddProductForm = () => {
             return;
         }
         try {
-            const addedCategory = await addCategory({ categoryName: newCategory });
+            const addedCategory = await addCategory({categoryName: newCategory});
             setOptions((prev) => [
                 ...prev,
-                { label: addedCategory.categoryName, value: addedCategory.categoryId },
+                {label: addedCategory.categoryName, value: addedCategory.categoryId},
             ]);
             setShowPopup(false);
             setNewCategory("");
@@ -65,7 +97,7 @@ const AddProductForm = () => {
         }
     };
 
-    const clearAll = ()=>{
+    const clearAll = () => {
         setName('');
         setEditorContent('');
         setStock(0);
@@ -82,7 +114,7 @@ const AddProductForm = () => {
 
     const handleSubmit = async () => {
         const payload = {
-            productId: 0,
+            productId: id,
             name,
             description: editorContent,
             stock,
@@ -98,6 +130,7 @@ const AddProductForm = () => {
 
         console.log(validation)
         console.log(payload.imageUrls)
+        console.log(payload)
 
         if (!validation.success) {
             console.log(validation.success)
@@ -111,7 +144,11 @@ const AddProductForm = () => {
 
         setErrors({});
         try {
-            await addProduct(payload);
+            if (id) {
+                await updateProduct(payload);
+            } else {
+                await addProduct(payload);
+            }
             console.log("Product added successfully!");
             showToast({
                 type: 'success',
@@ -145,11 +182,17 @@ const AddProductForm = () => {
                         onChange={(e) => setName(e.target.value)}
                     />
                     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-                    <Toast />
 
 
                     <h2 className="text-2xl mt-2">Description</h2>
-                    <TextEditor className="mb-4" onChange={handleEditorChange} resetEditor={resetEditor} setRestEditor={setRestEditor}/>
+                    <TextEditor
+                        className="your-class"
+                        initialContent={editorContent}
+                        onChange={handleEditorChange}
+                        resetEditor={false}
+                        setRestEditor={setRestEditor}
+                    />
+
                     {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
 
                     <h2 className="text-2xl mt-5">Pricing and Stock</h2>
@@ -207,30 +250,33 @@ const AddProductForm = () => {
                 </div>
 
                 <div className="md:col-span-4">
-                    <ProductImgUploader images={images} setImages={setImages} resetImages={resetImages} setResetImages={setResetImages}/>
+                    <ProductImgUploader images={images} setImages={setImages} resetImages={resetImages}
+                                        setResetImages={setResetImages}/>
                     {errors.imageUrls && <p className="text-red-500 text-sm">{errors.imageUrls}</p>}
                 </div>
                 <div className="flex justify-between items-center pl-2">
-                    <CustomButton buttonLabel="Add Product" onClick={handleSubmit} />
+                    <CustomButton buttonLabel="Add Product" onClick={handleSubmit}/>
                 </div>
             </div>
 
-            <PopupContainer isOpen={showPopup} onClose={()=> {setShowPopup(false)}}>
-                    <div className="bg-white rounded-lg p-6 w-96 ">
-                        <h2 className="text-2xl mb-4">Add New Category</h2>
-                        <InputField
-                            id="newCategory"
-                            type="text"
-                            placeholder="Enter category name"
-                            label={true}
-                            labelName="Category Name"
-                            onChange={(e) => setNewCategory(e.target.value)}
-                        />
-                        <div className="flex justify-end gap-2 mt-4">
-                            <CustomButton buttonLabel="Cancel" onClick={() => setShowPopup(false)} variant={"outline"}/>
-                            <CustomButton buttonLabel="Add" onClick={handleAddCategory} variant={"primary"}/>
-                        </div>
+            <PopupContainer isOpen={showPopup} onClose={() => {
+                setShowPopup(false)
+            }}>
+                <div className="bg-white rounded-lg p-6 w-96 ">
+                    <h2 className="text-2xl mb-4">Add New Category</h2>
+                    <InputField
+                        id="newCategory"
+                        type="text"
+                        placeholder="Enter category name"
+                        label={true}
+                        labelName="Category Name"
+                        onChange={(e) => setNewCategory(e.target.value)}
+                    />
+                    <div className="flex justify-end gap-2 mt-4">
+                        <CustomButton buttonLabel="Cancel" onClick={() => setShowPopup(false)} variant={"outline"}/>
+                        <CustomButton buttonLabel="Add" onClick={handleAddCategory} variant={"primary"}/>
                     </div>
+                </div>
             </PopupContainer>
 
         </div>

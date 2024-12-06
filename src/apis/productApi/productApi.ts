@@ -1,6 +1,5 @@
 import axios from "axios";
 import { showToast } from "@/components/Messages/showMessage";
-import { stat } from "fs";
 
 
 // Axios instance with base URL
@@ -44,7 +43,18 @@ export const getProducts = async () => {
     }
 };
 
-// Get product by Item
+// Get product Item List
+export const getProductsDetails = async () => {
+    try {
+        const response = await api.get("/api/product/getAllProductsDetails");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error;
+    }
+};
+
+// Get product Item
 export const getProductItemDetails = async (productId: number, userId: number ) => {
     try {
         const response = await api.get(`/api/product/${productId}/${userId}`);
@@ -76,6 +86,7 @@ export const addReview = async (productId: number, userId: number, userName: str
             { productId, userId, userName, rating, comment }
         );
         return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         console.error("Error adding review:", error);
 
@@ -91,19 +102,9 @@ export const addReview = async (productId: number, userId: number, userName: str
 
 
 // Update a product
-export const updateProduct = async (
-    id: number,
-    updatedData: {
-        name?: string;
-        description?: string;
-        stock?: number;
-        price?: number;
-        discount?: number;
-        imageUrls?: string[];
-    }
-) => {
+export const updateProduct = async (updatedData: { productId: number; name: string; description: string; stock: number; price: number; discount: number; rating: number; ratingCount: number; category: number; imageUrls: string[]; }) => {
     try {
-        const response = await api.put(`/api/product/${id}`, updatedData);
+        const response = await api.put(`/api/product/update`, updatedData);
         if (response.status === 200) {
             console.log("Product updated successfully:", response.data);
             return response.data;

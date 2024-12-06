@@ -44,25 +44,27 @@ export default function RootLayout({
 }
 */
 
-import type { Metadata } from "next";
-import Toast from "@/components/Messages/showMessage";
-import "./globals.css";
 
+import type {Metadata} from "next";
+import "./globals.css";
+import Toast from "@/components/Messages/showMessage";
+import React from "react";
 
 
 export const metadata: Metadata = {
-  title: "Cripsy - Your E-commerce Site",
-  description: "Discover amazing products at Cripsy.",
-  icons: {
-    icon: "/icon.png",
-  }
+    title: "Cripsy - Your E-commerce Site",
+    description: "Discover amazing products at Cripsy.",
+    icons: {
+        icon: "/icon.png",
+    }
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
+
 
     return (
         <html lang="en">
@@ -70,6 +72,7 @@ export default function RootLayout({
                 {children}
                 <Toast/>
             </body>
+
         </html>
     );
 }

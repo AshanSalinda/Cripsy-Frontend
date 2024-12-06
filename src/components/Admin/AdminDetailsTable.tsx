@@ -30,8 +30,8 @@ const AdminTable = () => {
 
     return (
         <>
-            <div className="flex justify-between mb-2">
-                <h5 className="flex items-center font-semibold font-inter"> Admin Details</h5>
+            <div className="flex justify-between mb-2 mt-8">
+                <h5 className="flex items-center text-lg font-semibold font-inter"> Admin Details</h5>
                 <CustomButton onClick={() => setIsNewAdminPopupOpen(true)} buttonLabel="New Admin" buttonClassName="text-white"/>
             </div>
 

@@ -11,17 +11,17 @@ interface CarouselItem {
 
 const carouselItems: CarouselItem[] = [
     {
-        image: '/carousalImg2.png',
+        image: '/carousel-1.png',
         title: 'Discover Your Signature Style',
         description: 'From timeless classics to the latest trends, elevate your wardrobe with pieces that speak to your unique personality.',
     },
     {
-        image: '/carousalImg2.png',
+        image: '/carousel-2.png',
         title: 'Explore New Arrivals',
         description: 'Discover the latest fashion that fits your lifestyle and personality.',
     },
     {
-        image: '/carousalImg3.png',
+        image: '/carousel-3.png',
         title: 'Timeless Essentials',
         description: 'Choose from a curated collection of wardrobe essentials that last.',
     },
@@ -47,7 +47,7 @@ const MainImageCarousel: React.FC = () => {
                 {carouselItems.map((item, index) => (
                     <div
                         key={index}
-                        className="flex-shrink-0 w-full flex flex-col md:flex-row bg-gray-600 text-white py-8"
+                        className="flex-shrink-0 w-full flex flex-col md:flex-row bg-gray-600 text-white"
                     >
                         {/* Text section */}
                         <div className="flex flex-col justify-center items-center md:items-start w-full md:w-1/2 px-8 text-center md:text-left">
@@ -56,15 +56,18 @@ const MainImageCarousel: React.FC = () => {
                         </div>
 
                         {/* Image section */}
-                        <div className="flex items-center justify-center w-full md:w-1/2 mt-4 md:mt-0">
-                            <Image 
-                                src={item.image} 
-                                alt={item.title} 
-                                width={500} 
-                                height={500} 
-                                className="max-w-full h-auto object-contain"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
-                            />
+                        <div className="flex items-center justify-center w-full md:w-1/2 mt-4 md:mt-0 bg-cover">
+                            {/* Fixed height for container */}
+                            <div className="relative w-full h-[300px] md:h-[400px]">
+                                {/* Image inside the container */}
+                                <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="object-contain"
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -74,3 +77,4 @@ const MainImageCarousel: React.FC = () => {
 };
 
 export default MainImageCarousel;
+
