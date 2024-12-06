@@ -166,54 +166,113 @@
     ],
     "refund":[
         {
-            "orderId": "ORD123456",
+            "refoundId": "ORD123456",
             "customerName": "John Doe",
             "refundItemQty": 3,
             "refundAmount": 150.00
         },
         {
-            "orderId": "ORD123457",
+            "refoundId": "ORD123457",
             "customerName": "Jane Smith",
             "refundItemQty": 2,
             "refundAmount": 100.00
         },
         {
-            "orderId": "ORD123458",
+            "refoundId": "ORD123458",
             "customerName": "Alice Johnson",
             "refundItemQty": 1,
             "refundAmount": 50.00
         },
         {
-            "orderId": "ORD123459",
+            "refoundId": "ORD123459",
             "customerName": "Bob Brown",
             "refundItemQty": 5,
             "refundAmount": 250.00
         },
         {
-            "orderId": "ORD123460",
+            "refoundId": "ORD123460",
             "customerName": "Charlie Davis",
             "refundItemQty": 4,
             "refundAmount": 200.00
         },
         {
-            "orderId": "ORD123461",
+            "refoundId": "ORD123461",
             "customerName": "Emily Clark",
             "refundItemQty": 6,
             "refundAmount": 300.00
         },
         {
-            "orderId": "ORD123462",
+            "refoundId": "ORD123462",
             "customerName": "David Lee",
             "refundItemQty": 7,
             "refundAmount": 350.00
         },
         {
-            "orderId": "ORD123463",
+            "refoundId": "ORD123463",
             "customerName": "Sophia Walker",
             "refundItemQty": 2,
             "refundAmount": 100.00
         }
+    ],
+    "refundData": [
+        {
+            "refoundId": "ORD123456",
+            "productName": "Samsung Galaxy S21",
+            "price": 20000,
+            "reason": "Not satisfied with the product",
+            "orderDate": "2021-09-01",
+            "deliveredDate": "2021-09-05",
+            "customerName":"John Doe"
+
+
+        },
+        {
+            "refoundId": "ORD123456",
+            "productName": "Polo T-Shirt",
+            "price": 25000,
+            "reason": "Not satisfied with the product",
+            "orderDate": "2021-09-01",
+            "deliveredDate": "2021-09-05",
+            "customerName":"John Doe"
+        },
+        {
+            "refoundId": "ORD123456",
+            "productName": "Apple iPhone 12",
+            "price": 2000000,
+            "reason": "Not satisfied with the product",
+            "orderDate": "2021-09-01",
+            "deliveredDate": "2021-09-05",
+            "customerName":"John Doe"
+        },
+        {
+           "refoundId": "ORD123457",
+            "productName": "Rlex Watch",
+            "price": 20000,
+            "reason": "Not satisfied with the product",
+            "orderDate": "2021-09-01",
+            "deliveredDate": "2021-09-05",
+            "customerName":"John Doe"
+        },
+        {
+            "refoundId": "ORD123457",
+            "productName": "Dell Laptop",
+            "price": 30000000,
+            "reason": "Not satisfied with the product",
+            "orderDate": "2021-09-01",
+            "deliveredDate": "2021-09-05",
+            "customerName":"John Doe"
+        },
+        {
+            "refoundId": "ORD123458",
+            "productName": "Apple AirPods",
+            "price": 20000000,
+            "reason": "Not satisfied with the product",
+            "orderDate": "2021-09-01",
+            "deliveredDate": "2021-09-05",
+            "customerName":"John Doe"
+        }
     ]
+
 
    
 }

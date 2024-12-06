@@ -9,7 +9,7 @@ import { Icon } from 'lucide-react';
 
 export interface RefundCardProps {
     productName: string;
-    orderId: string;
+    refoundId: string;
     price: number;
     reason: string;
     orderDate: string;
@@ -18,7 +18,7 @@ export interface RefundCardProps {
 }
 const RefundCard: React.FC<RefundCardProps> = ({
     productName,
-    orderId,
+    refoundId,
     price,
     reason,
     orderDate,
@@ -54,23 +54,29 @@ const RefundCard: React.FC<RefundCardProps> = ({
             </div>
 
             <div className='flex justify-between pt-5'>
+                {/* Refound ID */}
                 <div className=''>
-                <p>Order ID : <span className='text-carnation-400'>{orderId}</span> </p>
+                <p>Refound ID : <span className='text-carnation-400'>{refoundId}</span> </p>
                 </div>
                 <div>
-                <p className='text-2xl'>Price : <span className='text-carnation-400 font-bold text-2xl'>{price}</span></p> 
+                    {/* Price */}
+                <p className='text-2xl'>Price : <span className='text-carnation-400 font-bold text-2xl'>{price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p> 
                 </div>
             </div>
 
             <div className='pb-4 '>
+                {/* Reason */}
                 <p>Reason: </p>
                 <p className='break-words'>{reason}</p>
             </div>
 
             <div className='flex '>
                 <div className='flex  gap-10'>
+                {/* Order Date */}
                 <p>Order Date :  <span className='text-carnation-400'>{orderDate}</span> </p>
+                {/* Delivered Date */}
                 <p>Delivered Date:  <span className='text-carnation-400'>{deliveredDate}</span> </p>
+                {/* Customer Name */}
                 <p>Customer Name :  <span className='text-carnation-400'>{customerName}</span> </p>
                 </div>
             </div>

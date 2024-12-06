@@ -7,7 +7,6 @@ const api = axios.create({
 });
 
 
-
 // Place order
 export const placeOrder = async (userId: number, oderDetails: []) => {
     try {
