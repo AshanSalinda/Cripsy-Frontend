@@ -24,8 +24,39 @@ export const userLogin = async (formData: {
             console.log(token);
             localStorage.setItem('accessToken', token);
 
+            // Decode the token (use a library like jwt-decode for simplicity)
+            function parseJwt(token: string) {
+                const base64Url = token.split('.')[1]; // Extract payload part
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(
+                    atob(base64)
+                        .split('')
+                        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                        .join('')
+                );
+                return JSON.parse(jsonPayload);
+            }
 
-            router.push("/");
+// Get the decoded token
+            const decodedToken = parseJwt(token);
+            console.log('Decoded Token:', decodedToken);
+
+            // Extract role
+            const userRole = decodedToken.role;
+            console.log('User Role:', userRole);
+
+// Redirect based on role
+            if (userRole === 'Admin') {
+                router.push("/admin/adminDashboard");
+            } else if (userRole === 'Customer') {
+                router.push("/");
+            } else if (userRole === 'Delivery') {
+                router.push("/delivery/profile");
+            } else {
+                alert("error")
+            }
+
+
         }
     } catch (error) {
         // setErrors("Invalid username or password.");
