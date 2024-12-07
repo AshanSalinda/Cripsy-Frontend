@@ -1,4 +1,5 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { showToast } from "@/components/Messages/showMessage";
 
 const API_URL = 'http://localhost:8084/api/admin';
 
@@ -8,13 +9,44 @@ interface AdminDTO {
   email: string;
   password: string;
   contact: string;
-  
+}
+
+
+interface OrderSummary {
+  percentageDifference: number;
+  thisMonthOrders: number;
+  lastMonthOrders: number;
+}
+
+interface MonthlyTotal {
+  year: number;
+  month: number;
+  totalPrice: number;
+}
+
+interface MonthlySumTotal {
+  lastMonthTotalPrice: number;
+  percentageDifference: number;
+  thisMonthTotalPrice: number;
+}
+
+interface MonthlySumQty {
+  percentageDifference: number;
+  thisMonthQuantity: number;
+  lastMonthQuantity: number;
+}
+interface BestSelling {
+  productId: number;
+  totalQuantity: number;
+  totalPrice: number;
+  totalDiscountedPrice: number;
+  name: string;
+  avgRatings: number;
 }
 
 // Centralized error handler
-const handleAxiosError = (error: unknown) => {
+const handleAxiosError = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
-    // Check if it's an AxiosError
     console.error('Axios error response:', error.response?.data);
     return error.response?.data || 'Unexpected Axios error';
   }
@@ -30,6 +62,7 @@ const saveAdmin = async (adminData: AdminDTO): Promise<void> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error saving admin:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
   }
 };
 
@@ -42,6 +75,7 @@ const getAllAdmins = async (): Promise<AdminDTO[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching admins:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return [];
   }
 };
@@ -54,6 +88,7 @@ const updateAdmin = async (adminData: AdminDTO): Promise<void> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error updating admin:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
   }
 };
 
@@ -65,6 +100,7 @@ const deleteAdmin = async (adminData: AdminDTO): Promise<void> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error deleting admin:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
   }
 };
 
@@ -77,10 +113,103 @@ const getAdminById = async (id: number): Promise<AdminDTO | null> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching admin by ID:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return null;
   }
 };
 
-export { saveAdmin, getAllAdmins, updateAdmin, deleteAdmin, getAdminById };
+// Get Total Customers (GET request)
+const getTotalCustomer = async (): Promise<number | null> => {
+  try {
+    const response = await axios.get(`${API_URL}/totalCustomer`);
+    console.log('Total customers:', response.data);
+    return response.data as number;
+  } catch (error) {
+    console.error('Error fetching total customers:', error);
+    showToast({ type: "error", message: "Error fetching total customers!" }); 
+    return null;
+  }
+};
 
+// Order Summary (GET request)
+const getOrderSummary = async (): Promise<OrderSummary[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/orderSummery`);
+    console.log('Order Summary:', response.data);
+    return response.data as OrderSummary[];
+  } catch (error) {
+    const errorMessage = handleAxiosError(error);
+    console.error('Error fetching order summary:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
+    return [];
+  }
+};
 
+// Monthly Totals (GET request)
+const getMonthlyTotals = async (): Promise<MonthlyTotal[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/monthly-selling`);
+    console.log('Monthly Totals:', response.data);
+    return response.data as MonthlyTotal[];
+  } catch (error) {
+    const errorMessage = handleAxiosError(error);
+    console.error('Error fetching monthly totals:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
+    return [];
+  }
+};
+
+// Monthly Sum Total (GET request)
+const getMonthlySumTotal = async (): Promise<MonthlySumTotal[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/getMonthlySumTotal`);
+    console.log('Monthly Sum Total:', response.data);
+    return response.data as MonthlySumTotal[];
+  } catch (error) {
+    const errorMessage = handleAxiosError(error);
+    console.error('Error fetching monthly sum total:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
+    return [];
+  }
+};
+
+// Monthly Sum Quantity (GET request)
+const getMonthlySumQty = async (): Promise<MonthlySumQty[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/getMonthlySumQty`);
+    console.log('Monthly Sum Quantity:', response.data);
+    return response.data as MonthlySumQty[];
+  } catch (error) {
+    const errorMessage = handleAxiosError(error);
+    console.error('Error fetching monthly sum quantity:', errorMessage);
+    showToast({ type: "error", message: errorMessage });
+    return [];
+  }
+};
+
+const getBestSelling = async (): Promise<BestSelling[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/best-selling`);
+    console.log('Best Selling Data:', response.data);
+    return response.data as BestSelling[];
+  } catch (error) {
+    const errorMessage = handleAxiosError(error);
+    console.error('Error fetching best selling data:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
+    return [];
+  }
+};
+
+export {
+  saveAdmin,
+  getAllAdmins,
+  updateAdmin,
+  deleteAdmin,
+  getAdminById,
+  getTotalCustomer,
+  getOrderSummary,
+  getMonthlyTotals,
+  getMonthlySumTotal,
+  getMonthlySumQty,
+  getBestSelling
+};

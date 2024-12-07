@@ -4,22 +4,38 @@ import React, { useEffect, useState } from 'react';
 import InputEmoji from 'react-input-emoji';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import jwtDecode from "jwt-decode";
 
 const ChatBox = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
     const fetchMessages = async () => {
-        try {
-            const response = await axios.get(
-                `http://localhost:8085/api/messages/getAllMessages/1`
-            );
-            setMessages(response.data);
+        const token = localStorage.getItem('accessToken');
+        const decodedToken = jwtDecode(token);
 
-            const fetchedConversationId = response.data[0]?.conversationId;
-            localStorage.setItem('conversationId', fetchedConversationId);
-        } catch (error) {
-            console.error('Error fetching messages:', error);
+        const existingConversation = await axios.get(`http://localhost:8085/api/conversations/getConversation/${decodedToken.id}`);
+
+        if(!existingConversation){
+            const conversationData = {
+                adminId:1,
+                customerId: decodedToken.id,
+                customerName: decodedToken.username
+            };
+            const createdConversation = await axios.post('http://localhost:8085/api/create', conversationData);
+            console.log(createdConversation.data);
+        }else{
+            try {
+                const response = await axios.get(
+                    `http://localhost:8085/api/messages/getAllMessages/${decodedToken.id}`
+                );
+                setMessages(response.data);
+
+                const fetchedConversationId = response.data[0]?.conversationId;
+                localStorage.setItem('conversationId', fetchedConversationId);
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
         }
     };
 

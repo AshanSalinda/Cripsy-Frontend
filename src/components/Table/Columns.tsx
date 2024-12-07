@@ -1,5 +1,5 @@
 "use client";
-import {FaEdit, FaRegEye, FaTrash, FaRegEdit} from 'react-icons/fa';
+import { FaEdit, FaRegEye, FaTrash, FaRegEdit } from 'react-icons/fa';
 
 
 // Interfaces
@@ -23,17 +23,17 @@ export interface Product {
 
 // Admin Interface
 export interface Admin {
-    adminId: string; // Or number, depending on your DB schema
-    adminName: string;
+    id: number; // Or number, depending on your DB schema
+    name: string;
     email: string;
-    contactNo: string;
+    contact: string;
 }
 
 // order interface
 export interface Order {
-    orderId: number;
-    customerID: number;
-    deliveryPersonId: number;
+    orderId: any;
+    customerID: any;
+    deliveryPersonId: any;
     deliveredDate: string;
     orderStatus: string;
     purchasedDate: string;
@@ -42,10 +42,12 @@ export interface Order {
 
 // Delivery Person Interface
 export interface DeliveryPerson {
-    deliveryPersonId: string;
-    deliveryPersonName: string;
+    personId: number;
+    name: string;
     email: string;
-    contactNo: string;
+    contact: string;
+    password: string;
+    availability:boolean;
 }
 
 // Column Type Definition
@@ -70,10 +72,10 @@ export interface Refund {
 
 // Branch Columns
 export const branchColumns: Column<Branch>[] = [
-    {header: "Branch ID", accessor: "branchId"},
-    {header: "Branch Name", accessor: "branchName"},
-    {header: "Email", accessor: "email"},
-    {header: "Contact No", accessor: "contactNo"},
+    { header: "Branch ID", accessor: "branchId" },
+    { header: "Branch Name", accessor: "branchName" },
+    { header: "Email", accessor: "email" },
+    { header: "Contact No", accessor: "contactNo" },
     {
         header: "Action",
         accessor: "action" as keyof Branch,
@@ -91,12 +93,12 @@ export const branchColumns: Column<Branch>[] = [
 
 // Product Columns
 export const productColumns: Column<Product>[] = [
-    {header: "Product ID", accessor: "productId"},
-    {header: "Product Name", accessor: "name"},
-    {header: "Stock", accessor: "stock"},
-    {header: "Price", accessor: "price"},
-    {header: "CategoryId", accessor: "category"},
-    {header: "Discount", accessor: "discount"},
+    { header: "Product ID", accessor: "productId" },
+    { header: "Product Name", accessor: "name" },
+    { header: "Stock", accessor: "stock" },
+    { header: "Price", accessor: "price" },
+    { header: "CategoryId", accessor: "category" },
+    { header: "Discount", accessor: "discount" },
     {
         header: "Action",
         accessor: "action" as keyof Product,
@@ -119,10 +121,10 @@ export const productColumns: Column<Product>[] = [
 
 // Admin Columns
 export const adminColumns: Column<Admin>[] = [
-    {header: "Admin ID", accessor: "adminId"},
-    {header: "Admin Name", accessor: "adminName"},
-    {header: "Email", accessor: "email"},
-    {header: "Contact No", accessor: "contactNo"},
+    { header: "Admin ID", accessor: "id" },
+    { header: "Admin Name", accessor: "name" },
+    { header: "Email", accessor: "email" },
+    { header: "Contact No", accessor: "contact" },
     {
         header: "Action",
         accessor: "action" as keyof Admin,
@@ -142,11 +144,11 @@ export const adminColumns: Column<Admin>[] = [
 //order details table
 export const orderColumns: Column<Order>[] = [
 
-    {header: "OrderId", accessor: "orderId"},
-    {header: "CustomerId", accessor: "customerID"},
-    {header: "DeliveryPerson", accessor: "deliveryPersonId"},
-    {header: "Order Status", accessor: "orderStatus"},
-    {header: "Total", accessor: "totalPrice"},
+    { header: "OrderId", accessor: "orderId" },
+    { header: "CustomerId", accessor: "customerID" },
+    { header: "DeliveryPerson", accessor: "deliveryPersonId" },
+    { header: "Order Status", accessor: "orderStatus" },
+    { header: "Total", accessor: "totalPrice" },
 
     {
         header: "Action",
@@ -166,10 +168,10 @@ export const orderColumns: Column<Order>[] = [
 
 // Delivery Person Columns
 export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
-    {header: "Delivery Person ID", accessor: "deliveryPersonId"},
-    {header: "Delivery Person Name", accessor: "deliveryPersonName"},
+    {header: "Delivery Person ID", accessor: "personId"},
+    {header: "Delivery Person Name", accessor: "name"},
     {header: "Email", accessor: "email"},
-    {header: "Contact No", accessor: "contactNo"},
+    {header: "Contact No", accessor: "contact"},
     {
         header: "Action",
         accessor: "action" as keyof DeliveryPerson,
@@ -186,12 +188,12 @@ export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
 ];
 
 //Refund Details Table
-export const refundColumns: Column<Refund>[] = [ 
+export const refundColumns: Column<Refund>[] = [
 
-    {header: "Order ID", accessor: "orderId"},
-    {header: "Customer Name", accessor: "customerName"},
-    {header: "Refund Item Qty", accessor: "refundItemQty"},
-    {header: "Refund Amount", accessor: "refundAmount"},
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Customer Name", accessor: "customerName" },
+    { header: "Refund Item Qty", accessor: "refundItemQty" },
+    { header: "Refund Amount", accessor: "refundAmount" },
 
     {
         header: "Action",
@@ -212,18 +214,21 @@ export const refundColumns: Column<Refund>[] = [
 //Admin Dashboard TopSelling Table
 export interface TopSellingTableProps {
     id: number;
-    itemName: string;
-    description: string;
-    qty: number;
-    rate: string;
-    value: string;
+    productId: number;
+    name: string;
+    avgRatings: number;
+    totalQuantity: number;
+    rate: number;
+    totalPrice: number;
+
 }
 
 export const TopSellingTableColumns: Column<TopSellingTableProps>[] = [
-    {header: "#", accessor: "id"},
-    {header: "ITEM NAME", accessor: "itemName"},
-    {header: "DESCRIPTION", accessor: "description"},
-    {header: "QTY", accessor: "qty"},
-    {header: "RATE (RS)", accessor: "rate"},
-    {header: "VALUE (RS)", accessor: "value"},
+    { header: "#", accessor: "id" },
+    { header: "PRODUCT ID", accessor: "productId" },
+    { header: "PRODUCT NAME", accessor: "name" },
+    { header: "AVG RATING", accessor: "avgRatings" },
+    { header: "TOTAL QTY", accessor: "totalQuantity" },
+    { header: "RATE (RS)", accessor: "rate" },
+    { header: "VALUE (RS)", accessor: "totalPrice" },
 ];

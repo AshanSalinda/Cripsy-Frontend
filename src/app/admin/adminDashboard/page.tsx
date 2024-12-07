@@ -1,98 +1,157 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardCard from "@/components/Dashboard/DashboardCard";
-import dashboardData from "@/data/dashboardData.json";
 import RevenueChart from "@/components/Dashboard/RevenueChart";
 import SalePieChart from "@/components/Dashboard/SalePieChart";
 import TableWithPagi from "@/components/Table/TableWithPagi";
 import { TopSellingTableColumns } from "@/components/Table/Columns";
-import { DatePicker } from "@/components/DatePicker/DatePicker";
-import { FiX } from "react-icons/fi";
+import { getMonthlySumQty, getOrderSummary, getTotalCustomer, getMonthlySumTotal, getBestSelling } from "@/apis/adminApi/admin";
 
-function Page() {
-    const currentDate = new Date().toISOString().split("T")[0];
+// Interfaces for the data
+interface MonthlyData {
+    percentageDifference: number;
+    thisMonthQuantity: number;
+    lastMonthQuantity: number;
+}
 
-    const topSellingItemsTableData = dashboardData.topSellingItemsTableData;
+interface OrderData {
+    percentageDifference: number;
+    thisMonthOrders: number;
+    lastMonthOrders: number;
+}
 
-    const tableData = topSellingItemsTableData.map((row, index) => ({
-        id: index + 1,
-        ...row,
-    }));
+interface RevenueData {
+    percentageDifference: number;
+    thisMonthTotalPrice: number;
+    lastMonthTotalPrice: number;
+}
 
-    const [selectedDate, setSelectedDate] = useState<string>(currentDate);
+interface TopSellingTableProps {
+    id: number;
+    productId: number;
+    name: string;
+    avgRatings: number;
+    totalQuantity: number;
+    rate: number;
+    totalPrice: number;
+}
 
-    const handleDateChange = (date: string) => {
-        setSelectedDate(date);
-    };
+const Page = () => {
+    const [itemData, setItemData] = useState<MonthlyData | null>(null);
+    const [orderData, setOrderData] = useState<OrderData | null>(null);
+    const [revenueData, setRevenueData] = useState<RevenueData | null>(null);
+    const [customerData, setCustomerData] = useState<number | null>(null);
+    const [bestSellingData, setBestSellingData] = useState<TopSellingTableProps[]>([]);
 
-    const resetToCurrentDate = () => {
-        setSelectedDate(currentDate);
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [itemRes, orderRes, revenueRes, customerRes, bestSellingRes] = await Promise.all([
+                    getMonthlySumQty(),
+                    getOrderSummary(),
+                    getMonthlySumTotal(),
+                    getTotalCustomer(),
+                    getBestSelling(),
+                ]);
+
+                // Set state with fetched data
+                setItemData(itemRes[0] || { percentageDifference: 0, thisMonthQuantity: 0, lastMonthQuantity: 0 });
+                setOrderData(orderRes[0] || { percentageDifference: 0, thisMonthOrders: 0, lastMonthOrders: 0 });
+                setRevenueData(revenueRes[0] || { percentageDifference: 0, thisMonthTotalPrice: 0, lastMonthTotalPrice: 0 });
+                setCustomerData(customerRes ?? 0);
+
+                // Map `bestSellingRes` to `TopSellingTableProps`
+                const transformedBestSellingData: TopSellingTableProps[] = bestSellingRes.map((item, index) => ({
+                    id: index + 1,
+                    productId: item.productId,
+                    name: item.name,
+                    avgRatings: item.avgRatings,
+                    totalQuantity: item.totalQuantity,
+                    rate: item.totalDiscountedPrice,
+                    totalPrice: item.totalPrice,
+                }));
+
+                setBestSellingData(transformedBestSellingData);
+
+            } catch (error) {
+                console.error("Error fetching dashboard data:", error);
+
+                // Fallback values in case of error
+                setItemData({ percentageDifference: 0, thisMonthQuantity: 0, lastMonthQuantity: 0 });
+                setOrderData({ percentageDifference: 0, thisMonthOrders: 0, lastMonthOrders: 0 });
+                setRevenueData({ percentageDifference: 0, thisMonthTotalPrice: 0, lastMonthTotalPrice: 0 });
+                setCustomerData(0);
+                setBestSellingData([]);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const validItemData = itemData || { percentageDifference: 0, thisMonthQuantity: 0, lastMonthQuantity: 0 };
+    const validOrderData = orderData || { percentageDifference: 0, thisMonthOrders: 0, lastMonthOrders: 0 };
+    const validRevenueData = revenueData || { percentageDifference: 0, thisMonthTotalPrice: 0, lastMonthTotalPrice: 0 };
+    const validCustomerData = customerData ?? 0;
 
     return (
-        <>
-            <div className="p-2 mt-2">
-                {/* Dashboard Cards */}
-                <div className="flex gap-3 justify-between">
-                    {dashboardData.dashboardCardData.map((card, index) => (
-                        <DashboardCard
-                            key={index}
-                            title={card.title}
-                            value={card.value}
-                            change={card.change}
-                            positive={card.positive}
-                        />
-                    ))}
-                </div>
+        <div className="p-2 mt-2">
+            {/* Dashboard Cards */}
+            <div className="flex gap-3 justify-between">
+                <DashboardCard
+                    id="totalItems"
+                    title="Total Items"
+                    value={validItemData.thisMonthQuantity.toLocaleString()}
+                    difference={validItemData.percentageDifference}
+                />
+                <DashboardCard
+                    id="totalOrders"
+                    title="Total Orders"
+                    value={validOrderData.thisMonthOrders.toLocaleString()}
+                    difference={validOrderData.percentageDifference}
+                />
+                <DashboardCard
+                    id="totalRevenue"
+                    title="Total Revenue"
+                    value={`Rs ${validRevenueData.thisMonthTotalPrice.toLocaleString()}`}
+                    difference={validRevenueData.percentageDifference}
+                />
+                <DashboardCard
+                    id="totalCustomers"
+                    title="Total Customers"
+                    value={validCustomerData.toLocaleString()}
+                    difference={0}
+                />
+            </div>
 
-                {/* Revenue and Pie Chart */}
-                <div className="flex gap-4 max-w-full mt-6">
-                    <div className="bg-white rounded-md shadow w-1/2 p-4">
-                        <h3 className="text-lg font-semibold mb-1">Revenue</h3>
-                        <RevenueChart />
-                    </div>
-                    <div className="bg-white rounded-md shadow w-1/2 p-4">
-                        <h3 className="text-lg font-semibold mb-1">Sale By Location</h3>
-                        <SalePieChart />
-                    </div>
+            {/* Revenue and Pie Chart */}
+            <div className="flex gap-4 max-w-full mt-6">
+                <div className="bg-white rounded-md shadow w-1/2 p-4">
+                    <h3 className="text-lg font-semibold mb-1">Revenue</h3>
+                    <RevenueChart />
                 </div>
-
-                {/* Top Selling Table */}
-                <div className="p-4 w-full bg-white rounded-md shadow mt-6">
-                    <div className="flex justify-between items-center mb-3">
-                        <h3 className="text-lg font-semibold">Top Selling Items</h3>
-                        <div className="flex gap-3 items-center">
-                            {/* Date Picker */}
-                            <DatePicker
-                                defaultDate={selectedDate}
-                                onDateChange={handleDateChange}
-                                width="w-44"
-                            />
-                            {/* Clear Button */}
-                            {selectedDate !== currentDate && (
-                                <button
-                                    onClick={resetToCurrentDate}
-                                    className="cursor-pointer w-8 h-8 bg-slate-50 rounded-full p-2 hover:bg-red-500 hover:text-white border shadow flex items-center justify-center"
-                                    aria-label="Clear Date"
-                                >
-                                    <FiX />
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                    <div className="p-2">
-                        <TableWithPagi
-                            columns={TopSellingTableColumns}
-                            data={tableData}
-                            itemsPerPage={10}
-                            className="custom-table-class"
-                            getRowId={(row) => row.id}
-                        />
-                    </div>
+                <div className="bg-white rounded-md shadow w-1/2 p-4">
+                    <h3 className="text-lg font-semibold mb-1">Sale By Location</h3>
+                    <SalePieChart />
                 </div>
             </div>
-        </>
+
+            {/* Best Selling Table */}
+            <div className="p-4 w-full bg-white rounded-md shadow mt-6">
+                <div className="mb-3">
+                    <h3 className="text-lg font-semibold">Best Selling</h3>
+                </div>
+                <div className="p-2">
+                    <TableWithPagi
+                        columns={TopSellingTableColumns}
+                        data={bestSellingData}
+                        itemsPerPage={5}
+                        className="custom-table-class"
+                        getRowId={(row) => row.id}
+                    />
+                </div>
+            </div>
+        </div>
     );
-}
+};
 
 export default Page;

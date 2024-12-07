@@ -1,11 +1,10 @@
 import axios from "axios";
-import { showToast } from "@/components/Messages/showMessage";
+import {showToast} from "@/components/Messages/showMessage";
 
 // Axios instance with base URL
 const api = axios.create({
     baseURL: "http://localhost:8083",
 });
-
 
 // Place order
 export const placeOrder = async (userId: number, oderDetails: []) => {
@@ -58,7 +57,7 @@ export const getOrderByStatus = async (status: string) => {
 // Get orders for a specific customer
 export const getCustomerOrders = async (customerId: number) => {
     try {
-        const response = await api.get(`/api/order/customer/${customerId}`);
+        const response = await api.get(`/api/orders/getAllByCustomer/${customerId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching customer orders:", error);
@@ -67,7 +66,17 @@ export const getCustomerOrders = async (customerId: number) => {
     }
 };
 
-// Update order status
+export const getCustomerStatusedOrders = async (customerId: number, status: string) => {
+    try {
+        const response = await getCustomerOrders(customerId);
+        return response.filter((order: { orderStatus: string; }) => order.orderStatus === status);
+    } catch (error) {
+        console.error("Error fetching customer orders:", error);
+        showToast({ type: "error", message: "Failed to fetch customer orders!" });
+        throw error;
+    }
+};
+
 export const updateOrderStatus = async (orderId: number, orderStatus: string) => {
     try {
         const response = await api.put(`/api/order/updateStatus`, { orderId, orderStatus });

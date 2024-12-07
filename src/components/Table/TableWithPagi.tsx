@@ -89,7 +89,7 @@ function TableWithPagi<T>({
   const handleSort = (key: keyof T) => {
     let direction: "ascending" | "descending" = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
+      direction = "ascending";
     }
     setSortConfig({ key, direction });
   };

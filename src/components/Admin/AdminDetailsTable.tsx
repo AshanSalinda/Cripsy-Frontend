@@ -10,6 +10,7 @@ import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import AddNewAdmin from "@/components/Admin/AddNewAdmin"; 
 import { Admin } from "@/components/Table/Columns"; 
 import { Separator } from "@radix-ui/react-separator";
+import { getAllAdmins } from "@/apis/adminApi/admin";
 
 const AdminTable = () => {
     const [isNewAdminPopupOpen, setIsNewAdminPopupOpen] = useState(false);
@@ -18,7 +19,11 @@ const AdminTable = () => {
     const [filteredData, setFilteredData] = useState<Admin[]>([]);
 
     useEffect(() => {
-        setFilteredData(jsonData?.adminData as Admin[] || []);
+        const fetchAdminDetails = async () => {
+            const fetchAdmins = await getAllAdmins();
+            setFilteredData(fetchAdmins);
+        };
+        fetchAdminDetails();
     }, []);
 
     const handleDelete = (admin: Admin) => {

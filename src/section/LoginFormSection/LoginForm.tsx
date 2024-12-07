@@ -1,11 +1,11 @@
 "use client";
-import React, {FormEvent, useState} from "react";
+import React, { FormEvent, useState } from "react";
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
-import {LoginSchema} from "@/schema/AuthSchema/LoginSchema";
-import {userLogin} from "@/apis/AuthAPIs/auth";
+import { LoginSchema } from "@/schema/AuthSchema/LoginSchema";
+import { userLogin } from "@/apis/AuthAPIs/auth";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface LoginFormValues {
     username: string;
@@ -42,9 +42,9 @@ const LoginForm = () => {
         }
         setLoading(true);
         try {
-            await userLogin(formData,router);
+            await userLogin(formData, router);
             console.log("Username: ", formData.username, "Password: ", formData.password);
-            setFormData({username: '', password: ''});
+            setFormData({ username: '', password: '' });
         } catch (error: unknown) {
             console.log(error);
             setErrors("Invalid input");
@@ -62,7 +62,7 @@ const LoginForm = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-18 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <img className="h-18 w-auto" src="/LoginPhoto.png" alt="Shopping girl" />
             </div>
 
             {/* Right Section (Login Form) */}
@@ -73,7 +73,7 @@ const LoginForm = () => {
                             <h2 className="text-4xl font-bold">Login</h2>
                             <p className="text-gray-500">to shopping</p>
                         </div>
-                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo" />
                     </div>
 
                     <form onSubmit={handleLogin}>
@@ -114,7 +114,7 @@ const LoginForm = () => {
                         <div className="mt-6">
                             <CustomButton
                                 buttonLabel={loading ? "Logging in..." : "Continue"}
-                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
+                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg h-10"
                             />
                         </div>
                     </form>
@@ -124,7 +124,7 @@ const LoginForm = () => {
 
                     {/* Register Link */}
                     <div className="text-center mt-6">
-                        <p className="text-gray-500">
+                        <p className="text-gray-500 ">
                             New User?
                             <Link className="text-blue-600 font-semibold" href="/auth/signup">
                                 Register
