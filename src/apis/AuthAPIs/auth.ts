@@ -51,7 +51,7 @@ export const userLogin = async (formData: {
             } else if (userRole === 'Customer') {
                 router.push("/");
             } else if (userRole === 'Delivery') {
-                router.push("/delivery");
+                router.push("/delivery/profile");
             } else {
                 alert("error")
             }
