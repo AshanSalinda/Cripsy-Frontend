@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import {orderColumns, Order} from '@/components/Table/Columns';
 import TableWithPagi from '@/components/Table/TableWithPagi';
-import {getCustomerStatusedOrders} from "@/apis/orderApi/OrderApi";
+import {getCustomerStatusedOrders} from "@/apis/orderApi/orderApi";
 
 export const DeliveredOrderSection = () => {
     const [filteredData, setFilteredData] = useState<Order[]>([]);
