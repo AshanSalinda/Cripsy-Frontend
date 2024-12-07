@@ -23,17 +23,17 @@ export interface Product {
 
 // Admin Interface
 export interface Admin {
-    adminId: string; // Or number, depending on your DB schema
-    adminName: string;
+    id: number; // Or number, depending on your DB schema
+    name: string;
     email: string;
-    contactNo: string;
+    contact: string;
 }
 
 // order interface
 export interface Order {
-    orderId: number;
-    customerID: number;
-    deliveryPersonId: number;
+    orderId: any;
+    customerID: any;
+    deliveryPersonId: any;
     deliveredDate: string;
     orderStatus: string;
     purchasedDate: string;
@@ -121,10 +121,10 @@ export const productColumns: Column<Product>[] = [
 
 // Admin Columns
 export const adminColumns: Column<Admin>[] = [
-    { header: "Admin ID", accessor: "adminId" },
-    { header: "Admin Name", accessor: "adminName" },
+    { header: "Admin ID", accessor: "id" },
+    { header: "Admin Name", accessor: "name" },
     { header: "Email", accessor: "email" },
-    { header: "Contact No", accessor: "contactNo" },
+    { header: "Contact No", accessor: "contact" },
     {
         header: "Action",
         accessor: "action" as keyof Admin,
