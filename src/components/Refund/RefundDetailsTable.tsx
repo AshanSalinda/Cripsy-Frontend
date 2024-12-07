@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import {orderColumns, Refund} from '@/components/Table/Columns';
 import TableWithPagi from '../Table/TableWithPagi';
-import {getOrderByStatus} from "@/apis/orderApi/orderApis";
+import {getOrderByStatus} from "@/apis/orderApi/orderApi";
 import {Property} from "csstype";
 import Order = Property.Order;
 
