@@ -62,6 +62,7 @@ const saveAdmin = async (adminData: AdminDTO): Promise<void> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error saving admin:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
   }
 };
 
@@ -74,6 +75,7 @@ const getAllAdmins = async (): Promise<AdminDTO[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching admins:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return [];
   }
 };
@@ -86,6 +88,7 @@ const updateAdmin = async (adminData: AdminDTO): Promise<void> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error updating admin:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
   }
 };
 
@@ -97,6 +100,7 @@ const deleteAdmin = async (adminData: AdminDTO): Promise<void> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error deleting admin:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
   }
 };
 
@@ -109,6 +113,7 @@ const getAdminById = async (id: number): Promise<AdminDTO | null> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching admin by ID:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return null;
   }
 };
@@ -121,7 +126,7 @@ const getTotalCustomer = async (): Promise<number | null> => {
     return response.data as number;
   } catch (error) {
     console.error('Error fetching total customers:', error);
-    showToast({ type: "error", message: "Error fetching total customers!" });
+    showToast({ type: "error", message: "Error fetching total customers!" }); 
     return null;
   }
 };
@@ -135,6 +140,7 @@ const getOrderSummary = async (): Promise<OrderSummary[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching order summary:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return [];
   }
 };
@@ -148,6 +154,7 @@ const getMonthlyTotals = async (): Promise<MonthlyTotal[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching monthly totals:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return [];
   }
 };
@@ -161,6 +168,7 @@ const getMonthlySumTotal = async (): Promise<MonthlySumTotal[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching monthly sum total:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return [];
   }
 };
@@ -174,6 +182,7 @@ const getMonthlySumQty = async (): Promise<MonthlySumQty[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching monthly sum quantity:', errorMessage);
+    showToast({ type: "error", message: errorMessage });
     return [];
   }
 };
@@ -186,6 +195,7 @@ const getBestSelling = async (): Promise<BestSelling[]> => {
   } catch (error) {
     const errorMessage = handleAxiosError(error);
     console.error('Error fetching best selling data:', errorMessage);
+    showToast({ type: "error", message: errorMessage }); 
     return [];
   }
 };
