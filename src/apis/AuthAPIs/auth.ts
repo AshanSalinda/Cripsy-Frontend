@@ -3,7 +3,8 @@ import {useRouter} from "next/navigation";
 
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL
+    // baseURL: process.env.NEXT_PUBLIC_BASE_URL
+    baseURL: "http://localhost:8086"
 });
 
 export const userLogin = async (formData: {
@@ -19,7 +20,8 @@ export const userLogin = async (formData: {
 
         if (response.status === 200) {
 
-            const token = response.data;
+            const token = response.data.token;
+            console.log(token);
             localStorage.setItem('accessToken', token);
 
 

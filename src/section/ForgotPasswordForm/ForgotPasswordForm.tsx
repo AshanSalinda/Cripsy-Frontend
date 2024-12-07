@@ -69,7 +69,7 @@ const ForgotPasswordFrom = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <img className="h-18 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
             </div>
 
             {/* Right Section (Login Form) */}
