@@ -107,7 +107,7 @@ const ProductItem: React.FC<ProductItemProps> = ({params}) => {
             <Overview {...productData} />
             <Description description={description} />
             <RatingAndReviews {...ratingAndReviewsData} />
-            <RelatedItems relatedItems={item.relatedItems} />
+            {/* <RelatedItems relatedItems={item.relatedItems} /> */}
         </div>
     );
 };
