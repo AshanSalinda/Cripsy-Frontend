@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import CustomButton from "../Button/CustomButton";
 import { FaOpencart } from "react-icons/fa";
 import RatingStar from "./RatingStar";
 
 export interface ProductCardProps {
-    productId?: string;
+    productId: number;
     imageSrc: string;
     title: string;
     description: string;
@@ -18,7 +18,7 @@ export interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-    productId = 1,
+    productId,
     imageSrc,
     title,
     description,
@@ -26,8 +26,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
     reviews,
     price,
 }) => {
+    const router = useRouter();
     const handleClick = () => {
-        redirect(`/product/${productId}`);
+        router.push(`/product/${productId}`);
     };
 
     return (

@@ -4,15 +4,19 @@ import React, { useEffect, useState } from 'react';
 import InputEmoji from 'react-input-emoji';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import jwtDecode from "jwt-decode";
 
 const ChatBox = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
     const fetchMessages = async () => {
+        const token = localStorage.getItem('accessToken');
+        const decodedToken = jwtDecode(token);
+
         try {
             const response = await axios.get(
-                `http://localhost:8085/api/messages/getAllMessages/1`
+                `http://localhost:8085/api/messages/getAllMessages/${decodedToken.id}`
             );
             setMessages(response.data);
 

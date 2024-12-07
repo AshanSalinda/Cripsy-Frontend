@@ -67,6 +67,7 @@ export default function Home() {
           {products.slice(0, 8).map((product) => (
             <ProductCard
               key={product.productId}
+              productId={product.productId}
               imageSrc={product.imageUrl}
               title={product.name}
               description={product.description}
