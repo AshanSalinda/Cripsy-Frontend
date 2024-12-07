@@ -11,7 +11,7 @@ interface AdminDTO {
   contact: string;
 }
 
-// Define the types for the new APIs
+
 interface OrderSummary {
   percentageDifference: number;
   thisMonthOrders: number;
