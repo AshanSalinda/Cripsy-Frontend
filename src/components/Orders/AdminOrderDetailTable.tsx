@@ -5,7 +5,7 @@ import {Order, orderColumns} from "@/components/Table/Columns";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import {Separator} from "@radix-ui/react-separator";
 import {useRouter} from "next/navigation";
-import {getAllOrders} from "@/apis/orderApi/orderApi";
+import {getAllOrders} from "@/apis/orderApi/orderApis";
 
 const AdminOrderDetailTable = () => {
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);

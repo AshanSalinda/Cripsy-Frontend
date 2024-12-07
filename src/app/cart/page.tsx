@@ -258,7 +258,7 @@ import Button from '@/components/Button/CustomButton';
 import CartOrderItem from '@/section/CartPageSections/CartOrderItem';
 import CartProductCard from '@/section/CartPageSections/CartItemCard';
 import {getCustomerDetails} from "@/apis/customerAPIs/customerAPI";
-import { placeOrder } from '@/apis/orderApi/orderApi';
+import { placeOrder } from '@/apis/orderApi/orderApis';
 import { getCartItems, initiateOrder, confirmOrder, cancelOrder, configurePayhere } from '@/apis/cartApi/cartApi'
 import { showToast } from '@/components/Messages/showMessage';
 
