@@ -13,38 +13,39 @@ import Tooltip from '@/components/Tooltip/Tooltip';
 
 // Product Card Props Interface
 export interface WatchlistCardProps {
-    productId?: string | number,
-    imageSrc: string,
-    title: string,
-    description: string,
-    CardButtonlabel?: string,
-    rating: number,
-    availableItems: number,
-    reviews: number,
-    price: number,
-    onAddToCart?: () => void,
-    onRemoveFromWatchlist?: () => void,
-    onPreviewClick?: () => void,
-    hideAddToCart?: boolean,
-    hideHartIcon?: boolean,
-    key?: any
+
+    productId?: string | number;
+    imageSrc: string;
+    title: string;
+    description: string;
+    CardButtonlabel?: string;
+    rating: number;
+    availableItems: number;
+    reviews: number;
+    price: number;
+    onAddToCart?: () => void;
+    onRemoveFromWatchlist?: () => void;
+    onPreviewClick?: () => void;
+    hideAddToCart?: boolean;
+    hideHartIcon?: boolean;
+    handleFav?: () => void;
 }
 
 const WatchlistCard: React.FC<WatchlistCardProps> = ({
-                                                         productId,
-                                                         imageSrc,
-                                                         title,
-                                                         description,
-                                                         CardButtonlabel = "Live Preview",
-                                                         rating,
-                                                         reviews,
-                                                         price,
-                                                         availableItems,
-                                                         onPreviewClick,
-                                                         hideAddToCart = false,
-                                                         hideHartIcon = false,
-                                                         key
-                                                     }) => {
+    productId = 1,
+    imageSrc,
+    title,
+    description,
+    CardButtonlabel = "Live Preview",
+    rating,
+    reviews,
+    price,
+    availableItems,
+    onPreviewClick,
+    hideAddToCart = false,
+    hideHartIcon = false,
+    
+}) => {
     const router = useRouter();
 
 
