@@ -35,6 +35,14 @@ interface MonthlySumQty {
   thisMonthQuantity: number;
   lastMonthQuantity: number;
 }
+interface BestSelling {
+  productId: number;
+  totalQuantity: number;
+  totalPrice: number;
+  totalDiscountedPrice: number;
+  name: string;
+  avgRatings: number;
+}
 
 // Centralized error handler
 const handleAxiosError = (error: unknown): string => {
@@ -170,6 +178,18 @@ const getMonthlySumQty = async (): Promise<MonthlySumQty[]> => {
   }
 };
 
+const getBestSelling = async (): Promise<BestSelling[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/best-selling`);
+    console.log('Best Selling Data:', response.data);
+    return response.data as BestSelling[];
+  } catch (error) {
+    const errorMessage = handleAxiosError(error);
+    console.error('Error fetching best selling data:', errorMessage);
+    return [];
+  }
+};
+
 export {
   saveAdmin,
   getAllAdmins,
@@ -181,4 +201,5 @@ export {
   getMonthlyTotals,
   getMonthlySumTotal,
   getMonthlySumQty,
+  getBestSelling
 };
