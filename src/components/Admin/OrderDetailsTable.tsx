@@ -4,8 +4,7 @@
 import { useState, useEffect } from "react";
 import ProductTableWithPagi from "@/components/Table/TableWithPagi";
 import { orderColumns } from "@/components/Table/Columns";
-import ordersData from "@/data/orders.json"; // Import JSON data
-import CustomButton from "@/components/Button/CustomButton";
+import ordersData from "@/data/orders.json";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import OrderPopup from "@/components/Admin/OrderDetailsPopup";
 //import OrderPopup from "@/components/Admin/OrderDetailsPopup";
@@ -44,17 +43,6 @@ const OrderDetailsTable = () => {
     //     }
     // };
 
-    const handleRowClick = (order: Order) => {
-        setSelectedOrder(order); // Set the selected order data
-        setIsOrderPopupOpen(true); // Open the popup
-    };
-
-    const handleDelete = (admin: Order) => {
-        if (admin) {
-            setSelectedOrder(admin);
-            setIsDeleteConfirmPopupOpen(true);
-        }
-    };
 
     const handleOrderStatusChange = (newStatus: string) => {
         if (selectedOrder) {
@@ -73,7 +61,7 @@ const OrderDetailsTable = () => {
         }
     };
 
-    const updateOrderStatusOnServer = async (orderId: string, newStatus: string) => {
+    const updateOrderStatusOnServer = async (orderId: number, newStatus: string) => {
         try {
             await axios.patch(`/api/orders/${orderId}`, { status: newStatus });
             alert("Order status updated successfully!");

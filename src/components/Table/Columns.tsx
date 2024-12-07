@@ -42,10 +42,12 @@ export interface Order {
 
 // Delivery Person Interface
 export interface DeliveryPerson {
-    deliveryPersonId: string;
-    deliveryPersonName: string;
+    personId: number;
+    name: string;
     email: string;
-    contactNo: string;
+    contact: string;
+    password: string;
+    availability:boolean;
 }
 
 // Column Type Definition
@@ -166,10 +168,10 @@ export const orderColumns: Column<Order>[] = [
 
 // Delivery Person Columns
 export const deliveryPersonColumns: Column<DeliveryPerson>[] = [
-    {header: "Delivery Person ID", accessor: "deliveryPersonId"},
-    {header: "Delivery Person Name", accessor: "deliveryPersonName"},
+    {header: "Delivery Person ID", accessor: "personId"},
+    {header: "Delivery Person Name", accessor: "name"},
     {header: "Email", accessor: "email"},
-    {header: "Contact No", accessor: "contactNo"},
+    {header: "Contact No", accessor: "contact"},
     {
         header: "Action",
         accessor: "action" as keyof DeliveryPerson,

@@ -2,9 +2,9 @@
 import { FC } from "react";
 
 interface DashboardCardProps {
-    title: string;
-    value: string;
-    change: string;
+    title: any;
+    value: any;
+    change: any;
     positive: boolean;
 }
 

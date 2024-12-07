@@ -44,6 +44,6 @@ export const AdminSidebarData: AdminSidebarDataProps[] = [
     {
         title: 'Delivery',
         icon: TbTruckDelivery,
-        path: '/admin/delivery',
+        path: '/admin/delieveryPersonDetails',
     }
 ];
