@@ -3,19 +3,22 @@ import {useState, useEffect} from "react";
 import {orderColumns, Order} from '@/components/Table/Columns';
 import TableWithPagi from '@/components/Table/TableWithPagi';
 import {getCustomerStatusedOrders} from "@/apis/orderApi/orderApi";
+import {useRouter} from "next/navigation";
+import router from "next/router";
 
 export const AwaitingOrderSection = () => {
     const [filteredData, setFilteredData] = useState<Order[]>([]);
 
     useEffect(() => {
         const getData = async () => {
-            setFilteredData(await getCustomerStatusedOrders(1, "Placed"));
+            setFilteredData(await getCustomerStatusedOrders(1, "Processing"));
         }
         getData()
     }, []);
 
-    const handleEdit = (row: Order) => {
-        console.log(row);
+    
+    function handleEdit(row: Order): void {
+        
     }
 
     return (
@@ -32,10 +35,11 @@ export const AwaitingOrderSection = () => {
                     className='custom-table-class '
                     getRowId={(row) => row.orderId}
                     handleEdit={handleEdit}
-
                 />
+                
 
             </div>
+
 
         </>
     )

@@ -148,7 +148,7 @@ const getOrderSummary = async (): Promise<OrderSummary[]> => {
 // Monthly Totals (GET request)
 const getMonthlyTotals = async (): Promise<MonthlyTotal[]> => {
   try {
-    const response = await axios.get(`${API_URL}/monthly-totals`);
+    const response = await axios.get(`${API_URL}/monthly-selling`);
     console.log('Monthly Totals:', response.data);
     return response.data as MonthlyTotal[];
   } catch (error) {

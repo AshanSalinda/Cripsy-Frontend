@@ -43,6 +43,7 @@ const [products, setProducts] = useState<ProductItemType[]>([]);
             price={productData.price}
 
           />
+          
            </div>
         ))}
     </div>
