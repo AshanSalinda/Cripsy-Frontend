@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { getCustomerDetails, updateCustomer } from "@/apis/customerAPIs/customerAPI";
 import CustomButton from "@/components/Button/CustomButton";
+import {showToast} from "@/components/Messages/showMessage";
 
 interface CreateProfileSectionProps {
   customerId: number;
@@ -42,7 +43,11 @@ export const CreateProfileSection: React.FC<CreateProfileSectionProps> = ({ cust
     try {
       setLoading(true);
       await updateCustomer(customerId, profile);
-      alert("Profile updated successfully!");
+      showToast({
+        type: 'success',
+        message: 'Profile Updated successfully!',
+        description: 'Your profile has been added to the database.',
+      })
     } catch (err) {
       setError("Failed to update profile. Please try again.");
       console.error(err);
