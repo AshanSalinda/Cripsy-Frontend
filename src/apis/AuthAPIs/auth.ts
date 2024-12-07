@@ -24,9 +24,9 @@ export const userLogin = async (formData: {
             console.log(token);
             localStorage.setItem('accessToken', token);
 
-            // Decode the token (use a library like jwt-decode for simplicity)
+            // Decode the token
             function parseJwt(token: string) {
-                const base64Url = token.split('.')[1]; // Extract payload part
+                const base64Url = token.split('.')[1];
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 const jsonPayload = decodeURIComponent(
                     atob(base64)
@@ -37,7 +37,7 @@ export const userLogin = async (formData: {
                 return JSON.parse(jsonPayload);
             }
 
-// Get the decoded token
+            // Get the decoded token
             const decodedToken = parseJwt(token);
             console.log('Decoded Token:', decodedToken);
 
@@ -45,7 +45,7 @@ export const userLogin = async (formData: {
             const userRole = decodedToken.role;
             console.log('User Role:', userRole);
 
-// Redirect based on role
+            // Redirect based on role
             if (userRole === 'Admin') {
                 router.push("/admin/adminDashboard");
             } else if (userRole === 'Customer') {
