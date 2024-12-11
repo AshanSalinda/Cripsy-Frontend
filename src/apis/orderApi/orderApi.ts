@@ -13,6 +13,7 @@ export const placeOrder = async (userId: number, oderDetails: []) => {
             '/api/orders/createOrder',
             { customerID: userId, items: oderDetails }
         );
+        showToast({type: "info", message: "Order Placed"});
     } catch (error) {
         console.log("Error placing order:", error);
         showToast({type: "error", message: "Placing order failed!"});

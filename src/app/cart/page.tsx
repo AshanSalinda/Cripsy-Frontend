@@ -145,11 +145,11 @@ const Cart: React.FC = () => {
     }, []);
 
     const handleCheckout = async () => {
-        if (!isPayhereLoaded) {
-            loadPayhereScript();
-            alert("Loading payment system. Please try again in a moment.");
-            return;
-        }
+        // if (!isPayhereLoaded) {
+        //     loadPayhereScript();
+        //     alert("Loading payment system. Please try again in a moment.");
+        //     return;
+        // }
 
         try {
             // Call backend to get merchant_id and hash
@@ -171,38 +171,38 @@ const Cart: React.FC = () => {
             const orderItems = cartItems.map((item) => ({productId: item.productId, quantity: item.quantity}));
             const transactionId = await initiateOrder(orderItems);
 
-            const {merchant_id, hash} = await configurePayhere(paymentDetails);
+            // const {merchant_id, hash} = await configurePayhere(paymentDetails);
 
-            if (!merchant_id || !hash || !transactionId) {
-                alert("Error creating payment details");
-                return;
-            }
+            // if (!merchant_id || !hash || !transactionId) {
+            //     alert("Error creating payment details");
+            //     return;
+            // }
 
             const orderDetails = await confirmOrder(transactionId);
             await placeOrder(userId, orderDetails);
 
-            // Add dynamic merchant_id and hash to payment details
-            const payment = {
-                sandbox: true,
-                merchant_id: merchant_id,
-                return_url: "http://localhost:3000/payment/success",
-                cancel_url: "http://localhost:3000/payment/cancel",
-                notify_url: `https://5740-2407-c00-c001-be27-8c21-4b14-85ee-d45c.ngrok-free.app/payment/notify/${transactionId}`,
-                order_id: paymentDetails.order_id,
-                items: "Sample Item",
-                amount: 100.00,
-                currency: "LKR",
-                first_name: paymentDetails.first_name,
-                last_name: paymentDetails.last_name,
-                email: paymentDetails.email,
-                phone: paymentDetails.phone,
-                address: paymentDetails.address,
-                city: paymentDetails.city,
-                country: paymentDetails.country,
-                hash: hash
-            };
+            // // Add dynamic merchant_id and hash to payment details
+            // const payment = {
+            //     sandbox: true,
+            //     merchant_id: merchant_id,
+            //     return_url: "http://localhost:3000/payment/success",
+            //     cancel_url: "http://localhost:3000/payment/cancel",
+            //     notify_url: `https://5740-2407-c00-c001-be27-8c21-4b14-85ee-d45c.ngrok-free.app/payment/notify/${transactionId}`,
+            //     order_id: paymentDetails.order_id,
+            //     items: "Sample Item",
+            //     amount: 100.00,
+            //     currency: "LKR",
+            //     first_name: paymentDetails.first_name,
+            //     last_name: paymentDetails.last_name,
+            //     email: paymentDetails.email,
+            //     phone: paymentDetails.phone,
+            //     address: paymentDetails.address,
+            //     city: paymentDetails.city,
+            //     country: paymentDetails.country,
+            //     hash: hash
+            // };
 
-            window.payhere.startPayment(payment);
+            // window.payhere.startPayment(payment);
 
         } catch (error) {
             alert("Error initiating payment: " + error.message);
